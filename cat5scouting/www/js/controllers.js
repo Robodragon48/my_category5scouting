@@ -45,5 +45,22 @@ angular.module('cat5scouting.controllers', [])
   ];
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('HomeCtrl', function($scope, $stateParams) {
+  
+})
+
+.controller('MatchCtrl', function($scope, $stateParams) {
+  
+})
+
+.controller('PitCtrl', function($scope, $stateParams) {
+  
+})
+
+.controller('SyncCtrl', function($scope, $stateParams) {
+  
+})
+
+.controller('ConfigCtrl', function($scope, $stateParams) {
+  
 });
