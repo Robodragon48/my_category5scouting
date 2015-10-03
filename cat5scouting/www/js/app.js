@@ -70,8 +70,8 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers'])
     url: '/config', 
     views: {
       'menuContent': {
-        templateUrl: '/templates/config.html',
-        controller: 'ConfigCtrl'
+        templateUrl: '/templates/settings.html',
+        controller: 'SettingsCtrl'
       }
     }
   });
