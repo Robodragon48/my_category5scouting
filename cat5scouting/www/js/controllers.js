@@ -129,4 +129,86 @@ angular.module('cat5scouting.controllers', [])
     $scope.data.stackContInd = $scope.data.stackContIndOptions[0];
     $scope.data.collectContStep = $scope.data.collectContStepOptions[0];
   }
+  
+  
+  /*
+    This function is called each time entry pauses for more than 0.5 seconds
+    in the form on the Pit Scouting page.
+  */
+  $scope.writeData = function() {
+    //TODO: Fill in once the SQLite database is configured
+  }
+})
+
+.controller('MatchScoutingController', function($scope, $stateParams) {
+  $scope.data = {
+    yesNo: [
+      {id: '0', name: '[Unknown]'},
+      {id: '1', name: 'Yes'},
+      {id: '2', name: 'No'}
+    ],
+    teamName: null,
+    teamNames: [
+      {id: '1', name: 'Team 1'},
+      {id: '2', name: 'Team 2'},
+      {id: '3', name: 'Team 3'}
+    ],
+    matchNum: null,
+    matchNums: [
+      {id: '1', name: 'Match 1'},
+      {id: '2', name: 'Match 2'},
+      {id: '3', name: 'Match 3'},
+      {id: '4', name: 'Match 4'},
+      {id: '5', name: 'Match 5'}
+    ],
+    driveSpeed: null,
+    driveSpeeds: [
+      {id: '0', name: '[Unknown]'},
+      {id: '1', name: 'Slow'},
+      {id: '2', name: 'Medium'},
+      {id: '3', name: 'Fast'}
+    ],    
+    driveOverPlatform: null,
+    botSet: null,
+    toteSet: null,
+    containerSet: null,
+    stackedToteSet: null,
+    coopScoreStep: null,
+    feedstation: null,
+    landfill: null,
+    scoredToteHeight: null,
+    containerStep: null,
+    scoredIndContainerHeight: null,
+    scoredContainerHeight: null
+  }
+  
+  /*
+    This function is called when the user changes the team or the match. It loads values for
+    the fields from the SQLite database or, if there is no record for the 
+    selected team, it sets all of the fields to [Unknown]. 
+  */
+  $scope.selectTeamMatch = function() {
+    //TODO: replace the following with values retrieved from SQLite
+    $scope.data.driveSpeed = $scope.data.driveSpeeds[0];
+    $scope.data.driveOverPlatform = $scope.data.yesNo[0];
+    $scope.data.botSet = $scope.data.yesNo[0];
+    $scope.data.toteSet = $scope.data.yesNo[0];
+    $scope.data.containerSet = $scope.data.yesNo[0];
+    $scope.data.stackedToteSet = $scope.data.yesNo[0];
+    $scope.data.coopScoreStep = '0';
+    $scope.data.feedstation = $scope.data.yesNo[0];
+    $scope.data.landfill = $scope.data.yesNo[0];
+    $scope.data.scoredToteHeight = '0';
+    $scope.data.containerStep = $scope.data.yesNo[0];
+    $scope.data.scoredIndContainerHeight = '0';
+    $scope.data.scoredContainerHeight = '0';
+  }  
+  
+  /*
+    This function is called each time entry pauses for more than 0.5 seconds
+    in the form on the Match Scouting page.
+  */
+  $scope.writeData = function() {
+    //TODO: Fill in once the SQLite database is configured
+  }  
 });

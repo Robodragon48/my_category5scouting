@@ -1,5 +1,141 @@
 <ion-view view-title="Match Scouting">
-  <ion-content>
+    <ion-content>
+        <div ng-controller="MatchScoutingController" class="padding">
+            <form name="MatchScoutForm">
+                <div class="list">
+          
+                    <label class="item item-input item-select"> 
+                        <span class="input-label">Team name</span>
+                        <select 
+                            name="teamName" 
+                            id="teamName" 
+                            ng-options="option.name for option in data.teamNames track by option.id"
+                            ng-model="data.teamName"
+                            ng-change="selectTeamMatch()"></select>
+                    </label>
     
-  </ion-content>
+                    <label class="item item-input item-select"> 
+                        <span class="input-label">Match number</span>
+                        <select 
+                            name="matchNum"
+                            id="matchNum"
+                            ng-options="option.name for option in data.matchNums track by option.id"
+                            ng-model="data.matchNum"
+                            ng-change="selectTeamMatch()"></select>
+                    </label>
+                    
+                    <label class="item item-input item-select">
+                        <span class="input-label">Drive speed</span> 
+                        <select 
+                            name="driveSpeed" 
+                            id="driveSpeed" 
+                            ng-options="option.name for option in data.driveSpeeds track by option.id"
+                            ng-model="data.driveSpeed"></select>
+                    </label>
+
+          
+                    <label class="item item-input item-select">
+                        <span class="input-label">Bot can drive over platform</span> 
+                        <select 
+                            name="driveOverPlatform" 
+                            id="driveOverPlatform" 
+                            ng-options="option.name for option in data.yesNo track by option.id"
+                            ng-model="data.driveOverPlatform"></select>
+                    </label>
+          
+                    <label class="item item-input item-select">
+                        <span class="input-label">Bot set</span> 
+                        <select 
+                            name="botSet" 
+                            id="botSet" 
+                            ng-options="option.name for option in data.yesNo track by option.id"
+                            ng-model="data.botSet"></select>
+                    </label>
+          
+                    <label class="item item-input item-select">
+                        <span class="input-label">Tote set</span> 
+                        <select 
+                            name="toteSet" 
+                            id="toteSet" 
+                            ng-options="option.name for option in data.yesNo track by option.id"
+                            ng-model="data.toteSet"></select>
+                    </label>
+          
+                    <label class="item item-input item-select">
+                        <span class="input-label">Container set</span> 
+                        <select 
+                            name="containerSet" 
+                            id="containerSet" 
+                            ng-options="option.name for option in data.yesNo track by option.id"
+                            ng-model="data.containerSet"></select>
+                    </label>
+          
+                    <label class="item item-input item-select">
+                        <span class="input-label">Stacked tote set</span> 
+                        <select 
+                            name="stackedToteSet" 
+                            id="stackedToteSet" 
+                            ng-options="option.name for option in data.yesNo track by option.id"
+                            ng-model="data.stackedToteSet"></select>
+                    </label>
+                    
+                    <label class="item item-input range">
+                        <span class="input-label">Coop Score on Step</span>
+                        <input type="range" name="coopScoreStep" min="0" max="3" value="0" ng-model="data.coopScoreStep">
+                        {{data.coopScoreStep}}
+                    </label>
+                    
+                    <label class="item item-input item-select">
+                        <span class="input-label">Feedstation Pickup</span> 
+                        <select 
+                            name="feedstation" 
+                            id="feedstation" 
+                            ng-options="option.name for option in data.yesNo track by option.id"
+                            ng-model="data.feedstation"></select>
+                    </label>
+                    
+                    <label class="item item-input item-select">
+                        <span class="input-label">Landfill Pickup</span> 
+                        <select 
+                            name="landfill" 
+                            id="landfill" 
+                            ng-options="option.name for option in data.yesNo track by option.id"
+                            ng-model="data.landfill"></select>
+                    </label>
+
+                    <label class="item item-input range">
+                        <span class="input-label">Scored Tote Height</span>
+                        <input type="range" name="scoredToteHeight" min="0" max="6" ng-model="data.scoredToteHeight">
+                        {{data.scoredToteHeight}}
+                    </label>
+                    
+                    <label class="item item-input item-select">
+                        <span class="input-label">Container Pickup from Step</span> 
+                        <select 
+                            name="containerStep" 
+                            id="containerStep" 
+                            ng-options="option.name for option in data.yesNo track by option.id"
+                            ng-model="data.containerStep"></select>
+                    </label>
+                    
+                    <label class="item item-input range">
+                        <span class="input-label">Container Independent Score Height</span>
+                        <input type="range" name="scoredIndContainerHeight" min="0" max="6" ng-model="data.scoredIndContainerHeight">
+                        {{data.scoredIndContainerHeight}}
+                    </label>
+                    
+                    <label class="item item-input range">
+                        <span class="input-label">Container Independent Score Height</span>
+                        <input type="range" name="scoredContainerHeight" min="0" max="6" ng-model="data.scoredContainerHeight">
+                        {{data.scoredContainerHeight}}
+                    </label>
+                    
+                    
+
+          
+          
+                </div>
+            </form>
+        </div>
+    </ion-content>
 </ion-view>
