@@ -35,7 +35,7 @@ angular.module('cat5scouting.controllers', [])
     ],
     driveMode: null,
     driveModes: [
-      {id: '0', name: '[Uknown]'},
+      {id: '0', name: '[Unknown]'},
       {id: '1', name: 'KOP'},
       {id: '2', name: 'Mecanum'},
       {id: '3', name: 'Omni'},
@@ -109,5 +109,24 @@ angular.module('cat5scouting.controllers', [])
       {id: '2', name: 'No'}
     ],
     note: null
+  }
+  
+  /*
+    This function is called when the user changes the team. It loads values for
+    the fields from the SQLite database or, if there is no record for the 
+    selected team, it sets all of the fields to [Unknown]. 
+  */
+  $scope.selectTeam = function() {
+    //TODO: replace the following with values retrieved from SQLite
+    $scope.data.driveMode = $scope.data.driveModes[0];
+    $scope.data.driveSpeed = $scope.data.driveSpeeds[0];
+    $scope.data.driveOverPlatform = $scope.data.driveOverPlatformOptions[0];
+    $scope.data.autonomousCapability = $scope.data.autonomousCapabilities[0];
+    $scope.data.coopStep = $scope.data.coopStepOptions[0];
+    $scope.data.pickupLoc = $scope.data.pickupLocs[0];
+    $scope.data.maxToteHeight = $scope.data.maxToteHeights[0];
+    $scope.data.maxContHeight = $scope.data.maxContHeights[0];
+    $scope.data.stackContInd = $scope.data.stackContIndOptions[0];
+    $scope.data.collectContStep = $scope.data.collectContStepOptions[0];
   }
 });

@@ -5,16 +5,17 @@
         <form name="PitScoutForm">
             <div class="list">
                 
-                <label class="item item-input"> 
+                <label class="item item-input item-select"> 
                     <span class="input-label">Team name</span>
                     <select 
                         name="teamName" 
                         id="teamName" 
                         ng-options="option.name for option in data.teamNames track by option.id"
-                        ng-model="data.teamName"></select>
-                 </label>
+                        ng-model="data.teamName"
+                        ng-change="selectTeam()"></select>
+                </label>
                     
-                <label class="item item-input">
+                <label class="item item-input item-select">
                     <span class="input-label">Drive mode</span> 
                     <select 
                         name="driveMode" 
@@ -23,7 +24,7 @@
                         ng-model="data.driveMode"></select>
                 </label>
                     
-                <label class="item item-input">
+                <label class="item item-input item-select">
                     <span class="input-label">Drive speed</span> 
                     <select 
                         name="driveSpeed" 
@@ -32,7 +33,7 @@
                         ng-model="data.driveSpeed"></select>
                 </label>
                     
-                <label class="item item-input">
+                <label class="item item-input item-select">
                     <span class="input-label">Bot can drive over platform</span> 
                     <select 
                         name="driveOverPlatform" 
@@ -41,7 +42,7 @@
                         ng-model="data.driveOverPlatform"></select>
                 </label>
                     
-                <label class="item item-input">
+                <label class="item item-input item-select">
                     <span class="input-label">Autonomous capabilities</span> 
                     <select 
                         name="autonomousCapability" 
@@ -50,7 +51,7 @@
                         ng-model="data.autonomousCapability"></select>
                 </label>
                 
-                <label class="item item-input"> 
+                <label class="item item-input item-select"> 
                     <span class="input-label">Co-op tote on step</span> 
                     <select 
                         name="coopStep" 
@@ -59,7 +60,7 @@
                         ng-model="data.coopStep"></select>
                 </label>
                     
-                <label class="item item-input">
+                <label class="item item-input item-select">
                     <span class="input-label">Where can bot pick up totes</span> 
                     <select 
                         name="pickupLoc" 
@@ -68,7 +69,7 @@
                         ng-model="data.pickupLoc"></select>
                 </label>
                     
-                <label class="item item-input"> 
+                <label class="item item-input item-select"> 
                     <span class="input-label">Max scored tote height</span> 
                     <select 
                         name="maxToteHeight" 
@@ -77,7 +78,7 @@
                         ng-model="data.maxToteHeight"></select>
                 </label>
                     
-                <label class="item item-input"> 
+                <label class="item item-input item-select"> 
                     <span class="input-label">Max scored container height</span> 
                     <select 
                         name="maxContHeight" 
@@ -86,7 +87,7 @@
                         ng-model="data.maxContHeight"></select>
                 </label>
                     
-                <label class="item item-input">
+                <label class="item item-input item-select">
                     <span class="input-label">Stacks container independently</span> 
                     <select 
                         name="stackContInd" 
@@ -95,7 +96,7 @@
                         ng-model="data.stackContInd"></select>
                 </label>
                     
-                <label class="item item-input">
+                <label class="item item-input item-select">
                     <span class="input-label">Collects container from step</span> 
                     <select 
                         name="collectContStep" 
@@ -104,7 +105,7 @@
                         ng-model="data.collectContStep"></select>
                 </label>
 
-                <label class="item item-input">
+                <label class="item item-input item-select">
                     <span class="input-label">Notes</span> 
                     <textarea name="notes" id="notes" ng-model="data.note" rows="3"></textarea>
                 </label>
