@@ -27,6 +27,11 @@ angular.module('cat5scouting.controllers', [])
 .controller('PitScoutingController', function($scope, $stateParams) {
   ///TODO Convert these to SQLite database calls
   $scope.data = {
+    yesNo: [
+      {id: '0', name: '[Unknown]'},
+      {id: '1', name: 'Yes'},
+      {id: '2', name: 'No'}
+    ],
     teamName: null,
     teamNames: [
       {id: '1', name: 'Team 1'},
@@ -49,11 +54,6 @@ angular.module('cat5scouting.controllers', [])
       {id: '3', name: 'Fast'}
     ],
     driveOverPlatform: null,
-    driveOverPlatformOptions: [
-      {id: '0', name: '[Unknown]'},
-      {id: '1', name: 'Yes'},
-      {id: '2', name: 'No'}
-    ],
     autonomousCapability: null,
     autonomousCapabilities: [
       {id: '0', name: '[Unknown]'},
@@ -97,17 +97,7 @@ angular.module('cat5scouting.controllers', [])
       {id: '4', name: '5-6'}
     ],
     stackContInd: null,
-    stackContIndOptions: [
-      {id: '0', name: '[Unknown]'},
-      {id: '1', name: 'Yes'},
-      {id: '2', name: 'No'}
-    ],
     collectContStep: null,
-    collectContStepOptions: [
-      {id: '0', name: '[Unknown]'},
-      {id: '1', name: 'Yes'},
-      {id: '2', name: 'No'}
-    ],
     note: null
   }
   
@@ -120,14 +110,14 @@ angular.module('cat5scouting.controllers', [])
     //TODO: replace the following with values retrieved from SQLite
     $scope.data.driveMode = $scope.data.driveModes[0];
     $scope.data.driveSpeed = $scope.data.driveSpeeds[0];
-    $scope.data.driveOverPlatform = $scope.data.driveOverPlatformOptions[0];
+    $scope.data.driveOverPlatform = $scope.data.yesNo[0];
     $scope.data.autonomousCapability = $scope.data.autonomousCapabilities[0];
     $scope.data.coopStep = $scope.data.coopStepOptions[0];
     $scope.data.pickupLoc = $scope.data.pickupLocs[0];
     $scope.data.maxToteHeight = $scope.data.maxToteHeights[0];
     $scope.data.maxContHeight = $scope.data.maxContHeights[0];
-    $scope.data.stackContInd = $scope.data.stackContIndOptions[0];
-    $scope.data.collectContStep = $scope.data.collectContStepOptions[0];
+    $scope.data.stackContInd = $scope.data.yesNo[0];
+    $scope.data.collectContStep = $scope.data.yesNo[0];
   }
   
   
