@@ -1,5 +1,34 @@
 <ion-view view-title="Settings">
-  <ion-content>
-    
-  </ion-content>
+    <ion-content>
+        <div ng-controller="MatchScoutingController" class="padding">
+            <form name="MatchScoutForm">
+                <div class="list">
+          
+                    <!-- This is where they put the name of the event, since the
+                    database can store more than one event's data. This is 
+                    read-only for the client, and is read from the server. -->
+                    <!-- TODO: Read the value for the form from the database -->
+                    <label class="item item-input"> 
+                        <input 
+                            type="text" 
+                            placeholder="Event Name" 
+                            name="eventName" 
+                            id="eventName" 
+                            readonly 
+                            ng-model="data.eventName">
+                    </label>
+                    
+                    <label class="item item-input"> 
+                        <input 
+                            type="text" 
+                            placeholder="Device Name"
+                            name="deviceName"
+                            id="deviceName"
+                            ng-model="data.deviceName">
+                    </label>
+                    
+                </div>
+            </form>
+        </div>
+    </ion-content>
 </ion-view>
