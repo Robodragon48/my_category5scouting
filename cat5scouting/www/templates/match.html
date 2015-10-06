@@ -11,7 +11,17 @@
                             id="teamName" 
                             ng-options="option.name for option in data.teamNames track by option.id"
                             ng-model="data.teamName"
-                            ng-change="selectTeamMatch()"></select>
+                            ng-change="selectRobotMatch()"></select>
+                    </label>
+    
+                    <label class="item item-input item-select"> 
+                        <span class="input-label">Robot name</span>
+                        <select 
+                            name="robotName" 
+                            id="robotName" 
+                            ng-options="option.name for option in data.robotNames track by option.id"
+                            ng-model="data.robotName"
+                            ng-change="selectRobotMatch()"></select>
                     </label>
     
                     <label class="item item-input item-select"> 
@@ -21,7 +31,7 @@
                             id="matchNum"
                             ng-options="option.name for option in data.matchNums track by option.id"
                             ng-model="data.matchNum"
-                            ng-change="selectTeamMatch()"></select>
+                            ng-change="selectRobotMatch()"></select>
                     </label>
                     
                     <label class="item item-input item-select">

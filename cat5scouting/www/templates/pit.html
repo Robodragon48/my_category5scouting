@@ -1,118 +1,126 @@
 <ion-view view-title="Pit Scouting">
-  <ion-content>
-
-    <div ng-controller="PitScoutingController" class="padding">
-        <form name="PitScoutForm">
-            <div class="list">
+    <ion-content>
+        <div ng-controller="PitScoutingController" class="padding">
+            <form name="PitScoutForm">
+                <div class="list">
                 
-                <label class="item item-input item-select"> 
-                    <span class="input-label">Team name</span>
-                    <select 
-                        name="teamName" 
-                        id="teamName" 
-                        ng-options="option.name for option in data.teamNames track by option.id"
-                        ng-model="data.teamName"
-                        ng-change="selectTeam()"></select>
-                </label>
+                    <label class="item item-input item-select"> 
+                        <span class="input-label">Team name</span>
+                        <select 
+                            name="teamName" 
+                            id="teamName" 
+                            ng-options="option.name for option in data.teamNames track by option.id"
+                            ng-model="data.teamName"
+                            ng-change="selectTeam()"></select>
+                    </label>
+                        
+                    <label class="item item-input item-select"> 
+                        <span class="input-label">Robot name</span>
+                        <select 
+                            name="robotName" 
+                            id="robotName" 
+                            ng-options="option.name for option in data.robotNames track by option.id"
+                            ng-model="data.robotName"
+                            ng-change="selectRobotMatch()"></select>
+                    </label>
+    
+                    <label class="item item-input item-select">
+                        <span class="input-label">Drive mode</span> 
+                        <select 
+                            name="driveMode" 
+                            id="driveMode" 
+                            ng-options="option.name for option in data.driveModes track by option.id"
+                            ng-model="data.driveMode"></select>
+                    </label>
+                        
+                    <label class="item item-input item-select">
+                        <span class="input-label">Drive speed</span> 
+                        <select 
+                            name="driveSpeed" 
+                            id="driveSpeed" 
+                            ng-options="option.name for option in data.driveSpeeds track by option.id"
+                            ng-model="data.driveSpeed"></select>
+                    </label>
+                        
+                    <label class="item item-input item-select">
+                        <span class="input-label">Bot can drive over platform</span> 
+                        <select 
+                            name="driveOverPlatform" 
+                            id="driveOverPlatform" 
+                            ng-options="option.name for option in data.yesNo track by option.id"
+                            ng-model="data.driveOverPlatform"></select>
+                    </label>
+                        
+                    <label class="item item-input item-select">
+                        <span class="input-label">Autonomous capabilities</span> 
+                        <select 
+                            name="autonomousCapability" 
+                            id="autonomousCapability" 
+                            ng-options="option.name for option in data.autonomousCapabilities track by option.id"
+                            ng-model="data.autonomousCapability"></select>
+                    </label>
                     
-                <label class="item item-input item-select">
-                    <span class="input-label">Drive mode</span> 
-                    <select 
-                        name="driveMode" 
-                        id="driveMode" 
-                        ng-options="option.name for option in data.driveModes track by option.id"
-                        ng-model="data.driveMode"></select>
-                </label>
+                    <label class="item item-input item-select"> 
+                        <span class="input-label">Co-op tote on step</span> 
+                        <select 
+                            name="coopStep" 
+                            id="coopStep" 
+                            ng-options="option.name for option in data.coopStepOptions track by option.id"
+                            ng-model="data.coopStep"></select>
+                    </label>
+                        
+                    <label class="item item-input item-select">
+                        <span class="input-label">Where can bot pick up totes</span> 
+                        <select 
+                            name="pickupLoc" 
+                            id="pickupLoc" 
+                            ng-options="option.name for option in data.pickupLocs track by option.id"
+                            ng-model="data.pickupLoc"></select>
+                    </label>
+                        
+                    <label class="item item-input item-select"> 
+                        <span class="input-label">Max scored tote height</span> 
+                        <select 
+                            name="maxToteHeight" 
+                            id="maxToteHeight" 
+                            ng-options="option.name for option in data.maxToteHeights track by option.id"
+                            ng-model="data.maxToteHeight"></select>
+                    </label>
+                        
+                    <label class="item item-input item-select"> 
+                        <span class="input-label">Max scored container height</span> 
+                        <select 
+                            name="maxContHeight" 
+                            id="maxContHeight" 
+                            ng-options="option.name for option in data.maxContHeights track by option.id"
+                            ng-model="data.maxContHeight"></select>
+                    </label>
+                        
+                    <label class="item item-input item-select">
+                        <span class="input-label">Stacks container independently</span> 
+                        <select 
+                            name="stackContInd" 
+                            id="stackContInd" 
+                            ng-options="option.name for option in data.yesNo track by option.id"
+                            ng-model="data.stackContInd"></select>
+                    </label>
+                        
+                    <label class="item item-input item-select">
+                        <span class="input-label">Collects container from step</span> 
+                        <select 
+                            name="collectContStep" 
+                            id="collectContStep" 
+                            ng-options="option.name for option in data.yesNo track by option.id"
+                            ng-model="data.collectContStep"></select>
+                    </label>
+    
+                    <label class="item item-input item-select">
+                        <span class="input-label">Notes</span> 
+                        <textarea name="notes" id="notes" ng-model="data.note" rows="3"></textarea>
+                    </label>
                     
-                <label class="item item-input item-select">
-                    <span class="input-label">Drive speed</span> 
-                    <select 
-                        name="driveSpeed" 
-                        id="driveSpeed" 
-                        ng-options="option.name for option in data.driveSpeeds track by option.id"
-                        ng-model="data.driveSpeed"></select>
-                </label>
-                    
-                <label class="item item-input item-select">
-                    <span class="input-label">Bot can drive over platform</span> 
-                    <select 
-                        name="driveOverPlatform" 
-                        id="driveOverPlatform" 
-                        ng-options="option.name for option in data.yesNo track by option.id"
-                        ng-model="data.driveOverPlatform"></select>
-                </label>
-                    
-                <label class="item item-input item-select">
-                    <span class="input-label">Autonomous capabilities</span> 
-                    <select 
-                        name="autonomousCapability" 
-                        id="autonomousCapability" 
-                        ng-options="option.name for option in data.autonomousCapabilities track by option.id"
-                        ng-model="data.autonomousCapability"></select>
-                </label>
-                
-                <label class="item item-input item-select"> 
-                    <span class="input-label">Co-op tote on step</span> 
-                    <select 
-                        name="coopStep" 
-                        id="coopStep" 
-                        ng-options="option.name for option in data.coopStepOptions track by option.id"
-                        ng-model="data.coopStep"></select>
-                </label>
-                    
-                <label class="item item-input item-select">
-                    <span class="input-label">Where can bot pick up totes</span> 
-                    <select 
-                        name="pickupLoc" 
-                        id="pickupLoc" 
-                        ng-options="option.name for option in data.pickupLocs track by option.id"
-                        ng-model="data.pickupLoc"></select>
-                </label>
-                    
-                <label class="item item-input item-select"> 
-                    <span class="input-label">Max scored tote height</span> 
-                    <select 
-                        name="maxToteHeight" 
-                        id="maxToteHeight" 
-                        ng-options="option.name for option in data.maxToteHeights track by option.id"
-                        ng-model="data.maxToteHeight"></select>
-                </label>
-                    
-                <label class="item item-input item-select"> 
-                    <span class="input-label">Max scored container height</span> 
-                    <select 
-                        name="maxContHeight" 
-                        id="maxContHeight" 
-                        ng-options="option.name for option in data.maxContHeights track by option.id"
-                        ng-model="data.maxContHeight"></select>
-                </label>
-                    
-                <label class="item item-input item-select">
-                    <span class="input-label">Stacks container independently</span> 
-                    <select 
-                        name="stackContInd" 
-                        id="stackContInd" 
-                        ng-options="option.name for option in data.yesNo track by option.id"
-                        ng-model="data.stackContInd"></select>
-                </label>
-                    
-                <label class="item item-input item-select">
-                    <span class="input-label">Collects container from step</span> 
-                    <select 
-                        name="collectContStep" 
-                        id="collectContStep" 
-                        ng-options="option.name for option in data.yesNo track by option.id"
-                        ng-model="data.collectContStep"></select>
-                </label>
-
-                <label class="item item-input item-select">
-                    <span class="input-label">Notes</span> 
-                    <textarea name="notes" id="notes" ng-model="data.note" rows="3"></textarea>
-                </label>
-                
-            </div>
-        </form>
-    </div>
-
-  </ion-content>
+                </div>
+            </form>
+        </div>
+    </ion-content>
 </ion-view>

@@ -38,6 +38,12 @@ angular.module('cat5scouting.controllers', [])
       {id: '2', name: 'Team 2'},
       {id: '3', name: 'Team 3'}
     ],
+    robotName: null,
+    robotNames: [
+      {id: '0', name: ''},
+      {id: '1', name: 'Robot 1'},
+      {id: '2', name: 'Robot 2'}
+    ],
     driveMode: null,
     driveModes: [
       {id: '0', name: '[Unknown]'},
@@ -143,6 +149,12 @@ angular.module('cat5scouting.controllers', [])
       {id: '2', name: 'Team 2'},
       {id: '3', name: 'Team 3'}
     ],
+    robotName: null,
+    robotNames: [
+      {id: '0', name: ''},
+      {id: '1', name: 'Robot 1'},
+      {id: '2', name: 'Robot 2'}
+    ],
     matchNum: null,
     matchNums: [
       {id: '1', name: 'Match 1'},
@@ -177,8 +189,9 @@ angular.module('cat5scouting.controllers', [])
     the fields from the SQLite database or, if there is no record for the 
     selected team, it sets all of the fields to [Unknown]. 
   */
-  $scope.selectTeamMatch = function() {
+  $scope.selectRobotMatch = function() {
     //TODO: replace the following with values retrieved from SQLite
+    $scope.data.robotName = $scope.data.robotNames[0];
     $scope.data.driveSpeed = $scope.data.driveSpeeds[0];
     $scope.data.driveOverPlatform = $scope.data.yesNo[0];
     $scope.data.botSet = $scope.data.yesNo[0];
