@@ -26,6 +26,21 @@ angular.module('cat5scouting.controllers', [])
 
 .controller('PitScoutingController', function($scope, $stateParams) {
   ///TODO Convert these to SQLite database calls
+  /*
+    teamName: the name of the team
+    robotName: the name of the robot that a team has
+    driveMode: the type of wheels/locomotion that the robot uses
+    driveSpeed: how fast the robot can move about the field
+    driveOverPlatform: whether the robot is capable of driving over the platform
+    autonomousCapability: what the robot can accomplish during autonomous play
+    coopStep: how many totes the robot can load onto the cooperative step
+    pickupLoc: where the robot can retrieve totes from on the field
+    maxToteHeight: the maximum # of totes the robot can stack
+    maxContHeight: the maximum # of totes the robot can top with a container
+    stackContInd: can the robot stack containers independently?
+    collectContStep: can the robot collect a container from the step?
+    note: free-form field for providing additional observations
+  */
   $scope.data = {
     yesNo: [
       {id: '0', name: '[Unknown]'},
@@ -137,6 +152,24 @@ angular.module('cat5scouting.controllers', [])
 })
 
 .controller('MatchScoutingController', function($scope, $stateParams) {
+  /*
+    teamName: the name of the team
+    robotName: the name of the robot that a team has
+    matchNum: the match during which data was retrieved
+    driveSpeed: how fast the robot can move about the field
+    driveOverPlatform: whether the robot is capable of driving over the platform
+    botSet: was the robot able to create a Robot Set?
+    toteSet: was the robot able to create a Tote Set?
+    containerSet: was the robot able to create a Container Set?
+    stackedToteSet: was the robot able to create a Stacked Tote Set?
+    coopScoreStep: how many points did the robot score on the cooperative step?
+    feedstation: did the robot collect from the human player station?
+    landfill: did the robot pick up from the landfill?
+    scoredToteHeight: what is the highest number of totes the robot stacked?
+    containerStep: did the robot pick up a container from the step?
+    scoredIndContainerHeight: [TODO: Consult with Brandon on this field]
+    scoredContainerHeight: [TODO: Consult with Brandon on this field]
+  */
   $scope.data = {
     yesNo: [
       {id: '0', name: '[Unknown]'},
