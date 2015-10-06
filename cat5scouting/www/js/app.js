@@ -1,6 +1,8 @@
-angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers'])
+var db = null;
 
-.run(function($ionicPlatform) {
+angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'ngCordova'])
+
+.run(function($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -13,6 +15,9 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+    
+    var db = $cordovaSQLite.openDB("cat5scouting.db");
+    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstname text, lastname text)");
   });
 })
 
