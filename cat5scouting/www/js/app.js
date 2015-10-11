@@ -16,8 +16,13 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'ngCordova'
       StatusBar.styleDefault();
     }
     
-    var db = $cordovaSQLite.openDB("cat5scouting.db");
-    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstname text, lastname text)");
+    if (window.cordova) {
+      db = $cordovaSQLite.openDB("cat5scouting.db");
+    } else {
+      db = window.openDatabase("cat5scouting.db", "1.0", "cat5scouting", -1);
+    }
+    
+    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS event (ID INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT, Name TEXT UNIQUE NOT NULL)");
   });
 })
 
@@ -55,7 +60,7 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'ngCordova'
     url: '/match',
     views: {
       'menuContent': {
-        templateUrl: '/templates/match.html',
+        templateUrl: 'templates/match.html',
         controller: 'MatchCtrl'
       }
     }
@@ -65,7 +70,7 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'ngCordova'
     url: '/sync',
     views: {
       'menuContent': {
-        templateUrl: '/templates/sync.html',
+        templateUrl: 'templates/sync.html',
         controller: 'SyncCtrl'
       }
     }
@@ -75,7 +80,7 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'ngCordova'
     url: '/config', 
     views: {
       'menuContent': {
-        templateUrl: '/templates/settings.html',
+        templateUrl: 'templates/settings.html',
         controller: 'SettingsCtrl'
       }
     }
