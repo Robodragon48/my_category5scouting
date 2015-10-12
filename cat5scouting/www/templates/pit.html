@@ -1,5 +1,7 @@
 <ion-view view-title="Pit Scouting">
     <ion-content>
+        
+
         <div ng-controller="PitScoutingController" class="padding">
             <form name="PitScoutForm">
                 <div class="list">
@@ -9,8 +11,8 @@
                         <select 
                             name="teamName" 
                             id="teamName" 
-                            ng-options="option.name for option in data.teamNames track by option.id"
-                            ng-model="data.teamName"
+                            ng-options="option.name for option in teams track by option.id"
+                            ng-model="teams"
                             ng-change="selectTeam()"></select>
                     </label>
                         

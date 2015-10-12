@@ -1,6 +1,6 @@
 var db = null;
 
-angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'ngCordova'])
+angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'cat5scouting.services', 'ngCordova'])
 
 .run(function($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
@@ -22,7 +22,19 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'ngCordova'
       db = window.openDatabase("cat5scouting.db", "1.0", "cat5scouting", -1);
     }
     
-    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS event (ID INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT, Name TEXT UNIQUE NOT NULL)");
+    /* Delete the database to start from scratch
+     * Add to this section each time you add a new table definition
+     
+      $cordovaSQLite.execute(db, "DROP TABLE `team`");
+    */
+    
+    $cordovaSQLite.execute(db, "CREATE TABLE `team` (`id`	INTEGER NOT NULL UNIQUE, `name`	TEXT UNIQUE, `number`	INTEGER NOT NULL UNIQUE, PRIMARY KEY(id))");
+    
+    /* Load the database with test values
+     * Add to this section each time you add a new table definition
+     
+     
+    */
   });
 })
 

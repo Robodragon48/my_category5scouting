@@ -1,3 +1,8 @@
+/*
+  Much of the code in this file and services.js that has to do with SQLite is
+  derived from the gist created by Borris Sondagh, here: 
+  https://gist.github.com/borissondagh/29d1ed19d0df6051c56f
+*/
 angular.module('cat5scouting.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
@@ -12,8 +17,18 @@ angular.module('cat5scouting.controllers', [])
   
 })
 
-.controller('PitCtrl', function($scope, $stateParams) {
+.controller('PitCtrl', function($scope, Team) {
+  //testing the SQLite functionality
+  $scope.teams = [];
+  $scope.teams = null;
   
+  $scope.updateTeam = function() {
+    Team.all().then(function(teams) {
+      $scope.teams = teams;
+    })
+  }
+  
+  $scope.updateTeam();
 })
 
 .controller('SyncCtrl', function($scope, $stateParams) {
@@ -27,7 +42,7 @@ angular.module('cat5scouting.controllers', [])
 .controller('PitScoutingController', function($scope, $stateParams) {
   ///TODO Convert these to SQLite database calls
   /*
-    teamName: the name of the team
+    teamName: the name of the team; values provided via PitCtrl controller
     robotName: the name of the robot that a team has
     driveMode: the type of wheels/locomotion that the robot uses
     driveSpeed: how fast the robot can move about the field
@@ -41,6 +56,7 @@ angular.module('cat5scouting.controllers', [])
     collectContStep: can the robot collect a container from the step?
     note: free-form field for providing additional observations
   */
+  
   $scope.data = {
     yesNo: [
       {id: '0', name: '[Unknown]'},
@@ -48,11 +64,6 @@ angular.module('cat5scouting.controllers', [])
       {id: '2', name: 'No'}
     ],
     teamName: null,
-    teamNames: [
-      {id: '1', name: 'Team 1'},
-      {id: '2', name: 'Team 2'},
-      {id: '3', name: 'Team 3'}
-    ],
     robotName: null,
     robotNames: [
       {id: '0', name: ''},
