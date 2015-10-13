@@ -9,20 +9,20 @@
                     <label class="item item-input item-select"> 
                         <span class="input-label">Team name</span>
                         <select 
-                            name="teamName" 
-                            id="teamName" 
+                            name="team" 
+                            id="team" 
                             ng-options="option.name for option in teams track by option.id"
-                            ng-model="teams"
-                            ng-change="selectTeam()"></select>
+                            ng-model="team"
+                            ng-change="selectTeam(team)"></select>
                     </label>
                         
                     <label class="item item-input item-select"> 
                         <span class="input-label">Robot name</span>
                         <select 
-                            name="robotName" 
-                            id="robotName" 
-                            ng-options="option.name for option in data.robotNames track by option.id"
-                            ng-model="data.robotName"
+                            name="robot" 
+                            id="robot" 
+                            ng-options="option.name for option in robots track by option.id"
+                            ng-model="robot"
                             ng-change="selectRobotMatch()"></select>
                     </label>
     

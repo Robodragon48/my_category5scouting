@@ -29,6 +29,7 @@ angular.module('cat5scouting.services', [])
         var output = [];
         
         for (var i=0; i<result.rows.length; i++) {
+            console.log("result.rows.item(i).name = " + result.rows.item(i).name);
             output.push(result.rows.item(i));
         }
         
@@ -60,7 +61,30 @@ angular.module('cat5scouting.services', [])
         var parameters = [memberId];
         return DBA.query("SELECT id, name, number FROM team WHERE id = (?)", parameters)
             .then(function(result) {
-                return DBA.getById(result);
+                return DBA.getAll(result);
+            })
+    }
+    
+    return self;
+})
+    
+/******************************************************************************/
+    
+.factory('Robot', function($cordovaSQLite, DBA) {
+    var self = this;
+    
+    self.all = function() {
+        return DBA.query("SELECT id, name FROM robot")
+            .then(function(result) {
+                return DBA.getAll(result);
+            })
+    }
+    
+    self.get = function(teamId) {
+        var parameters = [teamId];
+        return DBA.query("SELECT id, name FROM robot WHERE teamId = (?)", parameters)
+            .then(function(result) {
+                return DBA.getAll(result);
             })
     }
     

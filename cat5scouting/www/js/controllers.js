@@ -39,7 +39,7 @@ angular.module('cat5scouting.controllers', [])
   
 })
 
-.controller('PitScoutingController', function($scope, $stateParams) {
+.controller('PitScoutingController', function($scope, $stateParams, Robot) {
   ///TODO Convert these to SQLite database calls
   /*
     teamName: the name of the team; values provided via PitCtrl controller
@@ -63,13 +63,8 @@ angular.module('cat5scouting.controllers', [])
       {id: '1', name: 'Yes'},
       {id: '2', name: 'No'}
     ],
-    teamName: null,
-    robotName: null,
-    robotNames: [
-      {id: '0', name: ''},
-      {id: '1', name: 'Robot 1'},
-      {id: '2', name: 'Robot 2'}
-    ],
+    team: null,
+    robot: null,
     driveMode: null,
     driveModes: [
       {id: '0', name: '[Unknown]'},
@@ -139,6 +134,11 @@ angular.module('cat5scouting.controllers', [])
     selected team, it sets all of the fields to [Unknown]. 
   */
   $scope.selectTeam = function() {
+    //retrieve the robot(s) for the selected team
+    Robot.get($scope.team.id).then(function(robots) {
+      $scope.robots = robots;
+    })
+    
     //TODO: replace the following with values retrieved from SQLite
     $scope.data.driveMode = $scope.data.driveModes[0];
     $scope.data.driveSpeed = $scope.data.driveSpeeds[0];
