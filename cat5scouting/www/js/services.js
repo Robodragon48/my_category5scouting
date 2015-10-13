@@ -29,7 +29,6 @@ angular.module('cat5scouting.services', [])
         var output = [];
         
         for (var i=0; i<result.rows.length; i++) {
-            console.log("result.rows.item(i).name = " + result.rows.item(i).name);
             output.push(result.rows.item(i));
         }
         

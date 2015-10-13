@@ -23,17 +23,17 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'cat5scouti
     }
     
     /* Delete the database to start from scratch
-     * Add to this section each time you add a new table definition *
+     * Add to this section each time you add a new table definition */
      
       $cordovaSQLite.execute(db, "DROP TABLE `team`");
       $cordovaSQLite.execute(db, "DROP TABLE `robot`");
-    **/
+    /**/
     
     $cordovaSQLite.execute(db, "CREATE TABLE `team` (`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` TEXT UNIQUE,	`number` INTEGER NOT NULL UNIQUE)");
     $cordovaSQLite.execute(db, "CREATE TABLE `robot` (`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `teamId` INTEGER NOT NULL, FOREIGN KEY(teamId) REFERENCES team(id))");
     
     /* Load the database with test values
-     * Add to this section each time you add a new table definition *
+     * Add to this section each time you add a new table definition */
      
     var query = "INSERT INTO team (name, number) VALUES (?,?)";
     $cordovaSQLite.execute(db, query, ["Category 5", 3489]).then(function(res) {
@@ -56,7 +56,7 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'cat5scouti
       console.error(err);
     });
     
-    **/
+    /**/
   });
 })
 
