@@ -14,13 +14,11 @@ the questions you seek to answer during competition).
 ## How does the app take into consideration limited bandwidth environments?
 
 The app developers know that that there is frequently limited access to WiFi and 
-cellular networks at FRC competition events. The app and server component use an
-[ad hoc network](https://en.wikipedia.org/wiki/Wireless_ad_hoc_network) to 
-communicate, which does not require an Internet connection. Because FRC robots 
-use wifi to connect the drive station to the robots, FRC restricts the use of 
-wifi within and near the competition area. Therefore you must have the server 
-component running on a laptop that is not within range of the field of play to
-avoid interference or wifi channel saturation.
+cellular networks at FRC competition events. The app and server component use 
+simple and inexpensive flash drives or other wired external drives to pass data 
+back and forth. Keep this in mind when selecting what mobile devices you use to
+capture data; you cannot use devices that do not have a way to export data using
+a hardware port. 
 
 ## How much will the app cost to implement for our team?
 
@@ -40,7 +38,7 @@ student or mentor working with the full data set. A laptop is recommended for
 analyzing compiled data, due to its larger screen size and attached keyboard.
 
 Your scouting team does not all need to be using the same hardware. You can have 
-some students on cell phones and some on tablet; the app should work just as well 
+some students on cell phones and some on tablets; the app should work just as well 
 as if everyone was on the same type of device.
 
 ## How can I/we help?
@@ -57,7 +55,7 @@ Chief Delphi, and word-of-mouth at competitions and other events.
 ## What technologies does the app use?
 
 This application is built using the AngularJS and Ionic frameworks, Cordova 
-libraries, the Bootstrap 3.0 front-end framework. For information on the server
+libraries including the Cordova SQLite plugin. For information on the server
 component technology stack, see 
 [its readme file](https://github.com/FitzChivalry/Cat5Scout-Server/blob/master/README.md).
 
