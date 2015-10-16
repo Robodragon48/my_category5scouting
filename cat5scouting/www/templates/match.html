@@ -7,31 +7,31 @@
                     <label class="item item-input item-select"> 
                         <span class="input-label">Team name</span>
                         <select 
-                            name="teamName" 
-                            id="teamName" 
-                            ng-options="option.name for option in data.teamNames track by option.id"
-                            ng-model="data.teamName"
-                            ng-change="selectRobotMatch()"></select>
+                            name="team" 
+                            id="team" 
+                            ng-options="option.name for option in teams track by option.id"
+                            ng-model="team"
+                            ng-change="selectTeam(team)"></select>
                     </label>
     
                     <label class="item item-input item-select"> 
                         <span class="input-label">Robot name</span>
                         <select 
-                            name="robotName" 
-                            id="robotName" 
-                            ng-options="option.name for option in data.robotNames track by option.id"
-                            ng-model="data.robotName"
-                            ng-change="selectRobotMatch()"></select>
+                            name="robot" 
+                            id="robot" 
+                            ng-options="option.name for option in robots track by option.id"
+                            ng-model="robot"
+                            ng-change="selectRobot(robot)"></select>
                     </label>
     
                     <label class="item item-input item-select"> 
                         <span class="input-label">Match number</span>
                         <select 
-                            name="matchNum"
-                            id="matchNum"
-                            ng-options="option.name for option in data.matchNums track by option.id"
-                            ng-model="data.matchNum"
-                            ng-change="selectRobotMatch()"></select>
+                            name="match"
+                            id="match"
+                            ng-options="option.number for option in matches track by option.id"
+                            ng-model="match"
+                            ng-change="selectRobotMatch(match)"></select>
                     </label>
                     
                     <label class="item item-input item-select">

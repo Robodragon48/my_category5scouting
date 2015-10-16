@@ -13,12 +13,20 @@ angular.module('cat5scouting.controllers', [])
   
 })
 
-.controller('MatchCtrl', function($scope, $stateParams) {
+.controller('MatchCtrl', function($scope, Team) {
+  $scope.teams = [];
+  $scope.teams = null;
   
+  $scope.updateTeam = function() {
+    Team.all().then(function(teams) {
+      $scope.teams = teams;
+    })
+  }
+  
+  $scope.updateTeam();
 })
 
 .controller('PitCtrl', function($scope, Team) {
-  //testing the SQLite functionality
   $scope.teams = [];
   $scope.teams = null;
   
@@ -162,7 +170,7 @@ angular.module('cat5scouting.controllers', [])
   }
 })
 
-.controller('MatchScoutingController', function($scope, $stateParams) {
+.controller('MatchScoutingController', function($scope, $stateParams, Robot, Match) {
   /*
     teamName: the name of the team
     robotName: the name of the robot that a team has
@@ -181,74 +189,62 @@ angular.module('cat5scouting.controllers', [])
     scoredIndContainerHeight: [TODO: Consult with Brandon on this field]
     scoredContainerHeight: [TODO: Consult with Brandon on this field]
   */
-  $scope.data = {
-    yesNo: [
-      {id: '0', name: '[Unknown]'},
-      {id: '1', name: 'Yes'},
-      {id: '2', name: 'No'}
-    ],
-    teamName: null,
-    teamNames: [
-      {id: '1', name: 'Team 1'},
-      {id: '2', name: 'Team 2'},
-      {id: '3', name: 'Team 3'}
-    ],
-    robotName: null,
-    robotNames: [
-      {id: '0', name: ''},
-      {id: '1', name: 'Robot 1'},
-      {id: '2', name: 'Robot 2'}
-    ],
-    matchNum: null,
-    matchNums: [
-      {id: '1', name: 'Match 1'},
-      {id: '2', name: 'Match 2'},
-      {id: '3', name: 'Match 3'},
-      {id: '4', name: 'Match 4'},
-      {id: '5', name: 'Match 5'}
-    ],
-    driveSpeed: null,
-    driveSpeeds: [
-      {id: '0', name: '[Unknown]'},
-      {id: '1', name: 'Slow'},
-      {id: '2', name: 'Medium'},
-      {id: '3', name: 'Fast'}
-    ],    
-    driveOverPlatform: null,
-    botSet: null,
-    toteSet: null,
-    containerSet: null,
-    stackedToteSet: null,
-    coopScoreStep: null,
-    feedstation: null,
-    landfill: null,
-    scoredToteHeight: null,
-    containerStep: null,
-    scoredIndContainerHeight: null,
-    scoredContainerHeight: null
+  $scope.data = null;
+  $scope.resetData = function() {
+    $scope.data = {
+      yesNo: [
+        {id: '0', name: '[Unknown]'},
+        {id: '1', name: 'Yes'},
+        {id: '2', name: 'No'}
+      ],
+      team: null,
+      robot: null,
+      match: null,
+      driveSpeed: null,
+      driveSpeeds: [
+        {id: '0', name: '[Unknown]'},
+        {id: '1', name: 'Slow'},
+        {id: '2', name: 'Medium'},
+        {id: '3', name: 'Fast'}
+      ],    
+      driveOverPlatform: null,
+      botSet: null,
+      toteSet: null,
+      containerSet: null,
+      stackedToteSet: null,
+      coopScoreStep: null,
+      feedstation: null,
+      landfill: null,
+      scoredToteHeight: null,
+      containerStep: null,
+      scoredIndContainerHeight: null,
+      scoredContainerHeight: null
+    }
   }
   
+  $scope.selectTeam = function(team) {
+    //retrieve the robot(s) for the selected team
+    //TODO: Push this to a service, as it is copied from the Pit controller and
+    //we want DRY code
+    Robot.get($scope.team.id).then(function(robots) {
+      $scope.robots = robots;
+    })
+  }
+  
+  //Pull matches out of the database. They are not dependent on other values,
+  //so there is no need to wrap them in a function
+  Match.all().then(function(matches) {
+    $scope.matches = matches;
+  })
+
   /*
     This function is called when the user changes the team or the match. It loads values for
     the fields from the SQLite database or, if there is no record for the 
     selected team, it sets all of the fields to [Unknown]. 
   */
-  $scope.selectRobotMatch = function() {
-    //TODO: replace the following with values retrieved from SQLite
-    $scope.data.robotName = $scope.data.robotNames[0];
-    $scope.data.driveSpeed = $scope.data.driveSpeeds[0];
-    $scope.data.driveOverPlatform = $scope.data.yesNo[0];
-    $scope.data.botSet = $scope.data.yesNo[0];
-    $scope.data.toteSet = $scope.data.yesNo[0];
-    $scope.data.containerSet = $scope.data.yesNo[0];
-    $scope.data.stackedToteSet = $scope.data.yesNo[0];
-    $scope.data.coopScoreStep = '0';
-    $scope.data.feedstation = $scope.data.yesNo[0];
-    $scope.data.landfill = $scope.data.yesNo[0];
-    $scope.data.scoredToteHeight = '0';
-    $scope.data.containerStep = $scope.data.yesNo[0];
-    $scope.data.scoredIndContainerHeight = '0';
-    $scope.data.scoredContainerHeight = '0';
+  $scope.selectRobotMatch = function(match) {
+    //TODO: populate the model with values retrieved from SQLite
+
   }  
   
   /*

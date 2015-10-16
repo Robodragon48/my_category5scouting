@@ -89,3 +89,27 @@ angular.module('cat5scouting.services', [])
     
     return self;
 })
+
+/******************************************************************************/
+    
+.factory('Match', function($cordovaSQLite, DBA) {
+    var self = this;
+    
+    self.all = function() {
+        return DBA.query("SELECT id, number FROM match")
+            .then(function(result) {
+                return DBA.getAll(result);
+            })
+    }
+    
+    self.get = function(matchId) {
+        var parameters = [matchId];
+        return DBA.query("SELECT id, number FROM match WHERE id = (?)", parameters)
+            .then(function(result) {
+                return DBA.getAll(result);
+            })
+    }
+    
+    return self;
+})
+    

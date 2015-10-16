@@ -27,10 +27,12 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'cat5scouti
      
       $cordovaSQLite.execute(db, "DROP TABLE `team`");
       $cordovaSQLite.execute(db, "DROP TABLE `robot`");
+      $cordovaSQLite.execute(db, "DROP TABLE `match`");
     /**/
     
     $cordovaSQLite.execute(db, "CREATE TABLE `team` (`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` TEXT UNIQUE,	`number` INTEGER NOT NULL UNIQUE)");
     $cordovaSQLite.execute(db, "CREATE TABLE `robot` (`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `teamId` INTEGER NOT NULL, FOREIGN KEY(teamId) REFERENCES team(id))");
+    $cordovaSQLite.execute(db, "CREATE TABLE `match` (`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `number` INTEGER NOT NULL UNIQUE)");
     
     /* Load the database with test values
      * Add to this section each time you add a new table definition */
@@ -52,6 +54,27 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'cat5scouti
     var query = "INSERT INTO robot (name, teamId) VALUES (?,?)";
     $cordovaSQLite.execute(db, query, ["Mechatrina", 1]).then(function(res) {
       console.log("robot insertId: " + res.insertId);
+    }, function (err) {
+      console.error(err);
+    });
+    
+    var query = "INSERT INTO match (number) VALUES (?)";
+    $cordovaSQLite.execute(db, query, [1]).then(function(res) {
+      console.log("match insertId: " + res.insertId);
+    }, function (err) {
+      console.error(err);
+    });
+    
+    var query = "INSERT INTO match (number) VALUES (?)";
+    $cordovaSQLite.execute(db, query, [2]).then(function(res) {
+      console.log("match insertId: " + res.insertId);
+    }, function (err) {
+      console.error(err);
+    });
+    
+    var query = "INSERT INTO match (number) VALUES (?)";
+    $cordovaSQLite.execute(db, query, [3]).then(function(res) {
+      console.log("match insertId: " + res.insertId);
     }, function (err) {
       console.error(err);
     });
