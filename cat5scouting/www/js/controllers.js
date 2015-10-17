@@ -65,15 +65,15 @@ angular.module('cat5scouting.controllers', [])
     note: free-form field for providing additional observations
   */
   
+  $scope.robot = [];
+  $scope.robot = null;
+  
   $scope.data = {
     yesNo: [
       {id: '0', name: '[Unknown]'},
       {id: '1', name: 'Yes'},
       {id: '2', name: 'No'}
     ],
-    team: null,
-    robot: null,
-    driveMode: null,
     driveModes: [
       {id: '0', name: '[Unknown]'},
       {id: '1', name: 'KOP'},
@@ -81,15 +81,12 @@ angular.module('cat5scouting.controllers', [])
       {id: '3', name: 'Omni'},
       {id: '4', name: 'Omni'}
     ],
-    driveSpeed: null,
     driveSpeeds: [
       {id: '0', name: '[Unknown]'},
       {id: '1', name: 'Slow'},
       {id: '2', name: 'Medium'},
       {id: '3', name: 'Fast'}
     ],
-    driveOverPlatform: null,
-    autonomousCapability: null,
     autonomousCapabilities: [
       {id: '0', name: '[Unknown]'},
       {id: '1', name: 'Bot set'},
@@ -98,7 +95,6 @@ angular.module('cat5scouting.controllers', [])
       {id: '4', name: 'Stacked Tote set'},
       {id: '5', name: 'None'}
     ],
-    coopStep: null,
     coopStepOptions: [
       {id: '0', name: '[Unknown]'},
       {id: '1', name: '0'},
@@ -107,7 +103,6 @@ angular.module('cat5scouting.controllers', [])
       {id: '4', name: '3'},
       {id: '5', name: 'None'}
     ],
-    pickupLoc: null,
     pickupLocs: [
       {id: '0', name: '[Unknown]'},
       {id: '1', name: 'Feed station'},
@@ -115,7 +110,6 @@ angular.module('cat5scouting.controllers', [])
       {id: '3', name: 'Neither'},
       {id: '4', name: 'Both'}
     ],
-    maxToteHeight: null,
     maxToteHeights: [
       {id: '0', name: '[Unknown]'},
       {id: '1', name: '0'},
@@ -123,50 +117,64 @@ angular.module('cat5scouting.controllers', [])
       {id: '3', name: '3-4'},
       {id: '4', name: '5-6'}
     ],
-    maxContHeight: null,
     maxContHeights: [
       {id: '0', name: '[Unknown]'},
       {id: '1', name: '0'},
       {id: '2', name: '1-2'},
       {id: '3', name: '3-4'},
       {id: '4', name: '5-6'}
-    ],
-    stackContInd: null,
-    collectContStep: null,
-    note: null
+    ]
   }
   
   /*
     This function is called when the user changes the team. It loads values for
-    the fields from the SQLite database or, if there is no record for the 
-    selected team, it sets all of the fields to [Unknown]. 
+    the Robots fiels from the SQLite database. 
   */
   $scope.selectTeam = function() {
     //retrieve the robot(s) for the selected team
-    Robot.get($scope.team.id).then(function(robots) {
+    Robot.getByTeam($scope.team.id).then(function(robots) {
       $scope.robots = robots;
     })
-    
-    //TODO: replace the following with values retrieved from SQLite
-    $scope.data.driveMode = $scope.data.driveModes[0];
-    $scope.data.driveSpeed = $scope.data.driveSpeeds[0];
-    $scope.data.driveOverPlatform = $scope.data.yesNo[0];
-    $scope.data.autonomousCapability = $scope.data.autonomousCapabilities[0];
-    $scope.data.coopStep = $scope.data.coopStepOptions[0];
-    $scope.data.pickupLoc = $scope.data.pickupLocs[0];
-    $scope.data.maxToteHeight = $scope.data.maxToteHeights[0];
-    $scope.data.maxContHeight = $scope.data.maxContHeights[0];
-    $scope.data.stackContInd = $scope.data.yesNo[0];
-    $scope.data.collectContStep = $scope.data.yesNo[0];
   }
   
+  /*
+    This function is called when the user selects the robot. It loads values for
+    the fields from the SQLite database that match the team and robot. If there
+    is no record for the selected team/robot combination, it sets all the fields
+    to "[Unknown]."
+  */
+  $scope.selectRobot = function() {
+    Robot.getById($scope.selectedRobot.id).then(function(robot) {
+      //set the current robot
+      $scope.robot = robot;
+      
+      //set the values for the fields in the form based on the database if they
+      //exist. Otherwise, set to the unselected value.
+      if (robot.driveMode) {
+        $scope.driveMode = robot.driveMode.id;
+      } else {
+        $scope.driveMode = $scope.data.driveModes[0];
+      }
+
+      $scope.driveSpeed = robot.driveSpeed || $scope.data.driveSpeeds[0];
+      $scope.driveOverPlatform = robot.driveOverPlatform || $scope.data.yesNo[0];;
+      $scope.autonomousCapability = robot.autonomousCapability || $scope.data.autonomousCapabilities[0];;
+      $scope.coopStep = robot.coopStep || $scope.data.coopStepOptions[0];;
+      $scope.pickupLoc = robot.pickupLoc || $scope.data.pickupLocs[0];
+      $scope.maxToteHeight = robot.maxToteHeight || $scope.data.maxToteHeights[0];
+      $scope.maxContHeight = robot.maxContHeight || $scope.data.maxContHeights[0];
+      $scope.stackContInd = robot.stackContInd || $scope.data.yesNo[0];
+      $scope.collectContStep = robot.collectContStep || $scope.data.yesNo[0];
+    })
+  }
   
   /*
-    This function is called each time entry pauses for more than 0.5 seconds
-    in the form on the Pit Scouting page.
+    This function is called each time a field is updated.
   */
-  $scope.writeData = function() {
-    //TODO: Fill in once the SQLite database is configured
+  $scope.robotChanged = function() {
+    var editRobot = angular.copy($scope.robot);
+    editRobot.driveMode = $scope.driveMode;
+    Robot.update($scope.robot, editRobot);
   }
 })
 
@@ -222,11 +230,13 @@ angular.module('cat5scouting.controllers', [])
     }
   }
   
+  $scope.resetData();
+  
+  //retrieve the robot(s) for the selected team
   $scope.selectTeam = function(team) {
-    //retrieve the robot(s) for the selected team
     //TODO: Push this to a service, as it is copied from the Pit controller and
     //we want DRY code
-    Robot.get($scope.team.id).then(function(robots) {
+    Robot.getByTeam($scope.team.id).then(function(robots) {
       $scope.robots = robots;
     })
   }

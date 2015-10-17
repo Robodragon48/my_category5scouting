@@ -60,7 +60,7 @@ angular.module('cat5scouting.services', [])
         var parameters = [memberId];
         return DBA.query("SELECT id, name, number FROM team WHERE id = (?)", parameters)
             .then(function(result) {
-                return DBA.getAll(result);
+                return DBA.getById(result);
             })
     }
     
@@ -79,12 +79,26 @@ angular.module('cat5scouting.services', [])
             })
     }
     
-    self.get = function(teamId) {
+    self.getByTeam = function(teamId) {
         var parameters = [teamId];
         return DBA.query("SELECT id, name FROM robot WHERE teamId = (?)", parameters)
             .then(function(result) {
                 return DBA.getAll(result);
             })
+    }
+    
+    self.getById = function(robotId) {
+        var parameters = [robotId];
+        return DBA.query("SELECT name, teamId, driveMode, driveSpeed, driveOverPlatform, autonomousCapability, coopStep, pickupLoc, maxToteHeight, maxContHeight, stackContInd, collectContStep, note from robot WHERE id = (?)", parameters)
+            .then(function(result) {
+                return DBA.getById(result);
+            })
+    }
+    
+    self.update = function(origRobot, editRobot) {
+        //console.log("Updating robot '" + origRobot.name + "' Setting driveMode for '" + editRobot.name + "' to " + editRobot.driveMode.id);
+        var parameters = [editRobot.driveMode, editRobot.driveSpeed, editRobot.driveOverPlatform, editRobot.autonomousCapability, editRobot.coopStep, editRobot.pickupLoc, editRobot.maxToteHeight, editRobot.maxContHeight, editRobot.stackContInd, editRobot.collectContStep, editRobot.note, origRobot.id];
+        return DBA.query("UPDATE robot SET driveMode = (?), driveSpeed = (?), driveOverPlatform = (?), autonomousCapability = (?), coopStep = (?), pickupLoc = (?), maxToteHeight = (?), maxContHeight = (?), stackContInd = (?), collectContStep = (?), note = (?) WHERE id = (?)", parameters);
     }
     
     return self;
@@ -106,7 +120,7 @@ angular.module('cat5scouting.services', [])
         var parameters = [matchId];
         return DBA.query("SELECT id, number FROM match WHERE id = (?)", parameters)
             .then(function(result) {
-                return DBA.getAll(result);
+                return DBA.getById(result);
             })
     }
     

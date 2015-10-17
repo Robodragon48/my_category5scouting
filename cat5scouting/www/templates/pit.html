@@ -13,17 +13,17 @@
                             id="team" 
                             ng-options="option.name for option in teams track by option.id"
                             ng-model="team"
-                            ng-change="selectTeam(team)"></select>
+                            ng-change="selectTeam()"></select>
                     </label>
                         
                     <label class="item item-input item-select"> 
                         <span class="input-label">Robot name</span>
                         <select 
-                            name="robot" 
-                            id="robot" 
+                            name="selectedRobot" 
+                            id="selectedRobot" 
                             ng-options="option.name for option in robots track by option.id"
-                            ng-model="robot"
-                            ng-change="selectRobotMatch()"></select>
+                            ng-model="selectedRobot"
+                            ng-change="selectRobot()"></select>
                     </label>
     
                     <label class="item item-input item-select">
@@ -32,7 +32,8 @@
                             name="driveMode" 
                             id="driveMode" 
                             ng-options="option.name for option in data.driveModes track by option.id"
-                            ng-model="data.driveMode"></select>
+                            ng-model="driveMode"
+                            ng-change="robotChanged()"></select>
                     </label>
                         
                     <label class="item item-input item-select">
@@ -41,7 +42,8 @@
                             name="driveSpeed" 
                             id="driveSpeed" 
                             ng-options="option.name for option in data.driveSpeeds track by option.id"
-                            ng-model="data.driveSpeed"></select>
+                            ng-model="driveSpeed"
+                            ng-change="robotChanged()"></select>
                     </label>
                         
                     <label class="item item-input item-select">
@@ -50,7 +52,8 @@
                             name="driveOverPlatform" 
                             id="driveOverPlatform" 
                             ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="data.driveOverPlatform"></select>
+                            ng-model="driveOverPlatform"
+                            ng-change="robotChanged()"></select>
                     </label>
                         
                     <label class="item item-input item-select">
@@ -59,7 +62,8 @@
                             name="autonomousCapability" 
                             id="autonomousCapability" 
                             ng-options="option.name for option in data.autonomousCapabilities track by option.id"
-                            ng-model="data.autonomousCapability"></select>
+                            ng-model="autonomousCapability"
+                            ng-change="robotChanged()"></select>
                     </label>
                     
                     <label class="item item-input item-select"> 
@@ -68,7 +72,8 @@
                             name="coopStep" 
                             id="coopStep" 
                             ng-options="option.name for option in data.coopStepOptions track by option.id"
-                            ng-model="data.coopStep"></select>
+                            ng-model="coopStep"
+                            ng-change="robotChanged()"></select>
                     </label>
                         
                     <label class="item item-input item-select">
@@ -77,7 +82,8 @@
                             name="pickupLoc" 
                             id="pickupLoc" 
                             ng-options="option.name for option in data.pickupLocs track by option.id"
-                            ng-model="data.pickupLoc"></select>
+                            ng-model="pickupLoc"
+                            ng-change="robotChanged()"></select>
                     </label>
                         
                     <label class="item item-input item-select"> 
@@ -86,7 +92,8 @@
                             name="maxToteHeight" 
                             id="maxToteHeight" 
                             ng-options="option.name for option in data.maxToteHeights track by option.id"
-                            ng-model="data.maxToteHeight"></select>
+                            ng-model="maxToteHeight"
+                            ng-change="robotChanged()"></select>
                     </label>
                         
                     <label class="item item-input item-select"> 
@@ -95,7 +102,8 @@
                             name="maxContHeight" 
                             id="maxContHeight" 
                             ng-options="option.name for option in data.maxContHeights track by option.id"
-                            ng-model="data.maxContHeight"></select>
+                            ng-model="maxContHeight"
+                            ng-change="robotChanged()"></select>
                     </label>
                         
                     <label class="item item-input item-select">
@@ -104,7 +112,8 @@
                             name="stackContInd" 
                             id="stackContInd" 
                             ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="data.stackContInd"></select>
+                            ng-model="stackContInd"
+                            ng-change="robotChanged()"></select>
                     </label>
                         
                     <label class="item item-input item-select">
@@ -113,12 +122,18 @@
                             name="collectContStep" 
                             id="collectContStep" 
                             ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="data.collectContStep"></select>
+                            ng-model="collectContStep"
+                            ng-change="robotChanged()"></select>
                     </label>
     
                     <label class="item item-input item-select">
                         <span class="input-label">Notes</span> 
-                        <textarea name="notes" id="notes" ng-model="data.note" rows="3"></textarea>
+                        <textarea 
+                            name="notes" 
+                            id="notes" 
+                            ng-model="note" 
+                            rows="3"
+                            ng-change="robotChanged()"></textarea>
                     </label>
                     
                 </div>
