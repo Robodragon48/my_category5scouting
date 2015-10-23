@@ -28,14 +28,51 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'cat5scouti
       $cordovaSQLite.execute(db, "DROP TABLE `team`");
       $cordovaSQLite.execute(db, "DROP TABLE `robot`");
       $cordovaSQLite.execute(db, "DROP TABLE `match`");
+      $cordovaSQLite.execute(db, "DROP TABLE `robotMatch`");
     /**/
     
     $cordovaSQLite.execute(db, "CREATE TABLE `team` (`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` TEXT UNIQUE,	`number` INTEGER NOT NULL UNIQUE)");
-    $cordovaSQLite.execute(db, "CREATE TABLE `robot` (`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name`	TEXT NOT NULL, `teamId`	INTEGER NOT NULL, `driveMode`	INTEGER, `driveSpeed`	INTEGER, `driveOverPlatform`	INTEGER, `autonomousCapability`	INTEGER, `coopStep`	INTEGER, `pickupLoc`	INTEGER, `maxToteHeight`	INTEGER, `maxContHeight`	INTEGER, `stackContInd`	INTEGER, `collectContStep`	INTEGER, `note`	TEXT, FOREIGN KEY(`teamId`) REFERENCES team ( id ))");
+    $cordovaSQLite.execute(db, "CREATE TABLE `robot` (`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
+                                                   + "`name` TEXT NOT NULL, "
+                                                   + "`teamId` INTEGER NOT NULL, "
+                                                   + "`driveMode` INTEGER, "
+                                                   + "`driveSpeed` INTEGER, "
+                                                   + "`driveOverPlatform` INTEGER, "
+                                                   + "`autonomousCapability` INTEGER, "
+                                                   + "`coopStep` INTEGER, "
+                                                   + "`pickupLoc` INTEGER, "
+                                                   + "`maxToteHeight` INTEGER, "
+                                                   + "`maxContHeight` INTEGER, "
+                                                   + "`stackContInd` INTEGER, "
+                                                   + "`collectContStep` INTEGER, "
+                                                   + "`note` TEXT, "
+                                                   + "FOREIGN KEY(`teamId`) REFERENCES team ( id ))");
     $cordovaSQLite.execute(db, "CREATE TABLE `match` (`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `number` INTEGER NOT NULL UNIQUE)");
+
+    $cordovaSQLite.execute(db, "CREATE TABLE `robotMatch` (`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
+                                                        + "`matchId` INTEGER, "
+                                                        + "`robotId` INTEGER, "
+                                                        + "`teamId` INTEGER, "
+                                                        + "`driveSpeed` INTEGER, "
+                                                        + "`driveOverPlatform` INTEGER, "
+                                                        + "`botSet` INTEGER, "
+                                                        + "`toteSet` INTEGER, "
+                                                        + "`containerSet` INTEGER, "
+                                                        + "`stackedToteSet` INTEGER, "
+                                                        + "`coopScoreStep` INTEGER, "
+                                                        + "`feedstation` INTEGER, "
+                                                        + "`landfill` INTEGER, "
+                                                        + "`scoredToteHeight` INTEGER, "
+                                                        + "`containerStep` INTEGER, "
+                                                        + "`scoredIndContainerHeight` INTEGER, "
+                                                        + "`scoredContainerHeight` INTEGER, "
+                                                        + "FOREIGN KEY(`matchId`) REFERENCES match ( id ), "
+                                                        + "FOREIGN KEY(`robotId`) REFERENCES robot ( id ), "
+                                                        + "FOREIGN KEY(`teamId`) REFERENCES team ( id ))");
     
     /* Load the database with test values
-     * Add to this section each time you add a new table definition */
+     * Add to this section each time you add a new table definition
+     * if appropriate */
      
     var query = "INSERT INTO team (name, number) VALUES (?,?)";
     $cordovaSQLite.execute(db, query, ["Category 5", 3489]).then(function(res) {
@@ -65,6 +102,13 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'cat5scouti
       console.error(err);
     });
     
+    var query = "INSERT INTO robot (name, teamId) VALUES (?,?)";
+    $cordovaSQLite.execute(db, query, ["Megatron", 2]).then(function(res) {
+      console.log("robot insertId: " + res.insertId);
+    }, function (err) {
+      console.error(err);
+    });
+
     var query = "INSERT INTO match (number) VALUES (?)";
     $cordovaSQLite.execute(db, query, [1]).then(function(res) {
       console.log("match insertId: " + res.insertId);
@@ -86,6 +130,13 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'cat5scouti
       console.error(err);
     });
     
+    var query = "INSERT INTO robotMatch(robotId, matchId, driveSpeed) VALUES (?, ?, ?);";
+    $cordovaSQLite.execute(db, query, [1, 1, 1]).then(function(res) {
+      console.log("match insertId: " + res.insertId);
+    }, function (err) {
+      console.error(err);
+    });
+
     /**/
   });
 })

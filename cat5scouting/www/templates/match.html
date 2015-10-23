@@ -3,7 +3,6 @@
         <div ng-controller="MatchScoutingController" class="padding">
             <form name="MatchScoutForm">
                 <div class="list">
-          
                     <label class="item item-input item-select"> 
                         <span class="input-label">Team name</span>
                         <select 
@@ -11,17 +10,17 @@
                             id="team" 
                             ng-options="option.name for option in teams track by option.id"
                             ng-model="team"
-                            ng-change="selectTeam(team)"></select>
+                            ng-change="selectTeam()"></select>
                     </label>
     
                     <label class="item item-input item-select"> 
                         <span class="input-label">Robot name</span>
                         <select 
-                            name="robot" 
-                            id="robot" 
+                            name="selectedRobot" 
+                            id="selectedRobot" 
                             ng-options="option.name for option in robots track by option.id"
-                            ng-model="robot"
-                            ng-change="selectRobot(robot)"></select>
+                            ng-model="selectedRobot"
+                            ng-change="selectRobot()"></select>
                     </label>
     
                     <label class="item item-input item-select"> 
@@ -31,7 +30,7 @@
                             id="match"
                             ng-options="option.number for option in matches track by option.id"
                             ng-model="match"
-                            ng-change="selectRobotMatch(match)"></select>
+                            ng-change="selectMatch()"></select>
                     </label>
                     
                     <label class="item item-input item-select">
@@ -40,7 +39,8 @@
                             name="driveSpeed" 
                             id="driveSpeed" 
                             ng-options="option.name for option in data.driveSpeeds track by option.id"
-                            ng-model="data.driveSpeed"></select>
+                            ng-model="driveSpeed"
+                            ng-change="robotChanged()"></select>
                     </label>
 
           
@@ -50,7 +50,8 @@
                             name="driveOverPlatform" 
                             id="driveOverPlatform" 
                             ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="data.driveOverPlatform"></select>
+                            ng-model="driveOverPlatform"
+                            ng-change="robotChanged()"></select>
                     </label>
           
                     <label class="item item-input item-select">
@@ -59,7 +60,8 @@
                             name="botSet" 
                             id="botSet" 
                             ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="data.botSet"></select>
+                            ng-model="botSet"
+                            ng-change="robotChanged()"></select>
                     </label>
           
                     <label class="item item-input item-select">
@@ -68,7 +70,8 @@
                             name="toteSet" 
                             id="toteSet" 
                             ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="data.toteSet"></select>
+                            ng-model="toteSet"
+                            ng-change="robotChanged()"></select>
                     </label>
           
                     <label class="item item-input item-select">
@@ -77,7 +80,8 @@
                             name="containerSet" 
                             id="containerSet" 
                             ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="data.containerSet"></select>
+                            ng-model="containerSet"
+                            ng-change="robotChanged()"></select>
                     </label>
           
                     <label class="item item-input item-select">
@@ -86,12 +90,20 @@
                             name="stackedToteSet" 
                             id="stackedToteSet" 
                             ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="data.stackedToteSet"></select>
+                            ng-model="stackedToteSet"
+                            ng-change="robotChanged()"></select>
                     </label>
                     
                     <label class="item item-input range">
                         <span class="input-label">Coop Score on Step</span>
-                        <input type="range" name="coopScoreStep" min="0" max="3" value="0" ng-model="data.coopScoreStep">
+                        <input 
+                            type="range" 
+                            name="coopScoreStep" 
+                            min="0" 
+                            max="3" 
+                            value="0" 
+                            ng-model="coopScoreStep" 
+                            ng-change="robotChanged()">
                         {{data.coopScoreStep}}
                     </label>
                     
@@ -101,7 +113,8 @@
                             name="feedstation" 
                             id="feedstation" 
                             ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="data.feedstation"></select>
+                            ng-model="feedstation"
+                            ng-change="robotChanged()"></select>
                     </label>
                     
                     <label class="item item-input item-select">
@@ -110,12 +123,19 @@
                             name="landfill" 
                             id="landfill" 
                             ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="data.landfill"></select>
+                            ng-model="landfill"
+                            ng-change="robotChanged()"></select>
                     </label>
 
                     <label class="item item-input range">
                         <span class="input-label">Scored Tote Height</span>
-                        <input type="range" name="scoredToteHeight" min="0" max="6" ng-model="data.scoredToteHeight">
+                        <input 
+                            type="range" 
+                            name="scoredToteHeight" 
+                            min="0" 
+                            max="6" 
+                            ng-model="scoredToteHeight"
+                            ng-change="robotChanged()">
                         {{data.scoredToteHeight}}
                     </label>
                     
@@ -125,25 +145,33 @@
                             name="containerStep" 
                             id="containerStep" 
                             ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="data.containerStep"></select>
+                            ng-model="containerStep"
+                            ng-change="robotChanged()"></select>
                     </label>
                     
                     <label class="item item-input range">
                         <span class="input-label">Container Independent Score Height</span>
-                        <input type="range" name="scoredIndContainerHeight" min="0" max="6" ng-model="data.scoredIndContainerHeight">
+                        <input 
+                            type="range" 
+                            name="scoredIndContainerHeight" 
+                            min="0" 
+                            max="6" 
+                            ng-model="scoredIndContainerHeight"
+                            ng-change="robotChanged()">
                         {{data.scoredIndContainerHeight}}
                     </label>
                     
                     <label class="item item-input range">
                         <span class="input-label">Container Score Height</span>
-                        <input type="range" name="scoredContainerHeight" min="0" max="6" ng-model="data.scoredContainerHeight">
+                        <input 
+                            type="range" 
+                            name="scoredContainerHeight" 
+                            min="0" 
+                            max="6" 
+                            ng-model="scoredContainerHeight"
+                            ng-change="robotChanged()">
                         {{data.scoredContainerHeight}}
                     </label>
-                    
-                    
-
-          
-          
                 </div>
             </form>
         </div>
