@@ -88,6 +88,28 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'cat5scouti
       console.error(err);
     });
     
+    for (var i=1; i<28; i++) {
+      var query = "INSERT INTO team (name, number) VALUES (?,?)";
+      $cordovaSQLite.execute(db, query, ["Team "+ i, i]).then(function(res) {
+        console.log("team insertId: " + res.insertId);
+      }, function (err) {
+        console.error(err);
+      });
+    }
+    
+    for (var i=1; i<28; i++) {
+      var query = "INSERT INTO robot (name, teamId) VALUES (?,?)";
+      $cordovaSQLite.execute(db, query, ["Robot", i]).then(function(res) {
+        console.log("robot insertId: " + res.insertId);
+      }, function (err) {
+        console.error(err);
+      });
+    }
+
+
+
+
+    
     var query = "INSERT INTO robot (name, teamId) VALUES (?,?)";
     $cordovaSQLite.execute(db, query, ["Mechatrina", 1]).then(function(res) {
       console.log("robot insertId: " + res.insertId);

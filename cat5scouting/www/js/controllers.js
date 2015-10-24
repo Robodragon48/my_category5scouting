@@ -26,6 +26,9 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
   $scope.updateTeam();
 })
 
+
+//TODO: Disable all fields except Team until team is selected
+//TODO: Disable all fields except Team and Robot until Robot is selected
 .controller('PitCtrl', function($scope, Team) {
   $scope.teams = [];
   $scope.teams = null;
