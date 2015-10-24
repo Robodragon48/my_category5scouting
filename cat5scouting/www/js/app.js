@@ -73,7 +73,8 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'cat5scouti
     /* Load the database with test values
      * Add to this section each time you add a new table definition
      * if appropriate */
-     
+    
+    /*
     var query = "INSERT INTO team (name, number) VALUES (?,?)";
     $cordovaSQLite.execute(db, query, ["Category 5", 3489]).then(function(res) {
       console.log("team insertId: " + res.insertId);
@@ -87,20 +88,28 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'cat5scouti
     }, function (err) {
       console.error(err);
     });
+    */
     
-    for (var i=1; i<28; i++) {
-      var query = "INSERT INTO team (name, number) VALUES (?,?)";
-      $cordovaSQLite.execute(db, query, ["Team "+ i, i]).then(function(res) {
+    var teams = [
+                  1225, 1226, 1293, 1398, 1553, 1598, 1758, 2059, 281, 2815, 
+                  283, 342, 343, 3489, 3490, 3976, 4083, 4451, 4533, 4534, 
+                  4901, 4935, 4955, 4965, 8101
+                ];
+                
+    var query = "INSERT INTO team (name, number) VALUES (?,?)";
+    for (var i=0; i<teams.length; i++) {
+      $cordovaSQLite.execute(db, query, ["Team "+ teams[i], i]).then(function(res) {
         console.log("team insertId: " + res.insertId);
       }, function (err) {
         console.error(err);
       });
     }
     
-    for (var i=1; i<28; i++) {
-      var query = "INSERT INTO robot (name, teamId) VALUES (?,?)";
+    var query = "INSERT INTO robot (name, teamId) VALUES (?,?)";
+    for (var i=1; i<=teams.length; i++) {
+      console.log("i = " + i);
       $cordovaSQLite.execute(db, query, ["Robot", i]).then(function(res) {
-        console.log("robot insertId: " + res.insertId);
+        console.log("robot insertId: " + res.insertId + " with teamId: " + i);
       }, function (err) {
         console.error(err);
       });
@@ -108,8 +117,8 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'cat5scouti
 
 
 
-
     
+    /*
     var query = "INSERT INTO robot (name, teamId) VALUES (?,?)";
     $cordovaSQLite.execute(db, query, ["Mechatrina", 1]).then(function(res) {
       console.log("robot insertId: " + res.insertId);
@@ -130,35 +139,25 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'cat5scouti
     }, function (err) {
       console.error(err);
     });
-
-    var query = "INSERT INTO match (number) VALUES (?)";
-    $cordovaSQLite.execute(db, query, [1]).then(function(res) {
-      console.log("match insertId: " + res.insertId);
-    }, function (err) {
-      console.error(err);
-    });
+    */
+    for (var i=1; i<32; i++) {
+      var query = "INSERT INTO match (number) VALUES (?)";
+      $cordovaSQLite.execute(db, query, [i]).then(function(res) {
+        console.log("match insertId: " + res.insertId);
+      }, function (err) {
+        console.error(err);
+      });
+    }
     
-    var query = "INSERT INTO match (number) VALUES (?)";
-    $cordovaSQLite.execute(db, query, [2]).then(function(res) {
-      console.log("match insertId: " + res.insertId);
-    }, function (err) {
-      console.error(err);
-    });
-    
-    var query = "INSERT INTO match (number) VALUES (?)";
-    $cordovaSQLite.execute(db, query, [3]).then(function(res) {
-      console.log("match insertId: " + res.insertId);
-    }, function (err) {
-      console.error(err);
-    });
-    
+    /*
     var query = "INSERT INTO robotMatch(robotId, matchId, driveSpeed) VALUES (?, ?, ?);";
     $cordovaSQLite.execute(db, query, [1, 1, 1]).then(function(res) {
       console.log("match insertId: " + res.insertId);
     }, function (err) {
       console.error(err);
     });
-
+    */
+    
     /**/
   });
 })
