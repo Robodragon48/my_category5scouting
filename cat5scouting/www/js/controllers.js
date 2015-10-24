@@ -47,13 +47,15 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     console.log("exportData called");
     
     //Create the exported Robot data to write to a file
-    var exportData = "";
+    var exportData = "Test data for export";
+    /*
     Robot.all().then(function(robots) {
       for (var i=0; i<robots.length; i++) {
         exportData += robots[i].name;
         exportData += ", ";
       }
     })
+    */
     
     console.log("exportData = " + exportData);
     
