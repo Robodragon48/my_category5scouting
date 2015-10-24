@@ -57,7 +57,7 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     
     console.log("exportData = " + exportData);
     
-    $cordovaFile.writeFile(cordova.file.externalDataDirectory, "Cat5Scouting.Pit.txt", exportData, true)
+    $cordovaFile.writeFile(cordova.file.dataDirectory, "Cat5Scouting.Pit.txt", exportData, true)
       .then(function (success) {
         console.log("Data exported to Cat5Scouting.Pit.txt");
       }, function (error) {
@@ -73,7 +73,7 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
       }
     })
     
-    $cordovaFile.writeFile(cordova.file.externalDataDirectory, "Cat5Scouting.Match.txt", exportData, true)
+    $cordovaFile.writeFile(cordova.file.dataDirectory, "Cat5Scouting.Match.txt", exportData, true)
       .then(function (success) {
         console.log("Data exported to Cat5Scouting.Match.txt");
       }, function (error) {
