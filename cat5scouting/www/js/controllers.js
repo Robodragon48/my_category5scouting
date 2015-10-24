@@ -3,7 +3,7 @@
   derived from the gist created by Borris Sondagh, here: 
   https://gist.github.com/borissondagh/29d1ed19d0df6051c56f
 */
-angular.module('cat5scouting.controllers', [])
+angular.module('cat5scouting.controllers', ['ngCordova'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -39,9 +39,50 @@ angular.module('cat5scouting.controllers', [])
   $scope.updateTeam();
 })
 
-.controller('SyncCtrl', function($scope, $stateParams) {
+
+.controller('SyncCtrl', function($scope, $cordovaFile, Robot, RobotMatch) {
   
+  $scope.exportData = function() {
+    
+    console.log("exportData called");
+    
+    //Create the exported Robot data to write to a file
+    var exportData = "";
+    Robot.all().then(function(robots) {
+      for (var i=0; i<robots.length; i++) {
+        exportData += robots[i].name;
+        exportData += ", ";
+      }
+    })
+    
+    console.log("exportData = " + exportData);
+    
+    $cordovaFile.writeFile(cordova.file.externalDataDirectory, "Cat5Scouting.Pit.txt", exportData, true)
+      .then(function (success) {
+        console.log("Data exported to Cat5Scouting.Pit.txt");
+      }, function (error) {
+        console.log("Problem writing text to Pit file");
+      });
+
+    //Create the exported Robot Match data to write to a file
+    var exportData = "";
+    RobotMatch.all().then(function(robotMatches) {
+      for (var i=0; i<robotMatches.length; i++) {
+        exportData += robotMatches[i].robotId;
+        exportData += ", ";
+      }
+    })
+    
+    $cordovaFile.writeFile(cordova.file.externalDataDirectory, "Cat5Scouting.Match.txt", exportData, true)
+      .then(function (success) {
+        console.log("Data exported to Cat5Scouting.Match.txt");
+      }, function (error) {
+        console.log("Problem writing text to Match file");
+      });
+  }
 })
+
+
 
 .controller('SettingsCtrl', function($scope, $stateParams) {
   
@@ -156,26 +197,68 @@ angular.module('cat5scouting.controllers', [])
   */
   $scope.selectRobot = function() {
     Robot.getById($scope.selectedRobot.id).then(function(robot) {
-      //set the current robot
-      $scope.robot = robot;
-      
-      //set the values for the fields in the form based on the database if they
-      //exist. Otherwise, set to the unselected value.
-      if (robot.driveMode) {
-        $scope.driveMode = robot.driveMode.id;
-      } else {
-        $scope.driveMode = $scope.data.driveModes[0];
+      if (robot) {
+        //set the current robot
+        //$scope.selectedRobot = robot;
+        
+        //set the values for the fields in the form based on the database if they
+        //exist. Otherwise, set to the unselected value.
+        if (robot.driveMode) {
+          $scope.driveMode = $scope.data.driveModes[robot.driveMode];
+        } else {
+          $scope.driveMode = $scope.data.driveModes[0];
+        }
+        if (robot.driveSpeed) {
+          $scope.driveSpeed = $scope.data.driveSpeeds[robot.driveSpeed];
+        } else {
+          $scope.driveSpeed = $scope.data.driveSpeeds[0];
+        }
+        if (robot.driveOverPlatform) {
+          $scope.driveOverPlatform = $scope.data.yesNo[robot.driveOverPlatform];
+        } else {
+          $scope.driveOverPlatform = $scope.data.yesNo[0];
+        }
+        if (robot.autonomousCapability) {
+          $scope.autonomousCapability = $scope.data.autonomousCapabilities[robot.autonomousCapability];
+        } else {
+          $scope.autonomousCapability = $scope.data.autonomousCapabilities[0];
+        }
+        if (robot.coopStep) {
+          $scope.coopStep = $scope.data.coopStepOptions[robot.coopStep];
+        } else {
+          $scope.coopStep = $scope.data.coopStepOptions[0];
+        }
+        if (robot.pickupLoc) {
+          $scope.pickupLoc = $scope.data.pickupLocs[robot.pickupLoc];
+        } else {
+          $scope.pickupLoc = $scope.data.pickupLocs[0];
+        }
+        if (robot.maxToteHeight) {
+          $scope.maxToteHeight = $scope.data.maxToteHeights[robot.maxToteHeight];
+        } else {
+          $scope.maxToteHeight = $scope.data.maxToteHeights[0];
+        }
+        if (robot.maxContHeight) {
+          $scope.maxContHeight = $scope.data.maxContHeights[robot.maxContHeight];
+        } else {
+          $scope.maxContHeight = $scope.data.maxContHeights[0];
+        }
+        if (robot.stackContInd) {
+          $scope.stackContInd = $scope.data.yesNo[robot.stackContInd];
+        } else {
+          $scope.stackContInd = $scope.data.yesNo[0];
+        }
+        if (robot.collectContStep) {
+          $scope.collectContStep = $scope.data.yesNo[robot.collectContStep];
+        } else {
+          $scope.collectContStep = $scope.data.yesNo[0];
+        }
+        if (robot.note) {
+          $scope.note = robot.note;
+        } else {
+          $scope.note = "";
+        }
       }
-
-      $scope.driveSpeed = robot.driveSpeed || $scope.data.driveSpeeds[0];
-      $scope.driveOverPlatform = robot.driveOverPlatform || $scope.data.yesNo[0];;
-      $scope.autonomousCapability = robot.autonomousCapability || $scope.data.autonomousCapabilities[0];;
-      $scope.coopStep = robot.coopStep || $scope.data.coopStepOptions[0];;
-      $scope.pickupLoc = robot.pickupLoc || $scope.data.pickupLocs[0];
-      $scope.maxToteHeight = robot.maxToteHeight || $scope.data.maxToteHeights[0];
-      $scope.maxContHeight = robot.maxContHeight || $scope.data.maxContHeights[0];
-      $scope.stackContInd = robot.stackContInd || $scope.data.yesNo[0];
-      $scope.collectContStep = robot.collectContStep || $scope.data.yesNo[0];
     })
   }
   
@@ -183,9 +266,21 @@ angular.module('cat5scouting.controllers', [])
     This function is called each time a field is updated.
   */
   $scope.robotChanged = function() {
-    var editRobot = angular.copy($scope.robot);
-    editRobot.driveMode = $scope.driveMode;
-    Robot.update($scope.robot, editRobot);
+    //TODO: Figure out why Stack Containers Independently isn't populating when 
+    //the robot is selected after the value has been persisted
+    var editRobot = angular.copy($scope.selectedRobot);
+    editRobot.driveMode = $scope.driveMode || $scope.data.driveModes[0];
+    editRobot.driveSpeed = $scope.driveSpeed || $scope.data.driveSpeeds[0];
+    editRobot.driveOverPlatform = $scope.driveOverPlatform || $scope.data.yesNo[0];
+    editRobot.autonomousCapability = $scope.autonomousCapability || $scope.data.autonomousCapabilities[0];
+    editRobot.coopStep = $scope.coopStep || $scope.data.coopStepOptions[0];
+    editRobot.pickupLoc = $scope.pickupLoc || $scope.data.pickupLocs[0];
+    editRobot.maxToteHeight = $scope.maxToteHeight || $scope.data.maxToteHeights[0];
+    editRobot.maxContHeight = $scope.maxContHeight || $scope.data.maxContHeights[0];
+    editRobot.stackContInd = $scope.stackContInd || $scope.data.yesNo[0];
+    editRobot.collectContStep = $scope.collectContStep || 0;
+    editRobot.note = $scope.note || "";
+    Robot.update($scope.selectedRobot, editRobot);
   }
 })
 
@@ -240,7 +335,7 @@ angular.module('cat5scouting.controllers', [])
     var teamCopy = angular.copy($scope.team);
     var matchCopy = angular.copy($scope.match);
     //then reset the data
-    $scope.resetData();
+    //$scope.resetData();
     //then repopulate the selected team and match
     $scope.team = teamCopy;
     $scope.match = matchCopy;
@@ -259,114 +354,141 @@ angular.module('cat5scouting.controllers', [])
   */
   $scope.selectRobot = function() {
     //the if statement skips the contents if this function was triggered by the 
-    //field being set to no-value.
-    if ($scope.selectedRobot) {
-      //check to make sure both a robot and a match have been selected
-      if ($scope.selectedRobot && $scope.match) {
-        //retrieve all robot data for the selected robot
-        RobotMatch.getById($scope.selectedRobot.id, $scope.match.id).then(function(robot) {
-          //verify that a robot was returned instead of null (null = no matching record in the db)
-          if (robot) {
-            //set the current robot
-            $scope.robot = robot;
-            
-            //set the values for the fields in the form based on the database if they
-            //exist. Otherwise, set to the unselected value.
-            if (robot.driveSpeed) {
-              $scope.driveSpeed = $scope.data.driveSpeeds[robot.driveSpeed];
-            } else {
-              $scope.driveSpeed = $scope.data.driveSpeeds[0];
-            }
-            
-            if (robot.driveOverPlatform) {
-              $scope.driveOverPlatform = $scope.data.yesNo[robot.driveOverPlatform];
-            } else {
-              $scope.driveOverPlatform = $scope.data.yesNo[0];
-            }
-            
-            if (robot.botSet) {
-              $scope.botSet = $scope.data.yesNo[robot.botSet];
-            } else {
-              $scope.botSet = $scope.data.yesNo[0];
-            }
-            
-            if (robot.toteSet) {
-              $scope.toteSet = $scope.data.yesNo[robot.toteSet];
-            } else {
-              $scope.toteSet = $scope.data.yesNo[0];
-            }
-            
-            if (robot.containerSet) {
-              $scope.containerSet = $scope.data.yesNo[robot.containerSet];
-            } else {
-              $scope.containerSet = $scope.data.yesNo[0];
-            }
-            
-            if (robot.stackedToteSet) {
-              $scope.stackedToteSet = $scope.data.yesNo[robot.stackedToteSet];
-            } else {
-              $scope.stackedToteSet = $scope.data.yesNo[0];
-            }
-            
-            if (robot.coopScoreStep) {
-              $scope.coopScoreStep = robot.coopScoreStep
-            } else {
-              $scope.coopScoreStep = 0;
-            }
-            
-            if (robot.feedstation) {
-              $scope.feedstation = $scope.data.yesNo[robot.feedstation];
-            } else {
-              $scope.feedstation = $scope.data.yesNo[0];
-            }
-            
-            if (robot.landfill) {
-              $scope.landfill = $scope.data.yesNo[robot.landfill];
-            } else {
-              $scope.landfill = $scope.data.yesNo[0];
-            }
-            
-            if (robot.scoredToteHeight) {
-              $scope.scoredToteHeight = robot.scoredToteHeight;
-            } else {
-              $scope.scoredToteHeight = 0;
-            }
-            
-            if (robot.containerStep) {
-              $scope.containerStep = $scope.data.yesNo[robot.containerStep];
-            } else {
-              $scope.containerStep = $scope.data.yesNo[0];
-            }
-            
-            if (robot.scoredIndContainerHeight) {
-              $scope.scoredIndContainerHeight = robot.scoredIndContainerHeight;
-            } else {
-              $scope.scoredIndContainerHeight = 0;
-            }
-            
-            if (robot.scoredContainerHeight) {
-              $scope.scoredContainerHeight = robot.scoredContainerHeight;
-            } else {
-              $scope.scoredContainerHeight = 0;
-            }
+    //field being set to no-value or if both a robot and match haven't been 
+    //selectd
+    if ($scope.selectedRobot && $scope.match) {
+      //retrieve all robot data for the selected robot
+      RobotMatch.getById($scope.selectedRobot.id, $scope.match.id).then(function(robot) {
+        //verify that a robot was returned instead of null (null = no matching record in the db)
+        if (robot) {
+          
+          /** TEST BEGIN **/
+          console.log("RobotMatch.getById found a robot/match combination");
+          /** TEST END **/
+          
+          
+          //set the current robot
+          $scope.robot = robot;
+          
+          //set the values for the fields in the form based on the database if they
+          //exist. Otherwise, set to the unselected value.
+          if (robot.driveSpeed) {
+            $scope.driveSpeed = $scope.data.driveSpeeds[robot.driveSpeed];
           } else {
-            //if no database record, set all fields to unselected values
             $scope.driveSpeed = $scope.data.driveSpeeds[0];
+          }
+          
+          if (robot.driveOverPlatform) {
+            $scope.driveOverPlatform = $scope.data.yesNo[robot.driveOverPlatform];
+          } else {
             $scope.driveOverPlatform = $scope.data.yesNo[0];
+          }
+          
+          if (robot.botSet) {
+            $scope.botSet = $scope.data.yesNo[robot.botSet];
+          } else {
             $scope.botSet = $scope.data.yesNo[0];
+          }
+          
+          if (robot.toteSet) {
+            $scope.toteSet = $scope.data.yesNo[robot.toteSet];
+          } else {
             $scope.toteSet = $scope.data.yesNo[0];
+          }
+          
+          if (robot.containerSet) {
+            $scope.containerSet = $scope.data.yesNo[robot.containerSet];
+          } else {
             $scope.containerSet = $scope.data.yesNo[0];
+          }
+          
+          if (robot.stackedToteSet) {
+            $scope.stackedToteSet = $scope.data.yesNo[robot.stackedToteSet];
+          } else {
             $scope.stackedToteSet = $scope.data.yesNo[0];
+          }
+          
+          if (robot.coopScoreStep) {
+            $scope.coopScoreStep = robot.coopScoreStep
+          } else {
             $scope.coopScoreStep = 0;
+          }
+          
+          if (robot.feedstation) {
+            $scope.feedstation = $scope.data.yesNo[robot.feedstation];
+          } else {
             $scope.feedstation = $scope.data.yesNo[0];
+          }
+          
+          if (robot.landfill) {
+            $scope.landfill = $scope.data.yesNo[robot.landfill];
+          } else {
             $scope.landfill = $scope.data.yesNo[0];
+          }
+          
+          if (robot.scoredToteHeight) {
+            $scope.scoredToteHeight = robot.scoredToteHeight;
+          } else {
             $scope.scoredToteHeight = 0;
+          }
+          
+          if (robot.containerStep) {
+            $scope.containerStep = $scope.data.yesNo[robot.containerStep];
+          } else {
             $scope.containerStep = $scope.data.yesNo[0];
+          }
+          
+          if (robot.scoredIndContainerHeight) {
+            $scope.scoredIndContainerHeight = robot.scoredIndContainerHeight;
+          } else {
             $scope.scoredIndContainerHeight = 0;
+          }
+          
+          if (robot.scoredContainerHeight) {
+            $scope.scoredContainerHeight = robot.scoredContainerHeight;
+          } else {
             $scope.scoredContainerHeight = 0;
           }
-        })
-      }
+        } else {
+          //if no database record, set all fields to unselected values for the 
+          //form to display
+          $scope.driveSpeed = $scope.data.driveSpeeds[0];
+          $scope.driveOverPlatform = $scope.data.yesNo[0];
+          $scope.botSet = $scope.data.yesNo[0];
+          $scope.toteSet = $scope.data.yesNo[0];
+          $scope.containerSet = $scope.data.yesNo[0];
+          $scope.stackedToteSet = $scope.data.yesNo[0];
+          $scope.coopScoreStep = 0;
+          $scope.feedstation = $scope.data.yesNo[0];
+          $scope.landfill = $scope.data.yesNo[0];
+          $scope.scoredToteHeight = 0;
+          $scope.containerStep = $scope.data.yesNo[0];
+          $scope.scoredIndContainerHeight = 0;
+          $scope.scoredContainerHeight = 0;
+          
+          //then create a robot object with the same values
+          var newRobotMatch = [];
+          newRobotMatch.robotId = $scope.selectedRobot.id;
+          newRobotMatch.matchId = $scope.match.id;
+          newRobotMatch.driveSpeed = $scope.data.driveSpeeds[0];
+          newRobotMatch.driveOverPlatform = $scope.data.yesNo[0];
+          newRobotMatch.botSet = $scope.data.yesNo[0];
+          newRobotMatch.toteSet = $scope.data.yesNo[0];
+          newRobotMatch.containerSet = $scope.data.yesNo[0];
+          newRobotMatch.stackedToteSet = $scope.data.yesNo[0];
+          newRobotMatch.coopScoreStep = 0;
+          newRobotMatch.feedstation = $scope.data.yesNo[0];
+          newRobotMatch.landfill = $scope.data.yesNo[0];
+          newRobotMatch.scoredToteHeight = 0;
+          newRobotMatch.containerStep = $scope.data.yesNo[0];
+          newRobotMatch.scoredIndContainerHeight = 0;
+          newRobotMatch.scoredContainerHeight = 0;
+          
+          //and then persist the values to a new data store record
+          console.log("Adding new records to RobotMatch with robot ID '" + newRobotMatch.robotId + "' and match ID '" + newRobotMatch.matchId + "'");
+          RobotMatch.add(newRobotMatch);
+        }
+      })
     }
   }
   
@@ -380,87 +502,95 @@ angular.module('cat5scouting.controllers', [])
   /*
     This function is called each time a field is updated.
   */
-  $scope.robotChanged = function() {
-    var editRobot = angular.copy($scope.robot);
+  $scope.robotMatchChanged = function() {
+    var editRobotMatch = angular.copy($scope.selectedRobot);
     
     if ($scope.driveSpeed) {
-      editRobot.driveSpeed = angular.copy($scope.driveSpeed);
+      editRobotMatch.driveSpeed = angular.copy($scope.driveSpeed);
     } else {
-      editRobot.driveSpeed = $scope.data.driveSpeeds[0];
+      editRobotMatch.driveSpeed = $scope.data.driveSpeeds[0];
     }
     
     if ($scope.driveOverPlatform) {
-      editRobot.driveOverPlatform = angular.copy($scope.driveOverPlatform);
+      editRobotMatch.driveOverPlatform = angular.copy($scope.driveOverPlatform);
     } else {
-      editRobot.driveOverPlatform = $scope.data.yesNo[0];;
+      editRobotMatch.driveOverPlatform = $scope.data.yesNo[0];;
     }
     
     if ($scope.botSet) {
-      editRobot.botSet = angular.copy($scope.botSet);
+      editRobotMatch.botSet = angular.copy($scope.botSet);
     } else {
-      editRobot.botSet = $scope.data.yesNo[0];
+      editRobotMatch.botSet = $scope.data.yesNo[0];
     }
     
     if ($scope.toteSet) {
-      editRobot.toteSet = angular.copy($scope.toteSet);
+      editRobotMatch.toteSet = angular.copy($scope.toteSet);
     } else {
-      editRobot.toteSet = $scope.data.yesNo[0];
+      editRobotMatch.toteSet = $scope.data.yesNo[0];
     }
     
     if ($scope.containerSet) {
-      editRobot.containerSet = angular.copy($scope.containerSet);
+      editRobotMatch.containerSet = angular.copy($scope.containerSet);
     } else {
-      editRobot.containerSet = $scope.data.yesNo[0];
+      editRobotMatch.containerSet = $scope.data.yesNo[0];
     }
     
     if ($scope.stackedToteSet) {
-      editRobot.stackedToteSet = angular.copy($scope.stackedToteSet);
+      editRobotMatch.stackedToteSet = angular.copy($scope.stackedToteSet);
     } else {
-      editRobot.stackedToteSet = $scope.data.yesNo[0];
+      editRobotMatch.stackedToteSet = $scope.data.yesNo[0];
     }
     
     if ($scope.coopScoreStep) {
-      editRobot.coopScoreStep = angular.copy($scope.coopScoreStep);
+      editRobotMatch.coopScoreStep = angular.copy($scope.coopScoreStep);
     } else {
-      editRobot.coopScoreStep = 0;
+      editRobotMatch.coopScoreStep = 0;
     }
     
     if ($scope.feedstation) {
-      editRobot.feedstation = angular.copy($scope.feedstation);
+      editRobotMatch.feedstation = angular.copy($scope.feedstation);
     } else {
-      editRobot.feedstation = $scope.data.yesNo[0];
+      editRobotMatch.feedstation = $scope.data.yesNo[0];
     }
     
     if ($scope.landfill) {
-      editRobot.landfill = angular.copy($scope.landfill);
+      editRobotMatch.landfill = angular.copy($scope.landfill);
     } else {
-      editRobot.landfill = $scope.data.yesNo[0];
+      editRobotMatch.landfill = $scope.data.yesNo[0];
     }
     
     if ($scope.scoredToteHeight) {
-      editRobot.scoredToteHeight = angular.copy($scope.scoredToteHeight);
+      editRobotMatch.scoredToteHeight = angular.copy($scope.scoredToteHeight);
     } else {
-      editRobot.scoredToteHeight = 0;
+      editRobotMatch.scoredToteHeight = 0;
     }
     
     if ($scope.containerStep) {
-      editRobot.containerStep = angular.copy($scope.containerStep);
+      editRobotMatch.containerStep = angular.copy($scope.containerStep);
     } else {
-      editRobot.containerStep = $scope.data.yesNo[0];
+      editRobotMatch.containerStep = $scope.data.yesNo[0];
     }
     
     if ($scope.scoredIndContainerHeight) {
-      editRobot.scoredIndContainerHeight = angular.copy($scope.scoredIndContainerHeight);
+      editRobotMatch.scoredIndContainerHeight = angular.copy($scope.scoredIndContainerHeight);
     } else {
-      editRobot.scoredIndContainerHeight = 0;
+      editRobotMatch.scoredIndContainerHeight = 0;
     }
     
     if ($scope.scoredContainerHeight) {
-      editRobot.scoredContainerHeight = angular.copy($scope.scoredContainerHeight);
+      editRobotMatch.scoredContainerHeight = angular.copy($scope.scoredContainerHeight);
     } else {
-      editRobot.scoredContainerHeight = 0;
+      editRobotMatch.scoredContainerHeight = 0;
     }
     
-    RobotMatch.update($scope.robot, editRobot);
+    if ($scope.selectedRobot) {
+      editRobotMatch.robotId = angular.copy($scope.selectedRobot.id);
+    }
+    
+    if ($scope.match) {
+      editRobotMatch.matchId = angular.copy($scope.match.id);
+    }
+    
+    RobotMatch.update($scope.selectedRobot, editRobotMatch);
   }
 });
