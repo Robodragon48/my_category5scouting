@@ -201,6 +201,18 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     })
     //reset the selected robot
     $scope.selectedRobot = null;
+    //reset all the subsequent fields
+    $scope.driveMode = $scope.data.driveModes[0];
+    $scope.driveSpeed = $scope.data.driveSpeeds[0];
+    $scope.driveOverPlatform = $scope.data.yesNo[0];
+    $scope.autonomousCapability = $scope.data.autonomousCapabilities[0];
+    $scope.coopStep = $scope.data.coopStepOptions[0];
+    $scope.pickupLoc = $scope.data.pickupLocs[0];
+    $scope.maxToteHeight = $scope.data.maxToteHeights[0];
+    $scope.maxContHeight = $scope.data.maxContHeights[0];
+    $scope.stackContInd = $scope.data.yesNo[0];
+    $scope.collectContStep = $scope.data.yesNo[0];
+    $scope.note = "";
   }
   
   /*
@@ -217,60 +229,36 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
         
         //set the values for the fields in the form based on the database if they
         //exist. Otherwise, set to the unselected value.
-        if (robot.driveMode) {
-          $scope.driveMode = $scope.data.driveModes[robot.driveMode];
-        } else {
-          $scope.driveMode = $scope.data.driveModes[0];
-        }
+        if (robot.driveMode) $scope.driveMode = $scope.data.driveModes[robot.driveMode];
         if (robot.driveSpeed) {
           $scope.driveSpeed = $scope.data.driveSpeeds[robot.driveSpeed];
-        } else {
-          $scope.driveSpeed = $scope.data.driveSpeeds[0];
         }
         if (robot.driveOverPlatform) {
           $scope.driveOverPlatform = $scope.data.yesNo[robot.driveOverPlatform];
-        } else {
-          $scope.driveOverPlatform = $scope.data.yesNo[0];
         }
         if (robot.autonomousCapability) {
           $scope.autonomousCapability = $scope.data.autonomousCapabilities[robot.autonomousCapability];
-        } else {
-          $scope.autonomousCapability = $scope.data.autonomousCapabilities[0];
         }
         if (robot.coopStep) {
           $scope.coopStep = $scope.data.coopStepOptions[robot.coopStep];
-        } else {
-          $scope.coopStep = $scope.data.coopStepOptions[0];
         }
         if (robot.pickupLoc) {
           $scope.pickupLoc = $scope.data.pickupLocs[robot.pickupLoc];
-        } else {
-          $scope.pickupLoc = $scope.data.pickupLocs[0];
         }
         if (robot.maxToteHeight) {
           $scope.maxToteHeight = $scope.data.maxToteHeights[robot.maxToteHeight];
-        } else {
-          $scope.maxToteHeight = $scope.data.maxToteHeights[0];
         }
         if (robot.maxContHeight) {
           $scope.maxContHeight = $scope.data.maxContHeights[robot.maxContHeight];
-        } else {
-          $scope.maxContHeight = $scope.data.maxContHeights[0];
         }
         if (robot.stackContInd) {
           $scope.stackContInd = $scope.data.yesNo[robot.stackContInd];
-        } else {
-          $scope.stackContInd = $scope.data.yesNo[0];
         }
         if (robot.collectContStep) {
           $scope.collectContStep = $scope.data.yesNo[robot.collectContStep];
-        } else {
-          $scope.collectContStep = $scope.data.yesNo[0];
         }
         if (robot.note) {
           $scope.note = robot.note;
-        } else {
-          $scope.note = "";
         }
       }
     })
