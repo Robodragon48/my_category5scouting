@@ -33,7 +33,8 @@
                             id="driveMode" 
                             ng-options="option.name for option in data.driveModes track by option.id"
                             ng-model="driveMode"
-                            ng-change="robotChanged()"></select>
+                            ng-change="robotChanged()"
+                            ng-disabled="disableFields()"></select>
                     </label>
                         
                     <label class="item item-input item-select">
@@ -43,7 +44,8 @@
                             id="driveSpeed" 
                             ng-options="option.name for option in data.driveSpeeds track by option.id"
                             ng-model="driveSpeed"
-                            ng-change="robotChanged()"></select>
+                            ng-change="robotChanged()"
+                            ng-disabled="disableFields()"></select>
                     </label>
                         
                     <label class="item item-input item-select">
@@ -53,7 +55,8 @@
                             id="driveOverPlatform" 
                             ng-options="option.name for option in data.yesNo track by option.id"
                             ng-model="driveOverPlatform"
-                            ng-change="robotChanged()"></select>
+                            ng-change="robotChanged()"
+                            ng-disabled="disableFields()"></select>
                     </label>
                         
                     <label class="item item-input item-select">
@@ -63,7 +66,8 @@
                             id="autonomousCapability" 
                             ng-options="option.name for option in data.autonomousCapabilities track by option.id"
                             ng-model="autonomousCapability"
-                            ng-change="robotChanged()"></select>
+                            ng-change="robotChanged()"
+                            ng-disabled="disableFields()"></select>
                     </label>
                     
                     <label class="item item-input item-select"> 
@@ -73,7 +77,8 @@
                             id="coopStep" 
                             ng-options="option.name for option in data.coopStepOptions track by option.id"
                             ng-model="coopStep"
-                            ng-change="robotChanged()"></select>
+                            ng-change="robotChanged()"
+                            ng-disabled="disableFields()"></select>
                     </label>
                         
                     <label class="item item-input item-select">
@@ -83,7 +88,8 @@
                             id="pickupLoc" 
                             ng-options="option.name for option in data.pickupLocs track by option.id"
                             ng-model="pickupLoc"
-                            ng-change="robotChanged()"></select>
+                            ng-change="robotChanged()"
+                            ng-disabled="disableFields()"></select>
                     </label>
                         
                     <label class="item item-input item-select"> 
@@ -93,7 +99,8 @@
                             id="maxToteHeight" 
                             ng-options="option.name for option in data.maxToteHeights track by option.id"
                             ng-model="maxToteHeight"
-                            ng-change="robotChanged()"></select>
+                            ng-change="robotChanged()"
+                            ng-disabled="disableFields()"></select>
                     </label>
                         
                     <label class="item item-input item-select"> 
@@ -103,7 +110,8 @@
                             id="maxContHeight" 
                             ng-options="option.name for option in data.maxContHeights track by option.id"
                             ng-model="maxContHeight"
-                            ng-change="robotChanged()"></select>
+                            ng-change="robotChanged()"
+                            ng-disabled="disableFields()"></select>
                     </label>
                         
                     <label class="item item-input item-select">
@@ -113,7 +121,8 @@
                             id="stackContInd" 
                             ng-options="option.name for option in data.yesNo track by option.id"
                             ng-model="stackContInd"
-                            ng-change="robotChanged()"></select>
+                            ng-change="robotChanged()"
+                            ng-disabled="disableFields()"></select>
                     </label>
                         
                     <label class="item item-input item-select">
@@ -123,7 +132,8 @@
                             id="collectContStep" 
                             ng-options="option.name for option in data.yesNo track by option.id"
                             ng-model="collectContStep"
-                            ng-change="robotChanged()"></select>
+                            ng-change="robotChanged()"
+                            ng-disabled="disableFields()"></select>
                     </label>
     
                     <label class="item item-input item-select">
@@ -133,7 +143,8 @@
                             id="notes" 
                             ng-model="note" 
                             rows="3"
-                            ng-change="robotChanged()"></textarea>
+                            ng-change="robotChanged()"
+                            ng-disabled="disableFields()"></textarea>
                     </label>
                     
                 </div>

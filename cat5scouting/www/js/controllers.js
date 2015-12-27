@@ -180,6 +180,15 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
       {id: '4', name: '5-6'}
     ]
   }
+
+  /*
+    This function is called to determine if non-team and non-robot fields should
+    be anbled. If and only if both a team and a robot have been selected, it 
+    returns false (meaning don't disable the fields)
+  */
+  $scope.disableFields = function() {
+    return $scope.selectedRobot == null;
+  }
   
   /*
     This function is called when the user changes the team. It loads values for
