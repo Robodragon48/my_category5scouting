@@ -141,7 +141,7 @@ angular.module('cat5scouting.services', [])
             query += " maxContHeight = (?),";
         }
         if (editRobot.stackContInd) { 
-            parameters.push(editRobot.stackContInd); 
+            parameters.push(editRobot.stackContInd.id); 
             query += " stackContInd = (?),";
         }
         if (editRobot.collectContStep) { 
