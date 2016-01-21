@@ -355,10 +355,6 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     selected team, it sets all of the fields to [Unknown]. 
   */
   $scope.selectRobot = function() {
-    /** TEST START **/
-    alert("$scope.selectRobot triggered");
-    /** TEST END **/
-    
     //the if statement skips the contents if this function was triggered by the 
     //field being set to no-value or if both a robot and match haven't been 
     //selectd
@@ -367,22 +363,14 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
       RobotMatch.getById($scope.selectedRobot.id, $scope.match.id).then(function(robot) {
         //verify that a robot was returned instead of null (null = no matching record in the db)
         if (robot) {
-          
-          /** TEST BEGIN **/
-          console.log("RobotMatch.getById found a robot/match combination");
-          /** TEST END **/
-          
-          
           //set the current robot
           $scope.robot = robot;
           
           //set the values for the fields in the form based on the database if they
           //exist. Otherwise, set to the unselected value.
           if (robot.driveSpeed) {
-            alert("Setting robot drive speed to " + robot.driveSpeed);
             $scope.driveSpeed = $scope.data.driveSpeeds[robot.driveSpeed];
           } else {
-            alert("Setting robot drive speed to the default");
             $scope.driveSpeed = $scope.data.driveSpeeds[0];
           }
           
