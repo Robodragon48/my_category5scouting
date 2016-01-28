@@ -43,48 +43,56 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
 })
 
 
-.controller('SyncCtrl', function($scope, $cordovaFile, Robot, RobotMatch) {
-  
-  $scope.exportData = function() {
-    
-    console.log("exportData called");
-    
-    //Create the exported Robot data to write to a file
-    var exportData = "Test data for export";
-    /*
-    Robot.all().then(function(robots) {
-      for (var i=0; i<robots.length; i++) {
-        exportData += robots[i].name;
-        exportData += ", ";
-      }
-    })
-    */
-    
-    console.log("exportData = " + exportData);
-    
-    $cordovaFile.writeFile(cordova.file.dataDirectory, "Cat5Scouting.Pit.txt", exportData, true)
-      .then(function (success) {
-        console.log("Data exported to Cat5Scouting.Pit.txt");
-      }, function (error) {
-        console.log("Problem writing text to Pit file");
-      });
 
-    //Create the exported Robot Match data to write to a file
-    var exportData = "";
-    RobotMatch.all().then(function(robotMatches) {
-      for (var i=0; i<robotMatches.length; i++) {
-        exportData += robotMatches[i].robotId;
-        exportData += ", ";
-      }
-    })
+.controller('SyncCtrl', function($scope, $cordovaFile) {
+  
+  document.addEventListener('deviceready', function() {
+
+    $scope.exportData = function() {
     
-    $cordovaFile.writeFile(cordova.file.dataDirectory, "Cat5Scouting.Match.txt", exportData, true)
-      .then(function (success) {
-        console.log("Data exported to Cat5Scouting.Match.txt");
-      }, function (error) {
-        console.log("Problem writing text to Match file");
-      });
-  }
+      console.log("exportData called");
+      
+      //Create header for the file to make it easier to keep track of where data 
+      //came from
+      var d = new Date();
+      var exportData = "Data exported from tablet " + "[tabletname]" + " at " + d.toUTCString();
+
+      //Create the exported Robot data to write to a file
+      /*
+      Robot.all().then(function(robots) {
+        for (var i=0; i<robots.length; i++) {
+          exportData += robots[i].name;
+          exportData += ", ";
+        }
+      })
+      */
+      
+      $cordovaFile.writeFile("file:///storage/emulated/0/", "Cat5Scouting.Pit.txt", exportData, true)
+        .then(function (success) {
+          console.log("Data exported to Cat5Scouting.Pit.txt");
+        }, function (error) {
+          console.log("Problem writing text to Pit file");
+        });
+
+      //Create the exported Robot Match data to write to a file
+      /*
+      var exportData = "Data exported from tablet " + "[tabletname]" + " at " + d.toUTCString();
+      RobotMatch.all().then(function(robotMatches) {
+        for (var i=0; i<robotMatches.length; i++) {
+          exportData += robotMatches[i].robotId;
+          exportData += ", ";
+        }
+      })
+      
+      $cordovaFile.writeFile("file:///storage/emulated/0/", "Cat5Scouting.Match.txt", exportData, true)
+        .then(function (success) {
+          console.log("Data exported to Cat5Scouting.Match.txt");
+        }, function (error) {
+          console.log("Problem writing text to Match file");
+        });
+      */
+    }
+  })
 })
 
 
