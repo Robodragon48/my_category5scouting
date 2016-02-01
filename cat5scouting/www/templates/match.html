@@ -1,179 +1,188 @@
-<ion-view view-title="Match Scouting">
-    <ion-content>
-        <div ng-controller="MatchScoutingController" class="padding">
-            <form name="MatchScoutForm">
-                <div class="list">
-                    <label class="item item-input item-select"> 
-                        <span class="input-label">Team name</span>
-                        <select 
-                            name="team" 
-                            id="team" 
-                            ng-options="option.name for option in teams track by option.id"
-                            ng-model="team"
-                            ng-change="selectTeam()"></select>
-                    </label>
-    
-                    <label class="item item-input item-select"> 
-                        <span class="input-label">Robot name</span>
-                        <select 
-                            name="selectedRobot" 
-                            id="selectedRobot" 
-                            ng-options="option.name for option in robots track by option.id"
-                            ng-model="selectedRobot"
-                            ng-change="selectRobot()"></select>
-                    </label>
-    
-                    <label class="item item-input item-select"> 
-                        <span class="input-label">Match number</span>
-                        <select 
-                            name="match"
-                            id="match"
-                            ng-options="option.number for option in matches track by option.id"
-                            ng-model="match"
-                            ng-change="selectMatch()"></select>
-                    </label>
-                    
-                    <label class="item item-input item-select">
-                        <span class="input-label">Drive speed</span> 
-                        <select 
-                            name="driveSpeed" 
-                            id="driveSpeed" 
-                            ng-options="option.name for option in data.driveSpeeds track by option.id"
-                            ng-model="driveSpeed"
-                            ng-change="robotMatchChanged()"></select>
-                    </label>
+<ion-view title="Match Scouting">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <form class="list">
+            <label class="item item-input item-select"> 
+                <span class="input-label">Team name</span>
+                <select 
+                    name="team" 
+                    id="team" 
+                    ng-options="option.name for option in teams track by option.id"
+                    ng-model="team"
+                    ng-change="selectTeam()"></select>
+            </label>
 
-          
-                    <label class="item item-input item-select">
-                        <span class="input-label">Bot can drive over platform</span> 
-                        <select 
-                            name="driveOverPlatform" 
-                            id="driveOverPlatform" 
-                            ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="driveOverPlatform"
-                            ng-change="robotMatchChanged()"></select>
-                    </label>
-          
-                    <label class="item item-input item-select">
-                        <span class="input-label">Bot set</span> 
-                        <select 
-                            name="botSet" 
-                            id="botSet" 
-                            ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="botSet"
-                            ng-change="robotMatchChanged()"></select>
-                    </label>
-          
-                    <label class="item item-input item-select">
-                        <span class="input-label">Tote set</span> 
-                        <select 
-                            name="toteSet" 
-                            id="toteSet" 
-                            ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="toteSet"
-                            ng-change="robotMatchChanged()"></select>
-                    </label>
-          
-                    <label class="item item-input item-select">
-                        <span class="input-label">Container set</span> 
-                        <select 
-                            name="containerSet" 
-                            id="containerSet" 
-                            ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="containerSet"
-                            ng-change="robotMatchChanged()"></select>
-                    </label>
-          
-                    <label class="item item-input item-select">
-                        <span class="input-label">Stacked tote set</span> 
-                        <select 
-                            name="stackedToteSet" 
-                            id="stackedToteSet" 
-                            ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="stackedToteSet"
-                            ng-change="robotMatchChanged()"></select>
-                    </label>
-                    
-                    <label class="item item-input range">
-                        <span class="input-label">Coop Score on Step</span>
-                        <input 
-                            type="range" 
-                            name="coopScoreStep" 
-                            min="0" 
-                            max="3" 
-                            value="0" 
-                            ng-model="coopScoreStep" 
-                            ng-change="robotMatchChanged()">
-                        {{data.coopScoreStep}}
-                    </label>
-                    
-                    <label class="item item-input item-select">
-                        <span class="input-label">Feedstation Pickup</span> 
-                        <select 
-                            name="feedstation" 
-                            id="feedstation" 
-                            ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="feedstation"
-                            ng-change="robotMatchChanged()"></select>
-                    </label>
-                    
-                    <label class="item item-input item-select">
-                        <span class="input-label">Landfill Pickup</span> 
-                        <select 
-                            name="landfill" 
-                            id="landfill" 
-                            ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="landfill"
-                            ng-change="robotMatchChanged()"></select>
-                    </label>
+            <label class="item item-input item-select"> 
+                <span class="input-label">Robot name</span>
+                <select 
+                    name="selectedRobot" 
+                    id="selectedRobot" 
+                    ng-options="option.name for option in robots track by option.id"
+                    ng-model="selectedRobot"
+                    ng-change="selectRobot()"></select>
+            </label>
 
-                    <label class="item item-input range">
-                        <span class="input-label">Scored Tote Height</span>
-                        <input 
-                            type="range" 
-                            name="scoredToteHeight" 
-                            min="0" 
-                            max="6" 
-                            ng-model="scoredToteHeight"
-                            ng-change="robotMatchChanged()">
-                        {{data.scoredToteHeight}}
-                    </label>
-                    
-                    <label class="item item-input item-select">
-                        <span class="input-label">Container Pickup from Step</span> 
-                        <select 
-                            name="containerStep" 
-                            id="containerStep" 
-                            ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="containerStep"
-                            ng-change="robotMatchChanged()"></select>
-                    </label>
-                    
-                    <label class="item item-input range">
-                        <span class="input-label">Container Independent Score Height</span>
-                        <input 
-                            type="range" 
-                            name="scoredIndContainerHeight" 
-                            min="0" 
-                            max="6" 
-                            ng-model="scoredIndContainerHeight"
-                            ng-change="robotMatchChanged()">
-                        {{data.scoredIndContainerHeight}}
-                    </label>
-                    
-                    <label class="item item-input range">
-                        <span class="input-label">Container Score Height</span>
-                        <input 
-                            type="range" 
-                            name="scoredContainerHeight" 
-                            min="0" 
-                            max="6" 
-                            ng-model="scoredContainerHeight"
-                            ng-change="robotMatchChanged()">
-                        {{data.scoredContainerHeight}}
-                    </label>
+            <label class="item item-input item-select"> 
+                <span class="input-label">Match number</span>
+                <select 
+                    name="match"
+                    id="match"
+                    ng-options="option.number for option in matches track by option.id"
+                    ng-model="match"
+                    ng-change="selectMatch()"></select>
+            </label>
+            <ion-item class="range range-positive"># Boulders through low goal
+                <input type="range" value="0" min="0" max="8" name="numLow">
+            </ion-item>
+            <ion-item class="range range-positive"># Boulders through the high goal
+                <input type="range" value="0" min="0" max="8" name="numHigh">
+            </ion-item>
+        
+            <div class="list card">
+                <div class="item item-divider">Autonomous</div>
+                <div class="item item-body">
+                    <form class="list">
+                        <ion-item class="range range-positive"># Times traversed the low bar
+                            <input type="range" value="0" min="0" max="8" name="lowBarA">
+                        </ion-item>
+                        <ion-item class="range range-positive"># Times traversed the portcullis
+                            <input type="range" value="0" min="0" max="8" name="portT">
+                        </ion-item>
+                        <ion-item class="range range-positive"># Times traversed the cheval de frise
+                            <input type="range" value="0" min="0" max="8" name="chevA">
+                        </ion-item>
+                        <ion-item class="range range-positive"># Times traversed the moat
+                            <input type="range" value="0" min="0" max="8" name="moatA">
+                        </ion-item>
+                        <ion-item class="range range-positive"># Times traversed the rampart
+                            <input type="range" value="0" min="0" max="8" name="rampartA">
+                        </ion-item>
+                        <ion-item class="range range-positive"># Times traversed the rock wall
+                            <input type="range" value="0" min="0" max="8" name="rockA">
+                        </ion-item>
+                        <ion-item class="range range-positive"># Times traversed the rough terrain
+                            <input type="range" value="0" min="0" max="8" name="roughA">
+                        </ion-item>
+                        <ion-item class="range range-positive"># Times traversed the sally port
+                            <input type="range" value="0" min="0" max="8" name="sallyA">
+                        </ion-item>
+                        <ion-item class="range range-positive"># Times traversed the drawbridge
+                            <input type="range" value="0" min="0" max="8" name="drawA">
+                        </ion-item>
+                    </form>
                 </div>
-            </form>
-        </div>
+            </div>
+            <div class="list card">
+                <div class="item item-divider">Teleop</div>
+                <div class="item item-body">
+                    <form class="list">
+                        <ion-item class="range range-positive"># Times traversed the low bar
+                            <input type="range" value="0" min="0" max="8" name="lowBarT">
+                        </ion-item>
+                        <ion-item class="range range-positive"># Times traversed the portcullis
+                            <input type="range" value="0" min="0" max="8" name="portA">
+                        </ion-item>
+                        <ion-item class="range range-positive"># Times traversed the cheval de frise
+                            <input type="range" value="0" min="0" max="8" name="chevT">
+                        </ion-item>
+                        <ion-item class="range range-positive"># Times traversed the moat
+                            <input type="range" value="0" min="0" max="8" name="moatT">
+                        </ion-item>
+                        <ion-item class="range range-positive"># Times traversed the rampart
+                            <input type="range" value="0" min="0" max="8" name="rampartT">
+                        </ion-item>
+                        <ion-item class="range range-positive"># Times traversed the rock wall
+                            <input type="range" value="0" min="0" max="8" name="rockT">
+                        </ion-item>
+                        <ion-item class="range range-positive"># Times traversed the rough terrain
+                            <input type="range" value="0" min="0" max="8" name="roughT">
+                        </ion-item>
+                        <ion-item class="range range-positive"># Times traversed the sally port
+                            <input type="range" value="0" min="0" max="8" name="sallyT">
+                        </ion-item>
+                        <ion-item class="range range-positive"># Times traversed the drawbridge
+                            <input type="range" value="0" min="0" max="8" name="drawT">
+                        </ion-item>
+                    </form>
+                </div>
+            </div>
+
+            <label class="item item-select" name="scaled">
+                <span class="input-label">Did the robot scale the tower?</span>
+                <select 
+                    name="scaled" 
+                    id="scaled" 
+                    ng-options="option.name for option in data.yesNo track by option.id"
+                    ng-model="scaled"
+                    ng-change="robotChanged()"
+                    ng-disabled="disableFields()"></select>
+            </label>
+            <label class="item item-select" name="challenge">
+                <span class="input-label">Did the robot challenge the tower?</span>
+                <select 
+                    name="challenge" 
+                    id="challenge" 
+                    ng-options="option.name for option in data.yesNo track by option.id"
+                    ng-model="challenge"
+                    ng-change="robotChanged()"
+                    ng-disabled="disableFields()"></select>
+            </label>
+            <ion-item class="range range-positive">Number of fouls generated
+                <input type="range" value="0" min="0" max="5" name="numF">
+            </ion-item>
+            <ion-toggle toggle-class="toggle-positive" name="borked">The robot became inoperable</ion-toggle>
+            <label class="item item-select" name="bFloor">
+                <span class="input-label">How well did the robot pick up boulders from the floor?</span>
+                <select 
+                    name="bFloor" 
+                    id="bFloor" 
+                    ng-options="option.name for option in data.judgment track by option.id"
+                    ng-model="bFloor"
+                    ng-change="robotChanged()"
+                    ng-disabled="disableFields()"></select>
+            </label>
+            <label class="item item-select" name="bSecret">
+                <span class="input-label">How well did the robot pick up boulders from the secret passage</span>
+                <select 
+                    name="bSecret" 
+                    id="bSecret" 
+                    ng-options="option.name for option in data.judgment track by option.id"
+                    ng-model="bSecret"
+                    ng-change="robotChanged()"
+                    ng-disabled="disableFields()"></select>
+                </select>
+            </label>
+            <label class="item item-select" name="defense">
+                <span class="input-label">How well did the robot play defense</span>
+                <select 
+                    name="defense" 
+                    id="defense" 
+                    ng-options="option.name for option in data.judgment track by option.id"
+                    ng-model="defense"
+                    ng-change="robotChanged()"
+                    ng-disabled="disableFields()"></select>
+                </select>
+            </label>
+            <label class="item item-select" name="spyComm1">
+                <span class="input-label">How well did the team spy communicate</span>
+                <select 
+                    name="spyComm1" 
+                    id="spyComm1" 
+                    ng-options="option.name for option in data.judgment track by option.id"
+                    ng-model="spyComm1"
+                    ng-change="robotChanged()"
+                    ng-disabled="disableFields()"></select>
+                </select>
+            </label>
+            <label class="item item-select" name="spyComm2">
+                <span class="input-label">How well did the drive team use spy communication?</span>
+                <select 
+                    name="spyComm2" 
+                    id="spyComm2" 
+                    ng-options="option.name for option in data.judgment track by option.id"
+                    ng-model="spyComm2"
+                    ng-change="robotChanged()"
+                    ng-disabled="disableFields()"></select>
+            </label>
+        </form>
     </ion-content>
 </ion-view>

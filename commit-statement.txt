@@ -1,0 +1,7 @@
+*23456789 123456789 123456789 123456789 123456789 123456789 123456789 12
+Updated the data model
+
+Updated the table definitions. Moved the sample data generator from the 
+Run function in app.js to a button on the Settings screen/the 
+GenerateSampleData function in controllers.js. Updated the factories in
+services.js. Updated Pit and Match HTML pages.

@@ -35,17 +35,44 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'cat5scouti
     $cordovaSQLite.execute(db, "CREATE TABLE `robot` (`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
                                                    + "`name` TEXT NOT NULL, "
                                                    + "`teamId` INTEGER NOT NULL, "
-                                                   + "`driveMode` INTEGER, "
-                                                   + "`driveSpeed` INTEGER, "
-                                                   + "`driveOverPlatform` INTEGER, "
-                                                   + "`autonomousCapability` INTEGER, "
-                                                   + "`coopStep` INTEGER, "
-                                                   + "`pickupLoc` INTEGER, "
-                                                   + "`maxToteHeight` INTEGER, "
-                                                   + "`maxContHeight` INTEGER, "
-                                                   + "`stackContInd` INTEGER, "
-                                                   + "`collectContStep` INTEGER, "
-                                                   + "`note` TEXT, "
+                                                   + "`runAuto` INTEGER, "
+                                                   + "`driveType` TEXT, "
+                                                   + "`height` INTEGER, "
+                                                   + "`notes` TEXT, "
+                                                   + "`spyReq` INTEGER, "
+                                                   + "`spyDoc` INTEGER, "
+                                                   + "`OWA1` BOOLEAN, " //low bar
+                                                   + "`OWA2` BOOLEAN, " //chival de frise
+                                                   + "`OWA3` BOOLEAN, " //moat
+                                                   + "`OWA4` BOOLEAN, " //ramparts
+                                                   + "`OWA5` BOOLEAN, " //drawbridge
+                                                   + "`OWA6` BOOLEAN, " //sally port
+                                                   + "`OWA7` BOOLEAN, " //portcullis
+                                                   + "`OWA8` BOOLEAN, " //rock wall
+                                                   + "`OWA9` BOOLEAN, " //rough terrain
+                                                   + "`OWT1` BOOLEAN, "
+                                                   + "`OWT2` BOOLEAN, "
+                                                   + "`OWT3` BOOLEAN, "
+                                                   + "`OWT4` BOOLEAN, "
+                                                   + "`OWT5` BOOLEAN, "
+                                                   + "`OWT6` BOOLEAN, "
+                                                   + "`OWT7` BOOLEAN, "
+                                                   + "`OWT8` BOOLEAN, "
+                                                   + "`OWT9` BOOLEAN, "
+                                                   + "`scoreTL` BOOLEAN, "
+                                                   + "`scoreTM` BOOLEAN, "
+                                                   + "`scoreTR` BOOLEAN, "
+                                                   + "`scoreBL` BOOLEAN, "
+                                                   + "`scoreBM` BOOLEAN, "
+                                                   + "`scoreBR` BOOLEAN, "
+                                                   + "`scoreTop` BOOLEAN, "
+                                                   + "`scoreBottom` BOOLEAN, "
+                                                   + "`scale` BOOLEAN, "
+                                                   + "`pickupF` BOOLEAN, "
+                                                   + "`pickupS` BOOLEAN, "
+                                                   + "`defense` BOOLEAN, "
+                                                   + "`spy` BOOLEAN, "
+                                                   + "`signal` BOOLEAN, "
                                                    + "FOREIGN KEY(`teamId`) REFERENCES team ( id ))");
     $cordovaSQLite.execute(db, "CREATE TABLE `match` (`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `number` INTEGER NOT NULL UNIQUE)");
 
@@ -53,112 +80,38 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'cat5scouti
                                                         + "`matchId` INTEGER, "
                                                         + "`robotId` INTEGER, "
                                                         + "`teamId` INTEGER, "
-                                                        + "`driveSpeed` INTEGER, "
-                                                        + "`driveOverPlatform` INTEGER, "
-                                                        + "`botSet` INTEGER, "
-                                                        + "`toteSet` INTEGER, "
-                                                        + "`containerSet` INTEGER, "
-                                                        + "`stackedToteSet` INTEGER, "
-                                                        + "`coopScoreStep` INTEGER, "
-                                                        + "`feedstation` INTEGER, "
-                                                        + "`landfill` INTEGER, "
-                                                        + "`scoredToteHeight` INTEGER, "
-                                                        + "`containerStep` INTEGER, "
-                                                        + "`scoredIndContainerHeight` INTEGER, "
-                                                        + "`scoredContainerHeight` INTEGER, "
+                                                        + "`numLow` INTEGER, "
+                                                        + "`numHigh` INTEGER, "
+                                                        + "`lowBarA` INTEGER, "
+                                                        + "`lowBarT` INTEGER, "
+                                                        + "`portA` INTEGER, "
+                                                        + "`portT` INTEGER, "
+                                                        + "`chevA` INTEGER, "
+                                                        + "`chevT` INTEGER, "
+                                                        + "`moatA` INTEGER, "
+                                                        + "`moatT` INTEGER, "
+                                                        + "`rockA` INTEGER, "
+                                                        + "`rockT` INTEGER, "
+                                                        + "`roughA` INTEGER, "
+                                                        + "`roughT` INTEGER, "
+                                                        + "`sallyA` INTEGER, "
+                                                        + "`sallyT` INTEGER, "
+                                                        + "`drawA` INTEGER, "
+                                                        + "`drawT` INTEGER, "
+                                                        + "`scaled` INTEGER, "
+                                                        + "`challenge` INTEGER, "
+                                                        + "`bFloor` INTEGER, "
+                                                        + "`bSecret` INTEGER, "
+                                                        + "`numF` INTEGER, "
+                                                        + "`borked` BOOLEAN, "
+                                                        + "`defense` INTEGER, "
+                                                        + "`spyComm1` INTEGER, "
+                                                        + "`spyComm2` INTEGER, "
                                                         + "FOREIGN KEY(`matchId`) REFERENCES match ( id ), "
                                                         + "FOREIGN KEY(`robotId`) REFERENCES robot ( id ), "
                                                         + "FOREIGN KEY(`teamId`) REFERENCES team ( id ))");
     
-    /* Load the database with test values
-     * Add to this section each time you add a new table definition
-     * if appropriate */
     
-    /*
-    var query = "INSERT INTO team (name, number) VALUES (?,?)";
-    $cordovaSQLite.execute(db, query, ["Category 5", 3489]).then(function(res) {
-      console.log("team insertId: " + res.insertId);
-    }, function (err) {
-      console.error(err);
-    });
-     
-    var query = "INSERT INTO team (name, number) VALUES (?,?)";
-    $cordovaSQLite.execute(db, query, ["The Burning Magnetos", 342]).then(function(res) {
-      console.log("team insertId: " + res.insertId);
-    }, function (err) {
-      console.error(err);
-    });
-    */
-    
-    var teams = [
-                  1225, 1226, 1293, 1398, 1553, 1598, 1758, 2059, 281, 2815, 
-                  283, 342, 343, 3489, 3490, 3976, 4083, 4451, 4533, 4534, 
-                  4901, 4935, 4955, 4965, 8101
-                ];
-                
-    var query = "INSERT INTO team (name, number) VALUES (?,?)";
-    for (var i=0; i<teams.length; i++) {
-      $cordovaSQLite.execute(db, query, ["Team "+ teams[i], i]).then(function(res) {
-        console.log("team insertId: " + res.insertId);
-      }, function (err) {
-        console.error(err);
-      });
-    }
-    
-    var query = "INSERT INTO robot (name, teamId) VALUES (?,?)";
-    for (var i=1; i<=teams.length; i++) {
-      console.log("i = " + i);
-      $cordovaSQLite.execute(db, query, ["Robot", i]).then(function(res) {
-        console.log("robot insertId: " + res.insertId + " with teamId: " + i);
-      }, function (err) {
-        console.error(err);
-      });
-    }
-
-
-
-    
-    /*
-    var query = "INSERT INTO robot (name, teamId) VALUES (?,?)";
-    $cordovaSQLite.execute(db, query, ["Mechatrina", 1]).then(function(res) {
-      console.log("robot insertId: " + res.insertId);
-    }, function (err) {
-      console.error(err);
-    });
-    
-    var query = "INSERT INTO robot (name, teamId) VALUES (?,?)";
-    $cordovaSQLite.execute(db, query, ["Hugo", 1]).then(function(res) {
-      console.log("robot insertId: " + res.insertId);
-    }, function (err) {
-      console.error(err);
-    });
-    
-    var query = "INSERT INTO robot (name, teamId) VALUES (?,?)";
-    $cordovaSQLite.execute(db, query, ["Megatron", 2]).then(function(res) {
-      console.log("robot insertId: " + res.insertId);
-    }, function (err) {
-      console.error(err);
-    });
-    */
-    for (var i=1; i<32; i++) {
-      var query = "INSERT INTO match (number) VALUES (?)";
-      $cordovaSQLite.execute(db, query, [i]).then(function(res) {
-        console.log("match insertId: " + res.insertId);
-      }, function (err) {
-        console.error(err);
-      });
-    }
-    
-    /*
-    var query = "INSERT INTO robotMatch(robotId, matchId, driveSpeed) VALUES (?, ?, ?);";
-    $cordovaSQLite.execute(db, query, [1, 1, 1]).then(function(res) {
-      console.log("match insertId: " + res.insertId);
-    }, function (err) {
-      console.error(err);
-    });
-    */
-    
-    /**/
   });
 })
 

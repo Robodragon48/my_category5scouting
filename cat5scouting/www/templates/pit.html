@@ -1,21 +1,20 @@
 <ion-view view-title="Pit Scouting">
-    <ion-content>
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
         
 
         <div ng-controller="PitScoutingController" class="padding">
             <form name="PitScoutForm">
                 <div class="list">
                 
-                    <label class="item item-input item-select"> 
-                        <span class="input-label">Team name</span>
+                    <label class="item item-select" name="teamId">
+                        <span class="input-label">Team number</span>
                         <select 
-                            name="team" 
-                            id="team" 
+                            name="teamId" 
+                            id="teamId" 
                             ng-options="option.name for option in teams track by option.id"
-                            ng-model="team"
+                            ng-model="teamId"
                             ng-change="selectTeam()"></select>
                     </label>
-                        
                     <label class="item item-input item-select"> 
                         <span class="input-label">Robot name</span>
                         <select 
@@ -25,126 +24,83 @@
                             ng-model="selectedRobot"
                             ng-change="selectRobot()"></select>
                     </label>
-    
-                    <label class="item item-input item-select">
-                        <span class="input-label">Drive mode</span> 
-                        <select 
-                            name="driveMode" 
-                            id="driveMode" 
-                            ng-options="option.name for option in data.driveModes track by option.id"
-                            ng-model="driveMode"
-                            ng-change="robotChanged()"
-                            ng-disabled="disableFields()"></select>
+                    <label class="item item-input" name="driveType">
+                        <span class="input-label">What drive type does your robot have?</span>
+                        <input type="text" placeholder="" ng-model="driveType" ng-change="selectRobot()">
                     </label>
-                        
-                    <label class="item item-input item-select">
-                        <span class="input-label">Drive speed</span> 
-                        <select 
-                            name="driveSpeed" 
-                            id="driveSpeed" 
-                            ng-options="option.name for option in data.driveSpeeds track by option.id"
-                            ng-model="driveSpeed"
-                            ng-change="robotChanged()"
-                            ng-disabled="disableFields()"></select>
+                    <label class="item item-input" name="height">
+                        <span class="input-label">What is your robot's height in inches?</span>
+                        <input type="number" placeholder="" ng-model="height" ng-change="selectRobot()">
                     </label>
-                        
-                    <label class="item item-input item-select">
-                        <span class="input-label">Bot can drive over platform</span> 
+                    <label class="item item-input" name="notes">
+                        <span class="input-label">What is your strategy/what are your strengths?</span>
+                        <textarea placeholder="" ng-model="notes" ng-change="selectRobot()"> </textarea>
+                    </label>
+                    <label class="item item-select" name="runAuto">
+                        <span class="input-label">Does your robot run in autonomous?</span>
                         <select 
-                            name="driveOverPlatform" 
-                            id="driveOverPlatform" 
+                            name="runAuto" 
+                            id="runAuto" 
                             ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="driveOverPlatform"
+                            ng-model="runAuto"
                             ng-change="robotChanged()"
                             ng-disabled="disableFields()"></select>
                     </label>
-                        
-                    <label class="item item-input item-select">
-                        <span class="input-label">Autonomous capabilities</span> 
+                    <ion-item class="item-divider">Which of the outer works can you traverse in autonomous?</ion-item>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA1" ng-change="selectRobot()">Low bar</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA2" ng-change="selectRobot()">Chival de frise</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA3" ng-change="selectRobot()">Moat</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA4" ng-change="selectRobot()">Ramparts</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA5" ng-change="selectRobot()">Drawbridge</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA6" ng-change="selectRobot()">Sally port</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA7" ng-change="selectRobot()">Portcullis</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA8" ng-change="selectRobot()">Rock wall</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA9" ng-change="selectRobot()">Rough terrain</ion-toggle>
+                    <ion-item class="item-divider">Which of the outer works can you traverse in teleop?</ion-item>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT1" ng-change="selectRobot()">Low bar</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT2" ng-change="selectRobot()">Chival de frise</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT3" ng-change="selectRobot()">Moat</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT4" ng-change="selectRobot()">Ramparts</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT5" ng-change="selectRobot()">Drawbridge</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT6" ng-change="selectRobot()">Sally port</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT7" ng-change="selectRobot()">Portcullis</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT8" ng-change="selectRobot()">Rough terrain</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT9" ng-change="selectRobot()">Rock wall</ion-toggle>
+                    <ion-item class="item-divider">From what location does your robot score during autonomous?</ion-item>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="scoreTL" ng-change="selectRobot()">Left position, top target</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="scoreTM" ng-change="selectRobot()">Middle position, top target</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="scoreTR" ng-change="selectRobot()">Right position, top target</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="scoreBL" ng-change="selectRobot()">Left position, bottom target</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="scoreBM" ng-change="selectRobot()">Middle position, bottom target</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="scoreBR" ng-change="selectRobot()">Right position, bottom target</ion-toggle>
+                    <ion-item class="item-divider">How does your robot score tower damage points during teleop?</ion-item>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="scoreTop" ng-change="selectRobot()">Top</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="scoreBottom ng-change="selectRobot()"">Bottom</ion-toggle>
+                    <ion-item class="item-divider">Where can your robot pick up boulders from?</ion-item>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="pickupF" ng-change="selectRobot()">Floor</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="pickupS" ng-change="selectRobot()">Secret passageway</ion-toggle>
+                    <ion-item class="item-divider">Other questions</ion-item>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="defense" ng-change="selectRobot()">Team is willing to play defense by ending the game in front of our tower base</ion-toggle>
+                    <ion-toggle toggle-class="toggle-positive" ng-model="scale" ng-change="selectRobot()">Robot scales the tower</ion-toggle>
+                    <label class="item item-select" name="spyReq">
+                        <span class="input-label">Do you need a spy (human) to guide your robot?</span>
                         <select 
-                            name="autonomousCapability" 
-                            id="autonomousCapability" 
-                            ng-options="option.name for option in data.autonomousCapabilities track by option.id"
-                            ng-model="autonomousCapability"
-                            ng-change="robotChanged()"
-                            ng-disabled="disableFields()"></select>
-                    </label>
-                    
-                    <label class="item item-input item-select"> 
-                        <span class="input-label">Co-op tote on step</span> 
-                        <select 
-                            name="coopStep" 
-                            id="coopStep" 
-                            ng-options="option.name for option in data.coopStepOptions track by option.id"
-                            ng-model="coopStep"
-                            ng-change="robotChanged()"
-                            ng-disabled="disableFields()"></select>
-                    </label>
-                        
-                    <label class="item item-input item-select">
-                        <span class="input-label">Where can bot pick up totes</span> 
-                        <select 
-                            name="pickupLoc" 
-                            id="pickupLoc" 
-                            ng-options="option.name for option in data.pickupLocs track by option.id"
-                            ng-model="pickupLoc"
-                            ng-change="robotChanged()"
-                            ng-disabled="disableFields()"></select>
-                    </label>
-                        
-                    <label class="item item-input item-select"> 
-                        <span class="input-label">Max scored tote height</span> 
-                        <select 
-                            name="maxToteHeight" 
-                            id="maxToteHeight" 
-                            ng-options="option.name for option in data.maxToteHeights track by option.id"
-                            ng-model="maxToteHeight"
-                            ng-change="robotChanged()"
-                            ng-disabled="disableFields()"></select>
-                    </label>
-                        
-                    <label class="item item-input item-select"> 
-                        <span class="input-label">Max scored container height</span> 
-                        <select 
-                            name="maxContHeight" 
-                            id="maxContHeight" 
-                            ng-options="option.name for option in data.maxContHeights track by option.id"
-                            ng-model="maxContHeight"
-                            ng-change="robotChanged()"
-                            ng-disabled="disableFields()"></select>
-                    </label>
-                        
-                    <label class="item item-input item-select">
-                        <span class="input-label">Stacks container independently</span> 
-                        <select 
-                            name="stackContInd" 
-                            id="stackContInd" 
+                            name="spyReq" 
+                            id="spyReq" 
                             ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="stackContInd"
+                            ng-model="spyReq"
                             ng-change="robotChanged()"
                             ng-disabled="disableFields()"></select>
                     </label>
-                        
-                    <label class="item item-input item-select">
-                        <span class="input-label">Collects container from step</span> 
+                    <label class="item item-select" name="spyDoc">
+                        <span class="input-label">Do you have a documented, easy-to-learn signaling method?</span>
                         <select 
-                            name="collectContStep" 
-                            id="collectContStep" 
+                            name="spyDoc" 
+                            id="spyDoc" 
                             ng-options="option.name for option in data.yesNo track by option.id"
-                            ng-model="collectContStep"
+                            ng-model="spyDoc"
                             ng-change="robotChanged()"
                             ng-disabled="disableFields()"></select>
-                    </label>
-    
-                    <label class="item item-input item-select">
-                        <span class="input-label">Notes</span> 
-                        <textarea 
-                            name="notes" 
-                            id="notes" 
-                            ng-model="note" 
-                            rows="3"
-                            ng-change="robotChanged()"
-                            ng-disabled="disableFields()"></textarea>
                     </label>
                     
                 </div>
