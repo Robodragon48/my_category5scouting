@@ -99,7 +99,7 @@ angular.module('cat5scouting.services', [])
                     +   "`scoreBL`, `scoreBM`, `scoreBR`, `scoreTop`, "
                     +   "`scoreBottom`, `scale`, `pickupF`, `pickupS`, `defense`, "
                     +   "`spy`, `signal` from robot "
-                    +   "WHERE id = (?"), parameters)
+                    +   "WHERE id = (?)", parameters)
             .then(function(result) {
                 return DBA.getById(result);
             })
@@ -112,7 +112,7 @@ angular.module('cat5scouting.services', [])
         var query = "UPDATE `robot` SET ";
 
         if (editRobot.name) { 
-            parameters.push(editRobot.`name`.id); 
+            parameters.push(editRobot.name.id); 
             query += " name = (?),";
         }
         if (editRobot.teamId) { 
@@ -128,7 +128,7 @@ angular.module('cat5scouting.services', [])
             query += " driveType = (?),";
         }
         if (editRobot.height) { 
-            parameters.push(editRobot.`height`.id); 
+            parameters.push(editRobot.height.id); 
             query += " height = (?),";
         }
         if (editRobot.notes) { 
