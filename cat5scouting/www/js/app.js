@@ -25,10 +25,10 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'cat5scouti
     /* Delete the database to start from scratch
      * Add to this section each time you add a new table definition */
      
-      $cordovaSQLite.execute(db, "DROP TABLE `team`");
-      $cordovaSQLite.execute(db, "DROP TABLE `robot`");
-      $cordovaSQLite.execute(db, "DROP TABLE `match`");
-      $cordovaSQLite.execute(db, "DROP TABLE `robotMatch`");
+    $cordovaSQLite.execute(db, "DROP TABLE `team`");
+    $cordovaSQLite.execute(db, "DROP TABLE `robot`");
+    $cordovaSQLite.execute(db, "DROP TABLE `match`");
+    $cordovaSQLite.execute(db, "DROP TABLE `robotMatch`");
     /**/
     
     $cordovaSQLite.execute(db, "CREATE TABLE `team` (`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` TEXT UNIQUE,	`number` INTEGER NOT NULL UNIQUE)");

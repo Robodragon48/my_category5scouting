@@ -9,10 +9,10 @@
                     <label class="item item-select" name="teamId">
                         <span class="input-label">Team number</span>
                         <select 
-                            name="teamId" 
-                            id="teamId" 
+                            name="team" 
+                            id="team" 
                             ng-options="option.name for option in teams track by option.id"
-                            ng-model="teamId"
+                            ng-model="team"
                             ng-change="selectTeam()"></select>
                     </label>
                     <label class="item item-input item-select"> 
@@ -47,41 +47,101 @@
                             ng-disabled="disableFields()"></select>
                     </label>
                     <ion-item class="item-divider">Which of the outer works can you traverse in autonomous?</ion-item>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA1" ng-change="selectRobot()">Low bar</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA2" ng-change="selectRobot()">Chival de frise</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA3" ng-change="selectRobot()">Moat</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA4" ng-change="selectRobot()">Ramparts</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA5" ng-change="selectRobot()">Drawbridge</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA6" ng-change="selectRobot()">Sally port</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA7" ng-change="selectRobot()">Portcullis</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA8" ng-change="selectRobot()">Rock wall</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWA9" ng-change="selectRobot()">Rough terrain</ion-toggle>
+
+                    <ion-list>
+                        <ion-checkbox 
+                            ng-repeat="owa in owaList track by $index" 
+                            class="checkbox-positive" 
+                            type="checkbox" 
+                            id="{{owa.id}}" 
+                            ng-model="owa.checked" 
+                            ng-true-value=1
+                            ng-false-value=0
+                            ng-change="robotChanged()">
+                            {{ owa.label }}
+                        </ion-checkbox>
+                    </ion-list>
+
                     <ion-item class="item-divider">Which of the outer works can you traverse in teleop?</ion-item>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT1" ng-change="selectRobot()">Low bar</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT2" ng-change="selectRobot()">Chival de frise</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT3" ng-change="selectRobot()">Moat</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT4" ng-change="selectRobot()">Ramparts</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT5" ng-change="selectRobot()">Drawbridge</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT6" ng-change="selectRobot()">Sally port</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT7" ng-change="selectRobot()">Portcullis</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT8" ng-change="selectRobot()">Rough terrain</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="OWT9" ng-change="selectRobot()">Rock wall</ion-toggle>
+
+                    <ion-list>
+                        <ion-checkbox 
+                            ng-repeat="owt in owtList track by $index" 
+                            class="checkbox-positive" 
+                            type="checkbox" 
+                            id="{{owT.id}}" 
+                            ng-model="owt.checked" 
+                            ng-true-value=1
+                            ng-false-value=0
+                            ng-change="robotChanged()">
+                            {{ owt.label }}
+                        </ion-checkbox>
+                    </ion-list>
+                    
                     <ion-item class="item-divider">From what location does your robot score during autonomous?</ion-item>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="scoreTL" ng-change="selectRobot()">Left position, top target</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="scoreTM" ng-change="selectRobot()">Middle position, top target</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="scoreTR" ng-change="selectRobot()">Right position, top target</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="scoreBL" ng-change="selectRobot()">Left position, bottom target</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="scoreBM" ng-change="selectRobot()">Middle position, bottom target</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="scoreBR" ng-change="selectRobot()">Right position, bottom target</ion-toggle>
+
+                    <ion-list>
+                        <ion-checkbox 
+                            ng-repeat="position in scorePosition track by $index" 
+                            class="checkbox-positive" 
+                            type="checkbox" 
+                            id="{{position.id}}" 
+                            ng-model="position.checked" 
+                            ng-true-value=1
+                            ng-false-value=0
+                            ng-change="robotChanged()">
+                            {{ position.label }}
+                        </ion-checkbox>
+                    </ion-list>
+                    
                     <ion-item class="item-divider">How does your robot score tower damage points during teleop?</ion-item>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="scoreTop" ng-change="selectRobot()">Top</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="scoreBottom" ng-change="selectRobot()">Bottom</ion-toggle>
+
+                    <ion-list>
+                        <ion-checkbox 
+                            ng-repeat="topBottom in pickup track by $index" 
+                            class="checkbox-positive" 
+                            type="checkbox" 
+                            id="{{topBottom.id}}" 
+                            ng-model="topBottom.checked" 
+                            ng-true-value=1
+                            ng-false-value=0
+                            ng-change="robotChanged()">
+                            {{ topBottom.label }}
+                        </ion-checkbox>
+                    </ion-list>
+
                     <ion-item class="item-divider">Where can your robot pick up boulders from?</ion-item>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="pickupF" ng-change="selectRobot()">Floor</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="pickupS" ng-change="selectRobot()">Secret passageway</ion-toggle>
+
+                    <ion-list>
+                        <ion-checkbox 
+                            ng-repeat="b in boulders track by $index" 
+                            class="checkbox-positive" 
+                            type="checkbox" 
+                            id="{{b.id}}" 
+                            ng-model="b.checked" 
+                            ng-true-value=1
+                            ng-false-value=0
+                            ng-change="robotChanged()">
+                            {{ b.label }}
+                        </ion-checkbox>
+                    </ion-list>
+
                     <ion-item class="item-divider">Other questions</ion-item>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="defense" ng-change="selectRobot()">Team is willing to play defense by ending the game in front of our tower base</ion-toggle>
-                    <ion-toggle toggle-class="toggle-positive" ng-model="scale" ng-change="selectRobot()">Robot scales the tower</ion-toggle>
+                    
+                    <ion-list>
+                        <ion-checkbox 
+                            ng-repeat="q in randomQs track by $index" 
+                            class="checkbox-positive" 
+                            type="checkbox" 
+                            id="{{q.id}}" 
+                            ng-model="q.checked" 
+                            ng-true-value=1
+                            ng-false-value=0
+                            ng-change="robotChanged()">
+                            {{ q.label }}
+                        </ion-checkbox>
+                    </ion-list>
+
                     <label class="item item-select" name="spyReq">
                         <span class="input-label">Do you need a spy (human) to guide your robot?</span>
                         <select 

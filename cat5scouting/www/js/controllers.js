@@ -167,8 +167,64 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
   }
 
   /*
+  $scope.owaList = [
+    {label: "Low bar", selected: false, code: 'OWA1'}, 
+    {label: "Chival de frise", selected: false, code: 'OWA2'}, 
+    {label: "Moat", selected: false, code: 'OWA3'}
+  ];
+  */
+
+  $scope.owaList = [
+    {name: "OWA1", checked: 0, label: "Low bar"},
+    {name: "OWA2", checked: 0, label: "Chival de frise"},
+    {name: "OWA3", checked: 0, label: "Moat"},
+    {name: "OWA4", checked: 0, label: "Ramparts"},
+    {name: "OWA5", checked: 0, label: "Drawbridge"},
+    {name: "OWA6", checked: 0, label: "Sally port"},
+    {name: "OWA7", checked: 0, label: "Portcullis"},
+    {name: "OWA8", checked: 0, label: "Rock wall"},
+    {name: "OWA9", checked: 0, label: "Rough terrain"}
+  ]
+
+  $scope.owtList = [
+    {name: "OWT1", checked: 0, label: "Low bar"},
+    {name: "OWT2", checked: 0, label: "Chival de frise"},
+    {name: "OWT3", checked: 0, label: "Moat"},
+    {name: "OWT4", checked: 0, label: "Ramparts"},
+    {name: "OWT5", checked: 0, label: "Drawbridge"},
+    {name: "OWT6", checked: 0, label: "Sally port"},
+    {name: "OWT7", checked: 0, label: "Portcullis"},
+    {name: "OWT8", checked: 0, label: "Rock wall"},
+    {name: "OWT9", checked: 0, label: "Rough terrain"}
+  ]
+
+  $scope.scorePosition = [
+    {name: "scoreTL", checked: 0, label: "Left position, top target"},
+    {name: "scoreTM", checked: 0, label: "Middle position, top target"},
+    {name: "scoreTR", checked: 0, label: "Right position, top target"},
+    {name: "scoreBL", checked: 0, label: "Left position, bottom target"},
+    {name: "scoreBM", checked: 0, label: "Middle position, bottom target"},
+    {name: "scoreBR", checked: 0, label: "Right position, bottom target"}
+  ]
+
+  $scope.pickup = [
+    {name: "scoreTop", checked: 0, label: "Top"},
+    {name: "scoreBottom", checked: 0, label: "Bottom"}
+  ]
+
+  $scope.boulders = [
+    {name: "pickupF", checked: 0, label: "Floor"},
+    {name: "pickupS", checked: 0, label: "Secret passageway"}
+  ]
+
+  $scope.randomQs = [
+    {name: "defense", checked: 0, label: "Team is willing to play defense"},
+    {name: "scale", checked: 0, label: "Robot scales tower"}
+  ]
+
+  /*
     This function is called to determine if non-team and non-robot fields should
-    be anbled. If and only if both a team and a robot have been selected, it 
+    be enabled. If and only if both a team and a robot have been selected, it 
     returns false (meaning don't disable the fields)
   */
   $scope.disableFields = function() {
@@ -177,54 +233,64 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
   
   /*
     This function is called when the user changes the team. It loads values for
-    the Robots fields from the SQLite database. 
+    the Robots fields from the SQLite database and sets the rest of the fields
+    to their default values until a robot is selected. 
   */
   $scope.selectTeam = function() {
     //retrieve the robot(s) for the selected team
     Robot.getByTeam($scope.team.id).then(function(robots) {
       $scope.robots = robots;
     })
+
     //reset the selected robot
     $scope.selectedRobot = null;
+
     //reset all the subsequent fields
     $scope.runAuto = $scope.data.yesNo[0];
-    $scope.driveType = ""
-    $scope.height = 0
-    $scope.notes = ""
-    $scope.spyReq = 0
-    $scope.spyDoc = 0
-    $scope.OWA1 = false
-    $scope.OWA2 = false
-    $scope.OWA3 = false
-    $scope.OWA4 = false
-    $scope.OWA5 = false
-    $scope.OWA6 = false
-    $scope.OWA7 = false
-    $scope.OWA8 = false
-    $scope.OWA9 = false
-    $scope.OWT1 = false
-    $scope.OWT2 = false
-    $scope.OWT3 = false
-    $scope.OWT4 = false
-    $scope.OWT5 = false
-    $scope.OWT6 = false
-    $scope.OWT7 = false
-    $scope.OWT8 = false
-    $scope.OWT9 = false
-    $scope.scoreTL = false
-    $scope.scoreTM = false
-    $scope.scoreTR = false
-    $scope.scoreBL = false
-    $scope.scoreBM = false
-    $scope.scoreBR = false
-    $scope.scoreTop = false
-    $scope.scoreBottom = false
-    $scope.scale = false
-    $scope.pickupF = $scope.data.judgment[0];
-    $scope.pickupS = $scope.data.judgment[0];
-    $scope.defense = $scope.data.judgment[0];
-    $scope.spy = $scope.data.judgment[0];
-    $scope.signal = $scope.data.judgment[0];
+    $scope.driveType = "";
+    $scope.height = 0;
+    $scope.notes = "";
+    $scope.spyReq = 0;
+    $scope.spyDoc = 0;
+    
+    $scope.owaList[0].checked = false;
+    $scope.owaList[1].checked = false;
+    $scope.owaList[2].checked = false;
+    $scope.owaList[3].checked = false;
+    $scope.owaList[4].checked = false;
+    $scope.owaList[5].checked = false;
+    $scope.owaList[6].checked = false;
+    $scope.owaList[7].checked = false;
+    $scope.owaList[8].checked = false;
+    
+    $scope.owtList[0].checked = false;
+    $scope.owtList[1].checked = false;
+    $scope.owtList[2].checked = false;
+    $scope.owtList[3].checked = false;
+    $scope.owtList[4].checked = false;
+    $scope.owtList[5].checked = false;
+    $scope.owtList[6].checked = false;
+    $scope.owtList[7].checked = false;
+    $scope.owtList[8].checked = false;
+    
+    $scope.scorePosition[0].checked = false;
+    $scope.scorePosition[1].checked = false;
+    $scope.scorePosition[2].checked = false;
+    $scope.scorePosition[3].checked = false;
+    $scope.scorePosition[4].checked = false;
+    $scope.scorePosition[5].checked = false;
+    
+    $scope.pickup[0].checked = false;
+    $scope.pickup[1].checked = false;
+
+    $scope.boulders[0].checked = false;
+    $scope.boulders[1].checked = false;
+    
+    $scope.randomQs[0].checked = false;
+    $scope.randomQs[1].checked = false;
+
+    $scope.spy = $scope.data.yesNo[0];
+    $scope.signal = $scope.data.yesNo[0];
   }
   
   /*
@@ -238,7 +304,7 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
       if (robot) {
         //set the current robot
         //$scope.selectedRobot = robot;
-        
+
         //set the values for the fields in the form based on the database if they
         //exist. Otherwise, set to the unselected value.
         if (robot.runAuto) $scope.runAuto = $scope.data.yesNo[robot.runAuto];
@@ -246,39 +312,53 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
         if (robot.height) $scope.height = robot.height;
         if (robot.notes) $scope.notes = robot.notes;
         if (robot.spyReq) $scope.spyReq = $scope.data.yesNo[robot.spyReq];
-        if (robot.spyDoc) $scope.spyDoc = $scope.data.yesNo[robot.spyReq];
-        if (robot.OWA1) $scope.OWA1 = robot.OWA1;
-        if (robot.OWA2) $scope.OWA2 = robot.OWA2;
-        if (robot.OWA3) $scope.OWA3 = robot.OWA3;
-        if (robot.OWA4) $scope.OWA4 = robot.OWA4;
-        if (robot.OWA5) $scope.OWA5 = robot.OWA5;
-        if (robot.OWA6) $scope.OWA6 = robot.OWA6;
-        if (robot.OWA7) $scope.OWA7 = robot.OWA7;
-        if (robot.OWA8) $scope.OWA8 = robot.OWA8;
-        if (robot.OWA9) $scope.OWA9 = robot.OWA9;
-        if (robot.OWT1) $scope.OWT1 = robot.OWT1;
-        if (robot.OWT2) $scope.OWT2 = robot.OWT2;
-        if (robot.OWT3) $scope.OWT3 = robot.OWT3;
-        if (robot.OWT4) $scope.OWT4 = robot.OWT4;
-        if (robot.OWT5) $scope.OWT5 = robot.OWT5;
-        if (robot.OWT6) $scope.OWT6 = robot.OWT6;
-        if (robot.OWT7) $scope.OWT7 = robot.OWT7;
-        if (robot.OWT8) $scope.OWT8 = robot.OWT8;
-        if (robot.OWT9) $scope.OWT9 = robot.OWT9;
-        if (robot.scoreTL) $scope.scoreTL = robot.scoreTL;
-        if (robot.scoreTM) $scope.scoreTM = robot.scoreTM;
-        if (robot.scoreTR) $scope.scoreTR = robot.scoreTR;
-        if (robot.scoreBL) $scope.scoreBL = robot.scoreBL;
-        if (robot.scoreBM) $scope.scoreBM = robot.scoreBM;
-        if (robot.scoreBR) $scope.scoreBR = robot.scoreBR
-        if (robot.scoreTop) $scope.scoreTop = robot.scoreTop;
-        if (robot.scoreBottom) $scope.scoreBottom = robot.scoreBottom;
-        if (robot.scale) $scope.scale = robot.scale;
-        if (robot.pickupF) $scope.pickupF = $scope.data.judgment[robot.pickupF];
-        if (robot.pickupS) $scope.pickuptS = $scope.data.judgment[robot.pickupS];
-        if (robot.defense) $scope.defense = $scope.data.judgment[robot.defense];
-        if (robot.spy) $scope.spy = $scope.data.judgment[robot.spy];
-        if (robot.signal) $scope.signal = $scope.data.judgment[robot.signal];
+        if (robot.spyDoc) $scope.spyDoc = $scope.data.yesNo[robot.spyDoc];
+
+        //start with first checkbox array
+        $scope.owaList[0].checked = robot.OWA1;
+        $scope.owaList[1].checked = robot.OWA2;
+        $scope.owaList[2].checked = robot.OWA3;
+        $scope.owaList[3].checked = robot.OWA4;
+        $scope.owaList[4].checked = robot.OWA5;
+        $scope.owaList[5].checked = robot.OWA6;
+        $scope.owaList[6].checked = robot.OWA7;
+        $scope.owaList[7].checked = robot.OWA8;
+        $scope.owaList[8].checked = robot.OWA9;
+
+        //start with second checkbox array
+        $scope.owtList[0].checked = robot.OWT1;
+        $scope.owtList[1].checked = robot.OWT2;
+        $scope.owtList[2].checked = robot.OWT3;
+        $scope.owtList[3].checked = robot.OWT4;
+        $scope.owtList[4].checked = robot.OWT5;
+        $scope.owtList[5].checked = robot.OWT6;
+        $scope.owtList[6].checked = robot.OWT7;
+        $scope.owtList[7].checked = robot.OWT8;
+        $scope.owtList[8].checked = robot.OWT9;
+
+        //start the third checkbox array
+        $scope.scorePosition[0].checked = robot.scoreTL;
+        $scope.scorePosition[1].checked = robot.scoreTM;
+        $scope.scorePosition[2].checked = robot.scoreTR;
+        $scope.scorePosition[3].checked = robot.scoreBL;
+        $scope.scorePosition[4].checked = robot.scoreBM;
+        $scope.scorePosition[5].checked = robot.scoreBR;
+
+        //start the fourth checkbox array
+        $scope.pickup[0].checked = robot.scoreTop;
+        $scope.pickup[1].checked = robot.scoreBottom;
+
+        //start the fifth checkbox array
+        $scope.boulders[0].checked = robot.scale;
+        $scope.boulders[1].checked = robot.pickupF;
+
+        //start the sixth checkbox array
+        $scope.randomQs[0].checked = robot.pickupS;
+        $scope.randomQs[1].checked = robot.defense;
+        
+        //drop-down list boxes at bottom of screen
+        if (robot.spy) $scope.spy = robot.spy;
+        if (robot.signal) $scope.signal = robot.signal;
       }
     })
   }
@@ -294,38 +374,46 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     editRobot.notes = $scope.notes || "";
     editRobot.spyReq = $scope.spyReq || false;
     editRobot.spyDoc = $scope.spyDoc || false;
-    editRobot.OWA1 = $scope.OWA1 || false;
-    editRobot.OWA2 = $scope.OWA2 || false;
-    editRobot.OWA3 = $scope.OWA3 || false;
-    editRobot.OWA4 = $scope.OWA4 || false;
-    editRobot.OWA5 = $scope.OWA5 || false;
-    editRobot.OWA6 = $scope.OWA6 || false;
-    editRobot.OWA7 = $scope.OWA7 || false;
-    editRobot.OWA8 = $scope.OWA8 || false;
-    editRobot.OWA9 = $scope.OWA9 || false;
-    editRobot.OWT1 = $scope.OWT1 || false;
-    editRobot.OWT2 = $scope.OWT2 || false;
-    editRobot.OWT3 = $scope.OWT3 || false;
-    editRobot.OWT4 = $scope.OWT4 || false;
-    editRobot.OWT5 = $scope.OWT5 || false;
-    editRobot.OWT6 = $scope.OWT6 || false;
-    editRobot.OWT7 = $scope.OWT7 || false;
-    editRobot.OWT8 = $scope.OWT8 || false;
-    editRobot.OWT9 = $scope.OWT9 || false;
-    editRobot.scoreTL = $scope.scoreTL || false;
-    editRobot.scoreTM = $scope.scoreTM || false;
-    editRobot.scoreTR = $scope.scoreTR || false;
-    editRobot.scoreBL = $scope.scoreBL || false;
-    editRobot.scoreBM = $scope.scoreBM || false;
-    editRobot.scoreBR = $scope.scoreBR || false;
-    editRobot.scoreTop = $scope.scoreTop || false;
-    editRobot.scoreBottom = $scope.scoreBottom || false;
-    editRobot.scale = $scope.scale || false;
-    editRobot.pickupF = $scope.pickupF || $scope.data.judgment[0];
-    editRobot.pickupS = $scope.pickupS || $scope.data.judgment[0];
-    editRobot.defense = $scope.defense || $scope.data.judgment[0];
-    editRobot.spy = $scope.spy || $scope.data.judgment[0];
-    editRobot.signal = $scope.signal || $scope.data.judgment[0];
+
+    editRobot.OWA1 = $scope.owaList[0].checked || false;
+    editRobot.OWA2 = $scope.owaList[1].checked || false;
+    editRobot.OWA3 = $scope.owaList[2].checked || false;
+    editRobot.OWA4 = $scope.owaList[3].checked || false;
+    editRobot.OWA5 = $scope.owaList[4].checked || false;
+    editRobot.OWA6 = $scope.owaList[5].checked || false;
+    editRobot.OWA7 = $scope.owaList[6].checked || false;
+    editRobot.OWA8 = $scope.owaList[7].checked || false;
+    editRobot.OWA9 = $scope.owaList[8].checked || false;
+
+    editRobot.OWT1 = $scope.owtList[0].checked || false;
+    editRobot.OWT2 = $scope.owtList[1].checked || false;
+    editRobot.OWT3 = $scope.owtList[2].checked || false;
+    editRobot.OWT4 = $scope.owtList[3].checked || false;
+    editRobot.OWT5 = $scope.owtList[4].checked || false;
+    editRobot.OWT6 = $scope.owtList[5].checked || false;
+    editRobot.OWT7 = $scope.owtList[6].checked || false;
+    editRobot.OWT8 = $scope.owtList[7].checked || false;
+    editRobot.OWT9 = $scope.owtList[8].checked || false;
+
+    editRobot.scoreTL = $scope.scorePosition[0].checked || false;
+    editRobot.scoreTM = $scope.scorePosition[1].checked || false;
+    editRobot.scoreTR = $scope.scorePosition[2].checked || false;
+    editRobot.scoreBL = $scope.scorePosition[3].checked || false;
+    editRobot.scoreBM = $scope.scorePosition[4].checked || false;
+    editRobot.scoreBR = $scope.scorePosition[5].checked || false;
+
+    editRobot.scoreTop = $scope.pickup[0].checked || false;
+    editRobot.scoreBottom = $scope.pickup[1].checked || false;
+
+    editRobot.pickupF = $scope.boulders[0].checked || false;
+    editRobot.pickupS = $scope.boulders[1].checked || false;
+
+    editRobot.defense = $scope.randomQs[0].checked || false;
+    editRobot.scale = $scope.randomQs[1].checked || false;
+
+    editRobot.spy = $scope.spy || $scope.data.yesNo[robot.spy];
+    editRobot.signal = $scope.signal || $scope.data.yesNo[robot.signal];
+
     Robot.update($scope.selectedRobot, editRobot);
   }
 })

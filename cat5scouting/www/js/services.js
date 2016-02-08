@@ -111,29 +111,153 @@ angular.module('cat5scouting.services', [])
         var parameters = [];
         var query = "UPDATE `robot` SET ";
 
-        if (editRobot.name) { 
-            parameters.push(editRobot.name.id); 
-            query += " name = (?),";
-        }
         if (editRobot.teamId) { 
             parameters.push(editRobot.teamId.id); 
             query += " teamId = (?),";
+        }
+        if (editRobot.name) { 
+            parameters.push(editRobot.name); 
+            query += " name = (?),";
+        }
+        if (editRobot.driveType) { 
+            parameters.push(editRobot.driveType); 
+            query += " driveType = (?),";
+        }
+        if (editRobot.height) { 
+            parameters.push(editRobot.height); 
+            query += " height = (?),";
+        }
+        if (editRobot.notes) { 
+            parameters.push(editRobot.notes); 
+            query += " notes = (?),";
         }
         if (editRobot.runAuto) { 
             parameters.push(editRobot.runAuto.id); 
             query += " runAuto = (?),";
         }
-        if (editRobot.driveType) { 
-            parameters.push(editRobot.driveType.id); 
-            query += " driveType = (?),";
+
+        //start with first checkbox array
+        if (editRobot.OWA1 != null) { 
+            parameters.push(editRobot.OWA1); 
+            query += " OWA1 = (?),";
         }
-        if (editRobot.height) { 
-            parameters.push(editRobot.height.id); 
-            query += " height = (?),";
+        if (editRobot.OWA2 != null) { 
+            parameters.push(editRobot.OWA2); 
+            query += " OWA2 = (?),";
         }
-        if (editRobot.notes) { 
-            parameters.push(editRobot.notes.id); 
-            query += " notes = (?),";
+        if (editRobot.OWA3 != null) { 
+            parameters.push(editRobot.OWA3); 
+            query += " OWA3 = (?),";
+        }
+        if (editRobot.OWA4 != null) { 
+            parameters.push(editRobot.OWA4); 
+            query += " OWA4 = (?),";
+        }
+        if (editRobot.OWA5 != null) { 
+            parameters.push(editRobot.OWA5); 
+            query += " OWA5 = (?),";
+        }
+        if (editRobot.OWA6 != null) { 
+            parameters.push(editRobot.OWA6); 
+            query += " OWA6 = (?),";
+        }
+        if (editRobot.OWA7 != null) { 
+            parameters.push(editRobot.OWA7); 
+            query += " OWA7 = (?),";
+        }
+        if (editRobot.OWA8 != null) { 
+            parameters.push(editRobot.OWA8); 
+            query += " OWA8 = (?),";
+        }
+        if (editRobot.OWA9 != null) { 
+            parameters.push(editRobot.OWA9); 
+            query += " OWA9 = (?),";
+        }
+
+        //start with second checkbox array
+        if (editRobot.OWT1 != null) { 
+            parameters.push(editRobot.OWT1); 
+            query += " OWT1 = (?),";
+        }
+        if (editRobot.OWT2 != null) { 
+            parameters.push(editRobot.OWT2); 
+            query += " OWT2 = (?),";
+        }
+        if (editRobot.OWT3 != null) { 
+            parameters.push(editRobot.OWT3); 
+            query += " OWT3 = (?),";
+        }
+        if (editRobot.OWT4 != null) { 
+            parameters.push(editRobot.OWT4); 
+            query += " OWT4 = (?),";
+        }
+        if (editRobot.OWT5 != null) { 
+            parameters.push(editRobot.OWT5); 
+            query += " OWT5 = (?),";
+        }
+        if (editRobot.OWT6 != null) { 
+            parameters.push(editRobot.OWT6); 
+            query += " OWT6 = (?),";
+        }
+        if (editRobot.OWT7 != null) { 
+            parameters.push(editRobot.OWT7); 
+            query += " OWT7 = (?),";
+        }
+        if (editRobot.OWT8 != null) { 
+            parameters.push(editRobot.OWT8); 
+            query += " OWT8 = (?),";
+        }
+        if (editRobot.OWT9 != null) { 
+            parameters.push(editRobot.OWT9); 
+            query += " OWT9 = (?),";
+        }
+        if (editRobot.scoreTL) { 
+            parameters.push(editRobot.scoreTL); 
+            query += " scoreTL = (?),";
+        }
+        if (editRobot.scoreTM) { 
+            parameters.push(editRobot.scoreTM); 
+            query += " scoreTM = (?),";
+        }
+        if (editRobot.scoreTR) { 
+            parameters.push(editRobot.scoreTR); 
+            query += " scoreTR = (?),";
+        }
+        if (editRobot.scoreBL) { 
+            parameters.push(editRobot.scoreBL); 
+            query += " scoreBL = (?),";
+        }
+        if (editRobot.scoreBM) { 
+            parameters.push(editRobot.scoreBM); 
+            query += " scoreBM = (?),";
+        }
+        if (editRobot.scoreBR) { 
+            parameters.push(editRobot.scoreBR); 
+            query += " scoreBR = (?),";
+        }
+        if (editRobot.scoreTop) { 
+            parameters.push(editRobot.scoreTop); 
+            query += " scoreTop = (?),";
+        }
+        if (editRobot.scoreBottom) { 
+            parameters.push(editRobot.scoreBottom); 
+            query += " scoreBottom = (?),";
+        }
+        if (editRobot.pickupF) { 
+            parameters.push(editRobot.pickupF); 
+            query += " pickupF = (?),";
+        }
+        if (editRobot.pickupS) { 
+            parameters.push(editRobot.pickupS); 
+            query += " pickupS = (?),";
+        }
+        if (editRobot.defense) { 
+            parameters.push(editRobot.defense); 
+            query += " defense = (?),";
+        }
+        if (editRobot.scale) { 
+            parameters.push(editRobot.scale); 
+            query += " scale = (?),";
         }
         if (editRobot.spyReq) { 
             parameters.push(editRobot.spyReq.id); 
@@ -142,134 +266,6 @@ angular.module('cat5scouting.services', [])
         if (editRobot.spyDoc) { 
             parameters.push(editRobot.spyDoc.id); 
             query += " spyDoc = (?),";
-        }
-        if (editRobot.OWA1) { 
-            parameters.push(editRobot.OWA1.id); 
-            query += " OWA1 = (?),";
-        }
-        if (editRobot.OWA2) { 
-            parameters.push(editRobot.OWA2.id); 
-            query += " OWA2 = (?),";
-        }
-        if (editRobot.OWA3) { 
-            parameters.push(editRobot.OWA3.id); 
-            query += " OWA3 = (?),";
-        }
-        if (editRobot.OWA4) { 
-            parameters.push(editRobot.OWA4.id); 
-            query += " OWA4 = (?),";
-        }
-        if (editRobot.OWA5) { 
-            parameters.push(editRobot.OWA5.id); 
-            query += " OWA5 = (?),";
-        }
-        if (editRobot.OWA6) { 
-            parameters.push(editRobot.OWA6.id); 
-            query += " OWA6 = (?),";
-        }
-        if (editRobot.OWA7) { 
-            parameters.push(editRobot.OWA7.id); 
-            query += " OWA7 = (?),";
-        }
-        if (editRobot.OWA8) { 
-            parameters.push(editRobot.OWA8.id); 
-            query += " OWA8 = (?),";
-        }
-        if (editRobot.OWA9) { 
-            parameters.push(editRobot.OWA9.id); 
-            query += " OWA9 = (?),";
-        }
-        if (editRobot.OWT1) { 
-            parameters.push(editRobot.OWT1.id); 
-            query += " OWT1 = (?),";
-        }
-        if (editRobot.OWT2) { 
-            parameters.push(editRobot.OWT2.id); 
-            query += " OWT2 = (?),";
-        }
-        if (editRobot.OWT3) { 
-            parameters.push(editRobot.OWT3.id); 
-            query += " OWT3 = (?),";
-        }
-        if (editRobot.OWT4) { 
-            parameters.push(editRobot.OWT4.id); 
-            query += " OWT4 = (?),";
-        }
-        if (editRobot.OWT5) { 
-            parameters.push(editRobot.OWT5.id); 
-            query += " OWT5 = (?),";
-        }
-        if (editRobot.OWT6) { 
-            parameters.push(editRobot.OWT6.id); 
-            query += " OWT6 = (?),";
-        }
-        if (editRobot.OWT7) { 
-            parameters.push(editRobot.OWT7.id); 
-            query += " OWT7 = (?),";
-        }
-        if (editRobot.OWT8) { 
-            parameters.push(editRobot.OWT8.id); 
-            query += " OWT8 = (?),";
-        }
-        if (editRobot.OWT9) { 
-            parameters.push(editRobot.OWT9.id); 
-            query += " OWT9 = (?),";
-        }
-        if (editRobot.scoreTL) { 
-            parameters.push(editRobot.scoreTL.id); 
-            query += " scoreTL = (?),";
-        }
-        if (editRobot.scoreTM) { 
-            parameters.push(editRobot.scoreTM.id); 
-            query += " scoreTM = (?),";
-        }
-        if (editRobot.scoreTR) { 
-            parameters.push(editRobot.scoreTR.id); 
-            query += " scoreTR = (?),";
-        }
-        if (editRobot.scoreBL) { 
-            parameters.push(editRobot.scoreBL.id); 
-            query += " scoreBL = (?),";
-        }
-        if (editRobot.scoreBM) { 
-            parameters.push(editRobot.scoreBM.id); 
-            query += " scoreBM = (?),";
-        }
-        if (editRobot.scoreBR) { 
-            parameters.push(editRobot.scoreBR.id); 
-            query += " scoreBR = (?),";
-        }
-        if (editRobot.scoreTop) { 
-            parameters.push(editRobot.scoreTop.id); 
-            query += " scoreTop = (?),";
-        }
-        if (editRobot.scoreBottom) { 
-            parameters.push(editRobot.scoreBottom.id); 
-            query += " scoreBottom = (?),";
-        }
-        if (editRobot.scale) { 
-            parameters.push(editRobot.scale.id); 
-            query += " scale = (?),";
-        }
-        if (editRobot.pickupF) { 
-            parameters.push(editRobot.pickupF.id); 
-            query += " pickupF = (?),";
-        }
-        if (editRobot.pickupS) { 
-            parameters.push(editRobot.pickupS.id); 
-            query += " pickupS = (?),";
-        }
-        if (editRobot.defense) { 
-            parameters.push(editRobot.defense.id); 
-            query += " defense = (?),";
-        }
-        if (editRobot.spy) { 
-            parameters.push(editRobot.spy.id); 
-            query += " spy = (?),";
-        }
-        if (editRobot.signal) { 
-            parameters.push(editRobot.signal.id); 
-            query += " signal = (?),";
         }
 
         //add the robot ID to the parameters
@@ -282,11 +278,16 @@ angular.module('cat5scouting.services', [])
         }
         
         //add the robot ID and the match ID to the query
-        query += "WHERE (id = (?))";
+        query += " WHERE (id = (?))";
         
         //output the query to the console for testing purposes
         console.log("Query to update robot record: " + query + " with robotId '" 
             + editRobot.id + "'");
+        
+        //outputs the parameters being submitted with the query
+        angular.forEach(parameters, function(value, key) {
+            console.log(key + ": " + value);
+        })
 
         //execute the query
         return DBA.query(query, parameters);

@@ -3,10 +3,79 @@
 	{
 		"selected_items":
 		[
+			[
+				"drive",
+				"driveType"
+			],
+			[
+				"pic",
+				"pickupS"
+			],
+			[
+				"pick",
+				"pickupF"
+			],
+			[
+				"sc",
+				"scoreBottom"
+			],
+			[
+				"sco",
+				"scoreTL"
+			],
+			[
+				"OW",
+				"OWT3"
+			],
+			[
+				"OWT",
+				"OWT2"
+			],
+			[
+				"owa",
+				"OWA1"
+			],
+			[
+				"spy",
+				"spyDoc"
+			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "commit-statement.txt",
+			"settings":
+			{
+				"buffer_size": 239,
+				"line_ending": "Windows",
+				"name": "*23456789 123456789 123456789 123456789 123456789"
+			}
+		},
+		{
+			"file": "cat5scouting/www/js/controllers.js",
+			"settings":
+			{
+				"buffer_size": 27907,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "cat5scouting/www/templates/pit.html",
+			"settings":
+			{
+				"buffer_size": 8390,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "cat5scouting/www/js/services.js",
+			"settings":
+			{
+				"buffer_size": 17781,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -32,6 +101,12 @@
 	},
 	"file_history":
 	[
+		"/C/Users/email/Documents/Work as Volunteer/Cat5Scouting3489/branch-new-data-model/cat5scouting3489/cat5scouting/www/js/services.js",
+		"/C/Users/email/Documents/Work as Volunteer/Cat5Scouting3489/branch-new-data-model/cat5scouting3489/cat5scouting/www/js/app.js",
+		"/C/Users/email/Documents/Work as Volunteer/Cat5Scouting3489/branch-new-data-model/cat5scouting3489/cat5scouting/www/templates/settings.html",
+		"/C/Users/email/Documents/Work as Volunteer/Cat5Scouting3489/branch-new-data-model/cat5scouting3489/cat5scouting/www/index.html",
+		"/C/Users/email/Documents/Work as Volunteer/Cat5Scouting3489/branch-new-data-model/cat5scouting3489/cat5scouting/www/templates/match.html",
+		"/C/Users/email/Documents/Work as Volunteer/Cat5Scouting3489/branch-new-data-model/cat5scouting3489/cat5scouting/www/templates/sync.html",
 		"/C/Users/email/Documents/Work as Volunteer/Cat5Scouting3489/branch-main/cat5scouting3489/cat5scouting/www/js/controllers.js",
 		"/C/Users/email/Documents/Work as Volunteer/branch-write-file/Cat5Scouting/cat5scouting/package.json",
 		"/C/Users/email/Documents/Work as Volunteer/branch-write-file/Cat5Scouting/cat5scouting/platforms/android/AndroidManifest.xml",
@@ -58,7 +133,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 90.0,
 		"where_history":
 		[
 			""
@@ -69,6 +144,49 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"].checked",
+			"setting runAuto",
+			"Query to update robot record",
+			".id);",
+			"pickupF",
+			"selectrobot",
+			"	} else {",
+			"newRobotMatch.",
+			"false;",
+			"			 ",
+			"				  $scope.",
+			"` INTEGER, \"",
+			"                                                        + \"`",
+			"$scope",
+			"$scope.",
+			"`",
+			"` BOOLEAN, \"",
+			"` TEXT, \"",
+			"` INTEGER, \"",
+			"                                                   + \"",
+			"numHigh\nlowBarA\nlowBarT\nportA\nportT\nchevA\nchevT\nmoatA\nmoatT\nrockA\nrockT\nroughA\nroughT\nsallyA\nsallyT\ndrawA\ndrawT\nscaled\nchallenge\nbFloor\nbSecret\nnumF\nborked\ndefense\nspyComm1\nspyComm2",
+			" ",
+			"  ",
+			"                                                        + \"`",
+			"                                                   + \"`",
+			" WA",
+			".WA",
+			"name",
+			"name=\"",
+			"data.yesNo",
+			"        ",
+			", ",
+			"`",
+			"\"",
+			"                    +   ",
+			"rm.`",
+			"                                                        + \"`",
+			"` INTEGER, \"",
+			"..",
+			"`, `",
+			"                                                   ",
+			"+ \"",
+			" BOOLEAN, \"",
 			"opendatabase",
 			"exportdata",
 			" db ",
@@ -95,8 +213,124 @@
 	"groups":
 	[
 		{
+			"selected": 3,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "commit-statement.txt",
+					"settings":
+					{
+						"buffer_size": 239,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								239,
+								239
+							]
+						],
+						"settings":
+						{
+							"auto_name": "*23456789 123456789 123456789 123456789 123456789",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "cat5scouting/www/js/controllers.js",
+					"settings":
+					{
+						"buffer_size": 27907,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12483,
+								12483
+							]
+						],
+						"settings":
+						{
+							"rulers":
+							[
+								80
+							],
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5815.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "cat5scouting/www/templates/pit.html",
+					"settings":
+					{
+						"buffer_size": 8390,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6988,
+								6988
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 134.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "cat5scouting/www/js/services.js",
+					"settings":
+					{
+						"buffer_size": 17781,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4432,
+								4432
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1538.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -133,7 +367,7 @@
 	"menu_visible": true,
 	"replace":
 	{
-		"height": 0.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -156,6 +390,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 162.0,
+	"side_bar_width": 237.0,
 	"status_bar_visible": true
 }
