@@ -98,9 +98,20 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
 
 
 
-.controller('SettingsCtrl', function($scope, $stateParams, $cordovaSQLite) {
+.controller('SettingsCtrl', function($scope, $stateParams, $cordovaSQLite, 
+  $cordovaToast) {
+
   $scope.generateSampleData = function() {
     console.log("generateSampleData called");
+
+    
+    //create a toast notifier to let the user know to wait while data loads
+    $cordovaToast.showShortTop('Hang on a sec... data loading').then(function(success) {
+      //do nothing
+    }, function (error) {
+      //do nothing
+    });
+    
 
     var teams = [
                   1225, 1226, 1293, 1398, 1553, 1598, 1758, 2059, 281, 2815, 
@@ -136,7 +147,15 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
         console.error(err);
       });
     }
+
+    //create a toast notifier to let the user know that the data is done loading
+    $cordovaToast.showShortTop('OK... data is done loading').then(function(success){
+      //do nothing
+    }, function (error) {
+      //do nothing
+    });
   }  
+
 })
 
 
