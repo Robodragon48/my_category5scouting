@@ -44,53 +44,240 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
 
 
 
-.controller('SyncCtrl', function($scope, $cordovaFile) {
+.controller('SyncCtrl', function($scope, $cordovaFile, $cordovaToast, Robot, 
+  RobotMatch) {
   
   document.addEventListener('deviceready', function() {
 
-    $scope.exportData = function() {
-    
-      console.log("exportData called");
-      
-      //Create header for the file to make it easier to keep track of where data 
-      //came from
-      var d = new Date();
-      var exportData = "Data exported from tablet " + "[tabletname]" + " at " + d.toUTCString();
+    $scope.getDateString = function() {
+      var d = new Date(),
+      minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
+      hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),      
+      months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
 
+      return d.getFullYear()+'-'+months[d.getMonth()]+'-'+d.getDate()+'-'+hours+'-'+minutes;
+    }
+
+
+    $scope.exportData = function() {
+      //let the user know that data is exporting
+      $cordovaToast.showShortTop('Hang on... data is exporting');      
+
+      //Create file name that includes the date the file was created
+      //TODO: Add the tablet that the data came from
+      var pitFilename = "Cat5Scouting.Pit." + $scope.getDateString() + ".txt";
+      var filePath = "file:///storage/emulated/0/";
+
+      //create the file to write to
       //Create the exported Robot data to write to a file
-      /*
+      var exportData1 = "Robot Name\tTeam ID\tRuns in Autonomous\t";
+      exportData1 += "Comments about drive type\tHeight\tNotes\t";
+      exportData1 += "Autonomous - Low Bar\tAutonomous - Chival de frise\t";
+      exportData1 += "Autonomous - Moat\tAutonomous - Ramparts\t";
+      exportData1 += "Autonomous - Drawbridge\tAutonomous - Sally port\t";
+      exportData1 += "Autonomous - Portcullis\tAutonomous - Rock wall\t";
+      exportData1 += "Autonomous - Rough terrain\t";
+      exportData1 += "Teleop - Low Bar\tTeleop - Chival de frise\t";
+      exportData1 += "Teleop - Moat\tTeleop - Ramparts\t";
+      exportData1 += "Teleop - Drawbridge\tTeleop - Sally port\t";
+      exportData1 += "Teleop - Portcullis\tTeleop - Rock wall\t";
+      exportData1 += "Teleop - Rough terrain\t";
+      exportData1 += "Auto score - Top left\tAuto score - Top middle\t";
+      exportData1 += "Auto score - Top right\tAuto score - Bottom left\t";
+      exportData1 += "Auto score - Bottom middle\tAuto score - Bottom right\t";
+      exportData1 += "Score in top\tScore in bottom\tPick up from floor\t";
+      exportData1 += "Pick up from secret passageway\tWilling to defend\t";
+      exportData1 += "Scales tower\tRequires spy to guide\tHas spy doc\r\n";
       Robot.all().then(function(robots) {
-        for (var i=0; i<robots.length; i++) {
-          exportData += robots[i].name;
-          exportData += ", ";
+        for (var i=0; i<robots.length; i++) {          
+          exportData1 += robots[i].name;
+          exportData1 += "\t";
+          exportData1 += robots[i].teamId;
+          exportData1 += "\t";
+          exportData1 += robots[i].runAuto;
+          exportData1 += "\t";
+          exportData1 += robots[i].driveType;
+          exportData1 += "\t";
+          exportData1 += robots[i].height;
+          exportData1 += "\t";
+          exportData1 += robots[i].notes;
+          exportData1 += "\t";
+          exportData1 += robots[i].spyReq;
+          exportData1 += "\t";
+          exportData1 += robots[i].spyDoc;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWA1;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWA2;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWA3;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWA4;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWA5;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWA6;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWA7;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWA8;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWA9;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWT1;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWT2;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWT3;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWT4;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWT5;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWT6;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWT7;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWT8;
+          exportData1 += "\t";
+          exportData1 += robots[i].OWT9;
+          exportData1 += "\t";
+          exportData1 += robots[i].scoreTL;
+          exportData1 += "\t";
+          exportData1 += robots[i].scoreTM;
+          exportData1 += "\t";
+          exportData1 += robots[i].scoreTR;
+          exportData1 += "\t";
+          exportData1 += robots[i].scoreBL;
+          exportData1 += "\t";
+          exportData1 += robots[i].scoreBM;
+          exportData1 += "\t";
+          exportData1 += robots[i].scoreBR;
+          exportData1 += "\t";
+          exportData1 += robots[i].scoreTop;
+          exportData1 += "\t";
+          exportData1 += robots[i].scoreBottom;
+          exportData1 += "\t";
+          exportData1 += robots[i].scale;
+          exportData1 += "\t";
+          exportData1 += robots[i].pickupF;
+          exportData1 += "\t";
+          exportData1 += robots[i].pickupS;
+          exportData1 += "\t";
+          exportData1 += robots[i].defense;
+          exportData1 += "\t";
+          exportData1 += robots[i].spy;
+          exportData1 += "\r\n";
         }
-      })
-      */
-      
-      $cordovaFile.writeFile("file:///storage/emulated/0/", "Cat5Scouting.Pit.txt", exportData, true)
-        .then(function (success) {
-          console.log("Data exported to Cat5Scouting.Pit.txt");
-        }, function (error) {
-          console.log("Problem writing text to Pit file");
-        });
+      }).then(function() {
+        $cordovaFile.writeFile(filePath, pitFilename, exportData1, true)
+          .then(function (success) {
+            console.log("Text successfully written to Pit file");
+          }, function (error) {
+            console.log("Problem writing text to Pit file");
+            console.log(error);
+          });       
+      });
+
+
+  
 
       //Create the exported Robot Match data to write to a file
-      /*
-      var exportData = "Data exported from tablet " + "[tabletname]" + " at " + d.toUTCString();
-      RobotMatch.all().then(function(robotMatches) {
-        for (var i=0; i<robotMatches.length; i++) {
-          exportData += robotMatches[i].robotId;
-          exportData += ", ";
+      exportData2 = "match ID\trobot ID\tteam ID\t# boulders thru low goal\t";
+      exportData2 += "# boulders thru high goal\t# times across low bar in Auto\t";
+      exportData2 += "# times across portcullis in Auto\t# times across chival de frise in Auto\t";
+      exportData2 += "# times across the moat in Auto\t# times across rock wall in Auto\t";
+      exportData2 += "# times across rough terrain in Auto\t# times across sally port in Auto\t";
+      exportData2 += "# times across rampart in Auto\t# times across drawbridge in Auto\t";
+      exportData2 += "# times across low bar in Tele\t";
+      exportData2 += "# times across portcullis in Tele\t# times across chival de frise in Tele\t";
+      exportData2 += "# times across the moat in Tele\t# times across rock wall in Tele\t";
+      exportData2 += "# times across rough terrain in Tele\t# times across sally port in Tele\t";
+      exportData2 += "# times across rampart in Tele\t";
+      exportData2 += "# times across drawbridge in Tele\tScaled tower\tChallenged tower";
+      exportData2 += "How well boulders from floor\tHow well boulders from secret passageway\t";
+      exportData2 += "# fouls generated\tRobot broken?\tHow well did defense?\t";
+      exportData2 += "How well did team spy communicate?\tHow well did drive team use spy?\r\n";
+      RobotMatch.all().then(function(matches) {
+        for (var i=0; i<matches.length; i++) {
+          exportData2 += matches[i].matchId;
+          exportData2 += "\t";
+          exportData2 += matches[i].robotId;
+          exportData2 += "\t";
+          exportData2 += matches[i].teamId;
+          exportData2 += "\t";
+          exportData2 += matches[i].numLow;
+          exportData2 += "\t";
+          exportData2 += matches[i].numHigh;
+          exportData2 += "\t";
+          exportData2 += matches[i].lowBarA;
+          exportData2 += "\t";
+          exportData2 += matches[i].portA;
+          exportData2 += "\t";
+          exportData2 += matches[i].chevA;
+          exportData2 += "\t";
+          exportData2 += matches[i].moatA;
+          exportData2 += "\t";
+          exportData2 += matches[i].rockA;
+          exportData2 += "\t";
+          exportData2 += matches[i].roughA;
+          exportData2 += "\t";
+          exportData2 += matches[i].sallyA;
+          exportData2 += "\t";
+          exportData2 += matches[i].rampA;
+          exportData2 += "\t";
+          exportData2 += matches[i].drawA;
+          exportData2 += "\t";
+          exportData2 += matches[i].lowBarT;
+          exportData2 += "\t";
+          exportData2 += matches[i].portT;
+          exportData2 += "\t";
+          exportData2 += matches[i].chevT;
+          exportData2 += "\t";
+          exportData2 += matches[i].moatT;
+          exportData2 += "\t";
+          exportData2 += matches[i].rockT;
+          exportData2 += "\t";
+          exportData2 += matches[i].roughT;
+          exportData2 += "\t";
+          exportData2 += matches[i].sallyT;
+          exportData2 += "\t";
+          exportData2 += matches[i].rampT;
+          exportData2 += "\t";
+          exportData2 += matches[i].drawT;
+          exportData2 += "\t";
+          exportData2 += matches[i].scaled;
+          exportData2 += "\t";
+          exportData2 += matches[i].challenge;
+          exportData2 += "\t";
+          exportData2 += matches[i].bFloor;
+          exportData2 += "\t";
+          exportData2 += matches[i].bSecret;
+          exportData2 += "\t";
+          exportData2 += matches[i].numF;
+          exportData2 += "\t";
+          exportData2 += matches[i].borked;
+          exportData2 += "\t";
+          exportData2 += matches[i].defense;
+          exportData2 += "\t";
+          exportData2 += matches[i].spyComm1;
+          exportData2 += "\t";
+          exportData2 += matches[i].spyComm2;
+          exportData2 += "\t";
         }
-      })
-      
-      $cordovaFile.writeFile("file:///storage/emulated/0/", "Cat5Scouting.Match.txt", exportData, true)
-        .then(function (success) {
-          console.log("Data exported to Cat5Scouting.Match.txt");
-        }, function (error) {
-          console.log("Problem writing text to Match file");
-        });
-      */
+      }).then(function() {
+        var matchFilename = "Cat5Scouting.Match." + $scope.getDateString() + ".txt";
+        $cordovaFile.writeFile(filePath, matchFilename, exportData2, true)
+          .then(function (success) {
+            console.log("Text successfully written to Match file");
+          }, function (error) {
+            console.log("Problem writing text to Match file");
+            console.log(error);
+          });
+      })      
+
+      //let the user know that the data is done exporting
+      $cordovaToast.showShortTop('OK... data is done exporting');
     }
   })
 

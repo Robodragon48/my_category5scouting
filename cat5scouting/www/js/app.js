@@ -92,6 +92,8 @@ angular.module('cat5scouting', ['ionic', 'cat5scouting.controllers', 'cat5scouti
                                                         + "`moatT` INTEGER, "
                                                         + "`rockA` INTEGER, "
                                                         + "`rockT` INTEGER, "
+                                                        + "`rampA` INTEGER, "
+                                                        + "`rampT` INTEGER, "
                                                         + "`roughA` INTEGER, "
                                                         + "`roughT` INTEGER, "
                                                         + "`sallyA` INTEGER, "
