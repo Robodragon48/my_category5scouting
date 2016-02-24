@@ -1,42 +1,75 @@
 <ion-view title="Match Scouting">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
         <form class="list">
-            <label class="item item-input item-select"> 
-                <span class="input-label">Team name</span>
-                <select 
-                    ng-model="team" 
-                    id="team" 
-                    ng-options="option.name for option in teams track by option.id"
-                    ng-model="team"
-                    ng-change="selectTeam()"></select>
-            </label>
+            <div class="row">
+                <div class="col col-50">
+                    <div class="row">
+                        <div class="col col-100">
+                            <label class="item item-input item-select"> 
+                                <span class="input-label">Team name</span>
+                                <select 
+                                    ng-model="team" 
+                                    id="team" 
+                                    ng-options="option.name for option in teams track by option.id"
+                                    ng-model="team"
+                                    ng-change="selectTeam()"></select>
+                            </label>
+                        </div>
+                    </div>                    
+                    <div class="row">
+                        <div class="col col-100">
+                            <label class="item item-input item-select"> 
+                                <span class="input-label">Robot name</span>
+                                <select 
+                                    ng-model="selectedRobot" 
+                                    id="selectedRobot" 
+                                    ng-options="option.name for option in robots track by option.id"
+                                    ng-model="selectedRobot"
+                                    ng-change="selectRobot()"></select>
+                            </label>
+                        </div>
+                    </div>                    
+                    <div class="row">
+                        <div class="col col-100">
+                            <label class="item item-input item-select"> 
+                                <span class="input-label">Match number</span>
+                                <select 
+                                    ng-model="match"
+                                    id="match"
+                                    ng-options="option.number for option in matches track by option.id"
+                                    ng-model="match"
+                                    ng-change="selectMatch()"></select>
+                            </label>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="col col-50">
+                    <div class="row">
+                        <div class="col col-50">
+                            <div class="item item-input-inset">
+                                Boulders through low goal<br/>
+                                <button class="button button-small button-positive">-</button>
+                                <input type="text" placeholder="0" ng-model="numLow" ng-readonly="true" width="10%">
+                                <button class="button button-small button-positive">-</button>
+                            </div>
+                        </div>
+                        <div class="col col-50">
+                            <div class="item item-input-inset">
+                                Boulders through high goal<br/>
+                                <button class="button button-small button-positive">-</button>
+                                <input type="text" placeholder="0" ng-model="numHigh" ng-readonly="true" width="10%">
+                                <button class="button button-small button-positive">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <label class="item item-input item-select"> 
-                <span class="input-label">Robot name</span>
-                <select 
-                    ng-model="selectedRobot" 
-                    id="selectedRobot" 
-                    ng-options="option.name for option in robots track by option.id"
-                    ng-model="selectedRobot"
-                    ng-change="selectRobot()"></select>
-            </label>
 
-            <label class="item item-input item-select"> 
-                <span class="input-label">Match number</span>
-                <select 
-                    ng-model="match"
-                    id="match"
-                    ng-options="option.number for option in matches track by option.id"
-                    ng-model="match"
-                    ng-change="selectMatch()"></select>
-            </label>
-            <ion-item class="range range-positive"># Boulders through low goal
-                <input type="range" value="0" min="0" max="8" ng-model="numLow" ng-change="selectRobot()">
-            </ion-item>
-            <ion-item class="range range-positive"># Boulders through the high goal
-                <input type="range" value="0" min="0" max="8" ng-model="numHigh" ng-change="selectRobot()">
-            </ion-item>
-        
+
+
+
+
             <div class="list card">
                 <div class="item item-divider">Autonomous</div>
                 <div class="item item-body">
