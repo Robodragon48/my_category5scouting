@@ -3,3 +3,15 @@ textarea {
     border-style: inset;
     border-width: 1px;
 }
+.row-yellow {
+	background: rgba(255,255,0,0.4); /* green */
+}
+.row-green {
+	background: rgba(0,255,0,0.4); /* green */
+}
+.row-blue {
+	background: rgba(0,255,255,0.4); /* blue */
+}
+.row-pink {
+	background: rgba(255,0,255,0.4); /* blue */
+}

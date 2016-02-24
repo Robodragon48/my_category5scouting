@@ -1,69 +1,94 @@
 <ion-view title="Match Scouting">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
         <form class="list">
-            <div class="row">
-                <div class="col col-50">
-                    <div class="row">
-                        <div class="col col-100">
-                            <label class="item item-input item-select"> 
-                                <span class="input-label">Team name</span>
-                                <select 
-                                    ng-model="team" 
-                                    id="team" 
-                                    ng-options="option.name for option in teams track by option.id"
-                                    ng-model="team"
-                                    ng-change="selectTeam()"></select>
-                            </label>
-                        </div>
-                    </div>                    
-                    <div class="row">
-                        <div class="col col-100">
-                            <label class="item item-input item-select"> 
-                                <span class="input-label">Robot name</span>
-                                <select 
-                                    ng-model="selectedRobot" 
-                                    id="selectedRobot" 
-                                    ng-options="option.name for option in robots track by option.id"
-                                    ng-model="selectedRobot"
-                                    ng-change="selectRobot()"></select>
-                            </label>
-                        </div>
-                    </div>                    
-                    <div class="row">
-                        <div class="col col-100">
-                            <label class="item item-input item-select"> 
-                                <span class="input-label">Match number</span>
-                                <select 
-                                    ng-model="match"
-                                    id="match"
-                                    ng-options="option.number for option in matches track by option.id"
-                                    ng-model="match"
-                                    ng-change="selectMatch()"></select>
-                            </label>
-                        </div>
-                    </div>                    
+            <div class="row row-green">
+                <div class="col col-33">
+                    <label class="item item-input item-select"> 
+                        <span class="input-label">Team name</span>
+                        <select 
+                            ng-model="team" 
+                            id="team" 
+                            ng-options="option.name for option in teams track by option.id"
+                            ng-model="team"
+                            ng-change="selectTeam()"></select>
+                    </label>
                 </div>
-                <div class="col col-50">
-                    <div class="row">
-                        <div class="col col-50">
-                            <div class="item item-input-inset">
-                                Boulders through low goal<br/>
-                                <button class="button button-small button-positive">-</button>
-                                <input type="text" placeholder="0" ng-model="numLow" ng-readonly="true" width="10%">
-                                <button class="button button-small button-positive">-</button>
-                            </div>
-                        </div>
-                        <div class="col col-50">
-                            <div class="item item-input-inset">
-                                Boulders through high goal<br/>
-                                <button class="button button-small button-positive">-</button>
-                                <input type="text" placeholder="0" ng-model="numHigh" ng-readonly="true" width="10%">
-                                <button class="button button-small button-positive">+</button>
-                            </div>
-                        </div>
+                <div class="col col-33">
+                    <label class="item item-input item-select"> 
+                        <span class="input-label">Robot name</span>
+                        <select 
+                            ng-model="selectedRobot" 
+                            id="selectedRobot" 
+                            ng-options="option.name for option in robots track by option.id"
+                            ng-model="selectedRobot"
+                            ng-change="selectRobot()"></select>
+                    </label>
+                </div>
+                <div class="col col-33">
+                    <label class="item item-input item-select"> 
+                        <span class="input-label">Match number</span>
+                        <select 
+                            ng-model="match"
+                            id="match"
+                            ng-options="option.number for option in matches track by option.id"
+                            ng-model="match"
+                            ng-change="selectMatch()"></select>
+                    </label>
+                </div>
+            </div>
+            <div class="row row-blue">
+                <div class="col col-33">
+                    <div class="item item-input-inset">                                
+                        Boulders/low goal&nbsp;&nbsp;
+                        <button class="button button-small button-positive icon ion-plus"></button>
+                        &nbsp;&nbsp;<div id="numLow">0</div>&nbsp;&nbsp;
+                        <button class="button button-small button-positive icon ion-minus"></button>
+                    </div>
+                </div>
+                <div class="col col-33">
+                    <div class="item item-input-inset">
+                        Boulders/high goal&nbsp;&nbsp;
+                        <button class="button button-small button-positive icon ion-plus"></button>
+                        &nbsp;&nbsp;<div id="numHigh">0</div>&nbsp;&nbsp;
+                        <button class="button button-small button-positive icon ion-minus"></button>
+                    </div>
+                </div>
+                <div class="col col-33">
+                    <div class="item item-input-inset">
+                        # Fouls&nbsp;&nbsp;
+                        <button class="button button-small button-positive icon ion-plus"></button>
+                        &nbsp;&nbsp;<div id="numF">0</div>&nbsp;&nbsp;
+                        <button class="button button-small button-positive icon ion-minus"></button>
                     </div>
                 </div>
             </div>
+            <div class="row row-yellow">
+                <div class="col col-33">
+                    <div class="item item-input-inset">                                
+                        Boulders/low goal&nbsp;&nbsp;
+                        <button class="button button-small button-positive icon ion-plus"></button>
+                        &nbsp;&nbsp;<div id="numLow">0</div>&nbsp;&nbsp;
+                        <button class="button button-small button-positive icon ion-minus"></button>
+                    </div>
+                </div>
+                <div class="col col-33">
+                    <div class="item item-input-inset">                                
+                        Boulders/low goal&nbsp;&nbsp;
+                        <button class="button button-small button-positive icon ion-plus"></button>
+                        &nbsp;&nbsp;<div id="numLow">0</div>&nbsp;&nbsp;
+                        <button class="button button-small button-positive icon ion-minus"></button>
+                    </div>
+                </div>
+                <div class="col col-33">
+                    <div class="item item-input-inset">                                
+                        Boulders/low goal&nbsp;&nbsp;
+                        <button class="button button-small button-positive icon ion-plus"></button>
+                        &nbsp;&nbsp;<div id="numLow">0</div>&nbsp;&nbsp;
+                        <button class="button button-small button-positive icon ion-minus"></button>
+                    </div>
+                </div>
+            </div>
+
 
 
 
