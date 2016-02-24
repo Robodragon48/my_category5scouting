@@ -38,7 +38,7 @@
             </div>
             <div class="row row-blue">
                 <div class="col col-33">
-                    <div class="item item-input-inset">                                
+                    <div class="item item-input-inset">
                         Boulders/low goal&nbsp;&nbsp;
                         <button class="button button-small button-positive icon ion-plus"></button>
                         &nbsp;&nbsp;<div id="numLow">0</div>&nbsp;&nbsp;
@@ -64,7 +64,7 @@
             </div>
             <div class="row row-yellow">
                 <div class="col col-33">
-                    <div class="item item-input-inset">                                
+                    <div class="item item-input-inset">
                         Boulders/low goal&nbsp;&nbsp;
                         <button class="button button-small button-positive icon ion-plus"></button>
                         &nbsp;&nbsp;<div id="numLow">0</div>&nbsp;&nbsp;
@@ -72,7 +72,7 @@
                     </div>
                 </div>
                 <div class="col col-33">
-                    <div class="item item-input-inset">                                
+                    <div class="item item-input-inset">
                         Boulders/low goal&nbsp;&nbsp;
                         <button class="button button-small button-positive icon ion-plus"></button>
                         &nbsp;&nbsp;<div id="numLow">0</div>&nbsp;&nbsp;
@@ -80,7 +80,7 @@
                     </div>
                 </div>
                 <div class="col col-33">
-                    <div class="item item-input-inset">                                
+                    <div class="item item-input-inset">
                         Boulders/low goal&nbsp;&nbsp;
                         <button class="button button-small button-positive icon ion-plus"></button>
                         &nbsp;&nbsp;<div id="numLow">0</div>&nbsp;&nbsp;
@@ -99,33 +99,86 @@
                 <div class="item item-divider">Autonomous</div>
                 <div class="item item-body">
                     <form class="list">
-                        <ion-item class="range range-positive"># Times traversed the low bar
-                            <input type="range" value="0" min="0" max="8" ng-model="lowBarA" ng-change="selectRobot()">
-                        </ion-item>
-                        <ion-item class="range range-positive"># Times traversed the portcullis
-                            <input type="range" value="0" min="0" max="8" ng-model="portT" ng-change="selectRobot()">
-                        </ion-item>
-                        <ion-item class="range range-positive"># Times traversed the cheval de frise
-                            <input type="range" value="0" min="0" max="8" ng-model="chevA" ng-change="selectRobot()">
-                        </ion-item>
-                        <ion-item class="range range-positive"># Times traversed the moat
-                            <input type="range" value="0" min="0" max="8" ng-model="moatA" ng-change="selectRobot()">
-                        </ion-item>
-                        <ion-item class="range range-positive"># Times traversed the rampart
-                            <input type="range" value="0" min="0" max="8" ng-model="rampartA" ng-change="selectRobot()">
-                        </ion-item>
-                        <ion-item class="range range-positive"># Times traversed the rock wall
-                            <input type="range" value="0" min="0" max="8" ng-model="rockA" ng-change="selectRobot()">
-                        </ion-item>
-                        <ion-item class="range range-positive"># Times traversed the rough terrain
-                            <input type="range" value="0" min="0" max="8" ng-model="roughA" ng-change="selectRobot()">
-                        </ion-item>
-                        <ion-item class="range range-positive"># Times traversed the sally port
-                            <input type="range" value="0" min="0" max="8" ng-model="sallyA" ng-change="selectRobot()">
-                        </ion-item>
-                        <ion-item class="range range-positive"># Times traversed the drawbridge
-                            <input type="range" value="0" min="0" max="8" ng-model="drawA" ng-change="selectRobot()">
-                        </ion-item>
+                        <div class="row">
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Low bar&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="lowBarA">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Portcullis&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="portA">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Cheval de frise&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="chevA">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Moat&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="moatA">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Rampart&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="rampartA">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Rock wall&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="rockA">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Rough terrain&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="roughA">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Sally port&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="sallyA">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Drawbridge&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="drawA">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>
@@ -133,61 +186,136 @@
                 <div class="item item-divider">Teleop</div>
                 <div class="item item-body">
                     <form class="list">
-                        <ion-item class="range range-positive"># Times traversed the low bar
-                            <input type="range" value="0" min="0" max="8" ng-model="lowBarT" ng-change="selectRobot()">
-                        </ion-item>
-                        <ion-item class="range range-positive"># Times traversed the portcullis
-                            <input type="range" value="0" min="0" max="8" ng-model="portA" ng-change="selectRobot()">
-                        </ion-item>
-                        <ion-item class="range range-positive"># Times traversed the cheval de frise
-                            <input type="range" value="0" min="0" max="8" ng-model="chevT" ng-change="selectRobot()">
-                        </ion-item>
-                        <ion-item class="range range-positive"># Times traversed the moat
-                            <input type="range" value="0" min="0" max="8" ng-model="moatT" ng-change="selectRobot()">
-                        </ion-item>
-                        <ion-item class="range range-positive"># Times traversed the rampart
-                            <input type="range" value="0" min="0" max="8" ng-model="rampartT" ng-change="selectRobot()">
-                        </ion-item>
-                        <ion-item class="range range-positive"># Times traversed the rock wall
-                            <input type="range" value="0" min="0" max="8" ng-model="rockT" ng-change="selectRobot()">
-                        </ion-item>
-                        <ion-item class="range range-positive"># Times traversed the rough terrain
-                            <input type="range" value="0" min="0" max="8" ng-model="roughT" ng-change="selectRobot()">
-                        </ion-item>
-                        <ion-item class="range range-positive"># Times traversed the sally port
-                            <input type="range" value="0" min="0" max="8" ng-model="sallyT" ng-change="selectRobot()">
-                        </ion-item>
-                        <ion-item class="range range-positive"># Times traversed the drawbridge
-                            <input type="range" value="0" min="0" max="8" ng-model="drawT" ng-change="selectRobot()">
-                        </ion-item>
+                        <div class="row">
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Low bar&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="lowBarT">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Portcullis&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="portT">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Cheval de frise&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="chevT">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Moat&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="moatT">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Rampart&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="rampartT">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Rock wall&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="rockT">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Rough terrain&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="roughT">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Sally port&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="sallyT">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    Drawbridge&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    &nbsp;&nbsp;<div id="drawT">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
 
-            <label class="item item-select" ng-model="scaled">
-                <span class="input-label">Did the robot scale the tower?</span>
-                <select 
-                    ng-model="scaled" 
-                    id="scaled" 
-                    ng-options="option.name for option in data.yesNo track by option.id"
-                    ng-model="scaled"
-                    ng-change="robotChanged()"
-                    ng-disabled="disableFields()"></select>
-            </label>
-            <label class="item item-select" ng-model="challenge">
-                <span class="input-label">Did the robot challenge the tower?</span>
-                <select 
-                    ng-model="challenge" 
-                    id="challenge" 
-                    ng-options="option.name for option in data.yesNo track by option.id"
-                    ng-model="challenge"
-                    ng-change="robotChanged()"
-                    ng-disabled="disableFields()"></select>
-            </label>
-            <ion-item class="range range-positive">Number of fouls generated
-                <input type="range" value="0" min="0" max="5" ng-model="numF" ng-change="selectRobot()">
-            </ion-item>
-            <ion-toggle toggle-class="toggle-positive" ng-model="borked" ng-change="selectRobot()">The robot became inoperable</ion-toggle>
+            <div class="list card">
+                <div class="item item-divider">Teleop</div>
+                <div class="item item-body">
+                    <form class="list">
+                        <div class="row">
+                            <div class="col col-33">
+                                <label class="item item-select" ng-model="scaled">
+                                    <span class="input-label">Did the robot scale the tower?</span>
+                                    <select 
+                                        ng-model="scaled" 
+                                        id="scaled" 
+                                        ng-options="option.name for option in data.yesNo track by option.id"
+                                        ng-model="scaled"
+                                        ng-change="robotChanged()"
+                                        ng-disabled="disableFields()"></select>
+                                </label>
+                            </div>
+                            <div class="col col-33">
+                                <label class="item item-select" ng-model="challenge">
+                                    <span class="input-label">Did the robot challenge the tower?</span>
+                                    <select 
+                                        ng-model="challenge" 
+                                        id="challenge" 
+                                        ng-options="option.name for option in data.yesNo track by option.id"
+                                        ng-model="challenge"
+                                        ng-change="robotChanged()"
+                                        ng-disabled="disableFields()"></select>
+                                </label>
+                            </div>
+                            <div class="col col-33">
+                                <ion-toggle toggle-class="toggle-positive" ng-model="borked" ng-change="selectRobot()">The robot became inoperable</ion-toggle>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col col-33">
+                            </div>
+                            <div class="col col-33">
+                            </div>
+                            <div class="col col-33">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>            
+
             <label class="item item-select" ng-model="bFloor">
                 <span class="input-label">How well did the robot pick up boulders from the floor?</span>
                 <select 
