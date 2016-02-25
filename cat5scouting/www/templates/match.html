@@ -1,374 +1,355 @@
-<ion-view title="Match Scouting">
+<ion-view view-title="Match Scouting">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <form class="list">
-            <div class="row row-green">
-                <div class="col col-33">
-                    <label class="item item-input item-select"> 
-                        <span class="input-label">Team name</span>
-                        <select 
-                            ng-model="team" 
-                            id="team" 
-                            ng-options="option.name for option in teams track by option.id"
-                            ng-model="team"
-                            ng-change="selectTeam()"></select>
-                    </label>
-                </div>
-                <div class="col col-33">
-                    <label class="item item-input item-select"> 
-                        <span class="input-label">Robot name</span>
-                        <select 
-                            ng-model="selectedRobot" 
-                            id="selectedRobot" 
-                            ng-options="option.name for option in robots track by option.id"
-                            ng-model="selectedRobot"
-                            ng-change="selectRobot()"></select>
-                    </label>
-                </div>
-                <div class="col col-33">
-                    <label class="item item-input item-select"> 
-                        <span class="input-label">Match number</span>
-                        <select 
-                            ng-model="match"
-                            id="match"
-                            ng-options="option.number for option in matches track by option.id"
-                            ng-model="match"
-                            ng-change="selectMatch()"></select>
-                    </label>
-                </div>
-            </div>
-            <div class="row row-blue">
-                <div class="col col-33">
-                    <div class="item item-input-inset">
-                        Boulders/low goal&nbsp;&nbsp;
-                        <button class="button button-small button-positive icon ion-plus"></button>
-                        &nbsp;&nbsp;<div id="numLow">0</div>&nbsp;&nbsp;
-                        <button class="button button-small button-positive icon ion-minus"></button>
+        <div ng-controller="MatchCtrl" class="padding">
+            <form name="MatchScoutForm">
+                <div class="row row-blue">
+                    <div class="col col-33">
+                        <label class="item item-input item-select"> 
+                            <span class="input-label">Team name</span>
+                            <select 
+                                ng-model="team" 
+                                id="team" 
+                                ng-options="option.number + ' - ' + option.name for option in teams track by option.id"
+                                ng-model="team"
+                                ng-change="selectTeam()"></select>
+                        </label>
+                    </div>
+                    <div class="col col-33">
+                        <label class="item item-input item-select"> 
+                            <span class="input-label">Robot name</span>
+                            <select 
+                                ng-model="selectedRobot" 
+                                id="selectedRobot" 
+                                ng-options="option.name for option in robots track by option.id"
+                                ng-model="selectedRobot"
+                                ng-change="selectRobot()"></select>
+                        </label>
+                    </div>
+                    <div class="col col-33">
+                        <label class="item item-input item-select"> 
+                            <span class="input-label">Match number</span>
+                            <select 
+                                ng-model="match"
+                                id="match"
+                                ng-options="option.number for option in matches track by option.id"
+                                ng-model="match"
+                                ng-change="selectMatch()"></select>
+                        </label>
                     </div>
                 </div>
-                <div class="col col-33">
-                    <div class="item item-input-inset">
-                        Boulders/high goal&nbsp;&nbsp;
-                        <button class="button button-small button-positive icon ion-plus"></button>
-                        &nbsp;&nbsp;<div id="numHigh">0</div>&nbsp;&nbsp;
-                        <button class="button button-small button-positive icon ion-minus"></button>
+                <div class="row row-blue">
+                    <div class="col col-33">
+                        <div class="item item-input-inset">
+                            <div class="numLabel">Boulders/low goal&nbsp;&nbsp;</div>
+                            <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
+                            &nbsp;&nbsp;<div id="numLow">{{ numLow }}</div>&nbsp;&nbsp;
+                            <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                        </div>
+                    </div>
+                    <div class="col col-33">
+                        <div class="item item-input-inset">
+                            <div class="numLabel">Boulders/high goal&nbsp;&nbsp;</div>
+                            <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
+                            &nbsp;&nbsp;<div id="numHigh">0</div>&nbsp;&nbsp;
+                            <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                        </div>
+                    </div>
+                    <div class="col col-33">
+                        <div class="item item-input-inset">
+                            <div class="numLabel"># Fouls&nbsp;&nbsp;</div>
+                            <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
+                            &nbsp;&nbsp;<div id="numF">0</div>&nbsp;&nbsp;
+                            <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                        </div>
+                    </div>
+                    <div class="col">
                     </div>
                 </div>
-                <div class="col col-33">
-                    <div class="item item-input-inset">
-                        # Fouls&nbsp;&nbsp;
-                        <button class="button button-small button-positive icon ion-plus"></button>
-                        &nbsp;&nbsp;<div id="numF">0</div>&nbsp;&nbsp;
-                        <button class="button button-small button-positive icon ion-minus"></button>
-                    </div>
+
+
+                <div class="row padding">
+                     <div class="col">
+                        <div class="button-bar">
+                          <a class="button" ng-class="{'button-positive': isActiveFields('auto')}" ng-click="toggleFields('auto');">Auto</a>
+                          <a class="button" ng-class="{'button-positive': isActiveFields('tele')}" ng-click="toggleFields('tele');">Tele</a>
+                          <a class="button" ng-class="{'button-positive': isActiveFields('post')}" ng-click="toggleFields('post');">Post</a>
+                        </div>
+                     </div>
                 </div>
-            </div>
-            <div class="row row-yellow">
-                <div class="col col-33">
-                    <div class="item item-input-inset">
-                        Boulders/low goal&nbsp;&nbsp;
-                        <button class="button button-small button-positive icon ion-plus"></button>
-                        &nbsp;&nbsp;<div id="numLow">0</div>&nbsp;&nbsp;
-                        <button class="button button-small button-positive icon ion-minus"></button>
-                    </div>
-                </div>
-                <div class="col col-33">
-                    <div class="item item-input-inset">
-                        Boulders/low goal&nbsp;&nbsp;
-                        <button class="button button-small button-positive icon ion-plus"></button>
-                        &nbsp;&nbsp;<div id="numLow">0</div>&nbsp;&nbsp;
-                        <button class="button button-small button-positive icon ion-minus"></button>
-                    </div>
-                </div>
-                <div class="col col-33">
-                    <div class="item item-input-inset">
-                        Boulders/low goal&nbsp;&nbsp;
-                        <button class="button button-small button-positive icon ion-plus"></button>
-                        &nbsp;&nbsp;<div id="numLow">0</div>&nbsp;&nbsp;
-                        <button class="button button-small button-positive icon ion-minus"></button>
-                    </div>
-                </div>
-            </div>
 
 
-
-
-
-
-
-            <div class="list card">
-                <div class="item item-divider">Autonomous</div>
-                <div class="item item-body">
-                    <form class="list">
-                        <div class="row">
+                <div class="list card">
+                    <div class="item item-divider" ng-show="displayField('auto')">Autonomous</div>
+                    <div class="item item-body" ng-show="displayField('auto')">
+                        <div class="row row-yellow">
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Low bar&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
-                                    &nbsp;&nbsp;<div id="lowBarA">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <div class="numLabel">Low bar&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
+                                    &nbsp;&nbsp;<div id="lowBarA">{{ lowBarA }}</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Portcullis&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    <div class="numLabel">Portcullis&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
                                     &nbsp;&nbsp;<div id="portA">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Cheval de frise&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    <div class="numLabel">Cheval de frise&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
                                     &nbsp;&nbsp;<div id="chevA">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+
+                        <div class="row row-yellow">
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Moat&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    <div class="numLabel">Moat&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
                                     &nbsp;&nbsp;<div id="moatA">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Rampart&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
-                                    &nbsp;&nbsp;<div id="rampartA">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <div class="numLabel">Rampart&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
+                                    &nbsp;&nbsp;<div id="rampA">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Rock wall&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    <div class="numLabel">Rock wall&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
                                     &nbsp;&nbsp;<div id="rockA">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row row-yellow">
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Rough terrain&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    <div class="numLabel">Rough terrain&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
                                     &nbsp;&nbsp;<div id="roughA">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Sally port&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    <div class="numLabel">Sally port&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
                                     &nbsp;&nbsp;<div id="sallyA">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Drawbridge&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    <div class="numLabel">Drawbridge&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
                                     &nbsp;&nbsp;<div id="drawA">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                    </form>
-                </div>
-            </div>
-            <div class="list card">
-                <div class="item item-divider">Teleop</div>
-                <div class="item item-body">
-                    <form class="list">
-                        <div class="row">
+                    <div class="item item-divider" ng-show="displayField('tele')">Teleop</div>
+                    <div class="item item-body" ng-show="displayField('tele')">
+                        <div class="row row-green">
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Low bar&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    <div class="numLabel">Low bar&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
                                     &nbsp;&nbsp;<div id="lowBarT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Portcullis&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    <div class="numLabel">Portcullis&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
                                     &nbsp;&nbsp;<div id="portT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Cheval de frise&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    <div class="numLabel">Cheval de frise&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
                                     &nbsp;&nbsp;<div id="chevT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+
+                        <div class="row row-green">
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Moat&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    <div class="numLabel">Moat&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
                                     &nbsp;&nbsp;<div id="moatT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Rampart&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
-                                    &nbsp;&nbsp;<div id="rampartT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <div class="numLabel">Rampart&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
+                                    &nbsp;&nbsp;<div id="rampT">0</div>&nbsp;&nbsp;
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Rock wall&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    <div class="numLabel">Rock wall&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
                                     &nbsp;&nbsp;<div id="rockT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row row-green">
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Rough terrain&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    <div class="numLabel">Rough terrain&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
                                     &nbsp;&nbsp;<div id="roughT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Sally port&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    <div class="numLabel">Sally port&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
                                     &nbsp;&nbsp;<div id="sallyT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
-                                    Drawbridge&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-plus"></button>
+                                    <div class="numLabel">Drawbridge&nbsp;&nbsp;</div>
+                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
                                     &nbsp;&nbsp;<div id="drawT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-positive icon ion-minus"></button>
+                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
-            </div>
+                    </div>
 
-            <div class="list card">
-                <div class="item item-divider">Teleop</div>
-                <div class="item item-body">
-                    <form class="list">
-                        <div class="row">
+                    <div class="item item-divider" ng-show="displayField('post')">Post-match</div>
+                    <div class="item item-body" ng-show="displayField('post')">
+                        <div class="row row-pink">
                             <div class="col col-33">
-                                <label class="item item-select" ng-model="scaled">
-                                    <span class="input-label">Did the robot scale the tower?</span>
+                                <label class="item item-select">
+                                    <span class="input-label">Robot scaled tower?</span>
                                     <select 
                                         ng-model="scaled" 
                                         id="scaled" 
                                         ng-options="option.name for option in data.yesNo track by option.id"
                                         ng-model="scaled"
                                         ng-change="robotChanged()"
-                                        ng-disabled="disableFields()"></select>
+                                        ng-disabled="disableMatchFields()"></select>
                                 </label>
                             </div>
                             <div class="col col-33">
-                                <label class="item item-select" ng-model="challenge">
-                                    <span class="input-label">Did the robot challenge the tower?</span>
+                                <label class="item item-select">
+                                    <span class="input-label">Robot challenged tower?</span>
                                     <select 
                                         ng-model="challenge" 
                                         id="challenge" 
                                         ng-options="option.name for option in data.yesNo track by option.id"
                                         ng-model="challenge"
                                         ng-change="robotChanged()"
-                                        ng-disabled="disableFields()"></select>
+                                        ng-disabled="disableMatchFields()"></select>
                                 </label>
                             </div>
                             <div class="col col-33">
-                                <ion-toggle toggle-class="toggle-positive" ng-model="borked" ng-change="selectRobot()">The robot became inoperable</ion-toggle>
+                                <ion-toggle toggle-class="toggle-positive" ng-model="borked" ng-change="selectRobot()">Robot became inoperable</ion-toggle>
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row row-pink">
                             <div class="col col-33">
+                                <label class="item item-select">
+                                    <span class="input-label">Robot picked up boulders from floor:</span>
+                                    <select 
+                                        ng-model="bFloor" 
+                                        id="bFloor" 
+                                        ng-options="option.name for option in data.judgment track by option.id"
+                                        ng-model="bFloor"
+                                        ng-change="robotChanged()"
+                                        ng-disabled="disableMatchFields()"></select>
+                                </label>
                             </div>
                             <div class="col col-33">
+                                <label class="item item-select">
+                                    <span class="input-label">Robot picked up boulders from secret passage:</span>
+                                    <select 
+                                        ng-model="bSecret" 
+                                        id="bSecret" 
+                                        ng-options="option.name for option in data.judgment track by option.id"
+                                        ng-model="bSecret"
+                                        ng-change="robotChanged()"
+                                        ng-disabled="disableMatchFields()"></select>
+                                    </select>
+                                </label>
                             </div>
                             <div class="col col-33">
+                                <label class="item item-select">
+                                    <span class="input-label">Robot played defense</span>
+                                    <select 
+                                        ng-model="defense" 
+                                        id="defense" 
+                                        ng-options="option.name for option in data.judgment track by option.id"
+                                        ng-model="defense"
+                                        ng-change="robotChanged()"
+                                        ng-disabled="disableMatchFields()"></select>
+                                    </select>
+                                </label>
                             </div>
                         </div>
 
-                    </form>
-                </div>
-            </div>            
-
-            <label class="item item-select" ng-model="bFloor">
-                <span class="input-label">How well did the robot pick up boulders from the floor?</span>
-                <select 
-                    ng-model="bFloor" 
-                    id="bFloor" 
-                    ng-options="option.name for option in data.judgment track by option.id"
-                    ng-model="bFloor"
-                    ng-change="robotChanged()"
-                    ng-disabled="disableFields()"></select>
-            </label>
-            <label class="item item-select" ng-model="bSecret">
-                <span class="input-label">How well did the robot pick up boulders from the secret passage</span>
-                <select 
-                    ng-model="bSecret" 
-                    id="bSecret" 
-                    ng-options="option.name for option in data.judgment track by option.id"
-                    ng-model="bSecret"
-                    ng-change="robotChanged()"
-                    ng-disabled="disableFields()"></select>
-                </select>
-            </label>
-            <label class="item item-select" ng-model="defense">
-                <span class="input-label">How well did the robot play defense</span>
-                <select 
-                    ng-model="defense" 
-                    id="defense" 
-                    ng-options="option.name for option in data.judgment track by option.id"
-                    ng-model="defense"
-                    ng-change="robotChanged()"
-                    ng-disabled="disableFields()"></select>
-                </select>
-            </label>
-            <label class="item item-select" ng-model="spyComm1">
-                <span class="input-label">How well did the team spy communicate</span>
-                <select 
-                    ng-model="spyComm1" 
-                    id="spyComm1" 
-                    ng-options="option.name for option in data.judgment track by option.id"
-                    ng-model="spyComm1"
-                    ng-change="robotChanged()"
-                    ng-disabled="disableFields()"></select>
-                </select>
-            </label>
-            <label class="item item-select" ng-model="spyComm2">
-                <span class="input-label">How well did the drive team use spy communication?</span>
-                <select 
-                    ng-model="spyComm2" 
-                    id="spyComm2" 
-                    ng-options="option.name for option in data.judgment track by option.id"
-                    ng-model="spyComm2"
-                    ng-change="robotChanged()"
-                    ng-disabled="disableFields()"></select>
-            </label>
-        </form>
+                        <div class="row row-pink">
+                            <div class="col col-50">
+                                <label class="item item-select" ng-model="spyComm1">
+                                    <span class="input-label">How well did the team spy communicate</span>
+                                    <select 
+                                        ng-model="spyComm1" 
+                                        id="spyComm1" 
+                                        ng-options="option.name for option in data.judgment track by option.id"
+                                        ng-model="spyComm1"
+                                        ng-change="robotChanged()"
+                                        ng-disabled="disableMatchFields()"></select>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col col-50">
+                                <label class="item item-select" ng-model="spyComm2">
+                                    <span class="input-label">How well did the drive team use spy communication?</span>
+                                    <select 
+                                        ng-model="spyComm2" 
+                                        id="spyComm2" 
+                                        ng-options="option.name for option in data.judgment track by option.id"
+                                        ng-model="spyComm2"
+                                        ng-change="robotChanged()"
+                                        ng-disabled="disableMatchFields()"></select>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+            </form>
+        </div>
     </ion-content>
 </ion-view>

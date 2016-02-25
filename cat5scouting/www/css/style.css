@@ -15,3 +15,6 @@ textarea {
 .row-pink {
 	background: rgba(255,0,255,0.4); /* blue */
 }
+.numLabel {
+	width: 200px;
+}

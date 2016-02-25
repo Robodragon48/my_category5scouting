@@ -329,7 +329,7 @@ angular.module('cat5scouting.services', [])
                 +   "rm.`portA`, rm.`portT`, rm.`chevA`, rm.`chevT`, rm.`moatA`, " 
                 +   "rm.`moatT`, rm.`rockA`, rm.`rockT`, rm.`roughA`, rm.`roughT`, " 
                 +   "rm.`sallyA`, rm.`sallyT`, rm.`drawA`, rm.`drawT`, "
-                +   "rm.`rampartA`, rm.`rampartT`, rm.`scaled`, "
+                +   "rm.`rampA`, rm.`rampT`, rm.`scaled`, "
                 +   "rm.`challenge`, rm.`bFloor`, rm.`bSecret`, rm.`numF`, rm.`borked`, "
                 +   "rm.`defense`, rm.`spyComm1`, rm.`spyComm2` "
                 +   "FROM `robotMatch` rm "
@@ -390,11 +390,11 @@ angular.module('cat5scouting.services', [])
         }         
         if (editRobot.rampartA) { 
            parameters.push(editRobot.rampartA.id); 
-           query += " rampartA = (?),";
+           query += " rampA = (?),";
         }         
         if (editRobot.rampartT) { 
            parameters.push(editRobot.rampartT.id); 
-           query += " rampartT = (?),";
+           query += " rampT = (?),";
         }         
         if (editRobot.rockA) { 
            parameters.push(editRobot.rockA.id); 

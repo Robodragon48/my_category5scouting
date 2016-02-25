@@ -3,6 +3,10 @@
   derived from the gist created by Borris Sondagh, here: 
   https://gist.github.com/borissondagh/29d1ed19d0df6051c56f
 */
+
+/*
+  TODO: Split this file up into individual controller files
+*/
 angular.module('cat5scouting.controllers', ['ngCordova'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
@@ -13,17 +17,495 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
   
 })
 
-.controller('MatchCtrl', function($scope, Team) {
+.controller('MatchCtrl', function($scope, $stateParams, Robot,
+ RobotMatch, Match, Team) {
   $scope.teams = [];
   $scope.teams = null;
-  
+
   $scope.updateTeam = function() {
     Team.all().then(function(teams) {
       $scope.teams = teams;
     })
   }
+
+  /*
+    Pull matches out of the database. They are not dependent on other values,
+    so there is no need to wrap them in a function
+  */
+  Match.all().then(function(matches) {
+    $scope.matches = matches;
+  })
+
+  /*
+    Create stateful buttons to show which set of fields
+    is active
+  */
+  $scope.activeFields = 'auto';  
+  $scope.isActiveFields = function(type) {
+    return type === $scope.activeFields;
+  }  
+
+  /*
+    Create function to respond to button bar clicks
+  */
+  $scope.toggleFields = function(option) {
+    if (option == 'auto') $scope.toggle = 'auto';
+    if (option == 'tele') $scope.toggle = 'tele';
+    if (option == 'post') $scope.toggle = 'post';
+    $scope.activeFields = option;
+  }
+
+  $scope.displayField = function(state) {
+    return state == $scope.toggle;
+  }
+
+  $scope.incValue = function(field) {
+
+  }
+
+  /*
+    teamName: the name of the team
+    robotName: the name of the robot that a team has
+    matchNum: the match during which data was retrieved
+  */
+  $scope.data = {
+    yesNo: [
+      {id: '0', name: '[Unknown]'},
+      {id: '1', name: 'Yes'},
+      {id: '2', name: 'No'}
+    ],
+    judgment: [
+      {id: '0', name: '[Unknown]'},
+      {id: '1', name: "Didn't"},
+      {id: '2', name: 'Poorly'},
+      {id: '3', name: 'Well'}
+    ]
+  }
+
+  //retrieve the robot(s) for the selected team
+  $scope.selectTeam = function() {
+    //TODO: Push this to a service, as it is copied from the Pit controller and
+    //we want DRY code
+    Robot.getByTeam($scope.team.id).then(function(robots) {
+      $scope.robots = robots;
+    })
+    
+    //reset the selected robot
+    //first, copy the existing team and match selection
+    var teamCopy = angular.copy($scope.team);
+    var matchCopy = angular.copy($scope.match);
+    //then reset the data
+    //$scope.resetData();
+    //then repopulate the selected team and match
+    $scope.team = teamCopy;
+    $scope.match = matchCopy;
+  }
+  
+  /*
+    This function is called when the user changes the robot. It loads values for
+    the fields from the SQLite database or, if there is no record for the 
+    selected team, it sets all of the fields to [Unknown]. 
+  */
+  $scope.selectRobot = function() {
+    //set global to indicate that a robot has been selected
+    $scope.robotSelected = true;
+
+    //the if statement skips the contents if this function was triggered by the 
+    //field being set to no-value or if both a robot and match haven't been 
+    //selectd
+    if ($scope.selectedRobot && $scope.match) {
+      //retrieve all robot data for the selected robot
+      console.log("RobotMatch.getById called");
+      RobotMatch.getById($scope.selectedRobot.id, $scope.match.id).then(function(robot) {
+        //verify that a robot was returned instead of null (null = no matching record in the db)
+        console.log("if robot");
+        if (robot) {
+          console.log("yes, there was a robot");
+
+          //set the current robot
+          $scope.robot = robot;
+          
+          //set the values for the fields in the form based on the database if they
+          //exist. Otherwise, set to the unselected value.
+          if (robot.numLow) {
+            $scope.numLow = robot.numLow;
+          } else {
+            $scope.numLow = 0;
+          }
+          if (robot.numHigh) {
+            $scope.numHigh = robot.numHigh;
+          } else {
+            $scope.numHigh = 0;
+          }
+          if (robot.lowBarA) {
+            $scope.lowBarA = robot.lowBarA;
+          } else {
+            $scope.lowBarA = 0;
+          }
+          if (robot.lowBarT) {
+            $scope.lowBarT = robot.lowBarT;
+          } else {
+            $scope.lowBarT = 0;
+          }
+          if (robot.portA) {
+            $scope.portA = robot.portA;
+          } else {
+            $scope.portA = 0;
+          }
+          if (robot.portT) {
+            $scope.portT = robot.portT;
+          } else {
+            $scope.portT = 0;
+          }
+          if (robot.chevA) {
+            $scope.chevA = robot.chevA;
+          } else {
+            $scope.chevA = 0;
+          }
+          if (robot.chevT) {
+            $scope.chevT = robot.chevT;
+          } else {
+            $scope.chevT = 0;
+          }
+          if (robot.moatA) {
+            $scope.moatA = robot.moatA;
+          } else {
+            $scope.moatA = 0;
+          }
+          if (robot.moatT) {
+            $scope.moatT = robot.moatT;
+          } else {
+            $scope.moatT = 0;
+          }
+          if (robot.rockA) {
+            $scope.rockA = robot.rockA;
+          } else {
+            $scope.rockA = 0;
+          }
+          if (robot.rockT) {
+            $scope.rockT = robot.rockT;
+          } else {
+            $scope.rockT = 0;
+          }
+          if (robot.roughA) {
+            $scope.roughA = robot.roughA;
+          } else {
+            $scope.roughA = 0;
+          }
+          if (robot.roughT) {
+            $scope.roughT = robot.roughT;
+          } else {
+            $scope.roughT = 0;
+          }
+          if (robot.sallyA) {
+            $scope.sallyA = robot.sallyA;
+          } else {
+            $scope.sallyA = 0;
+          }
+          if (robot.sallyT) {
+            $scope.sallyT = robot.sallyT;
+          } else {
+            $scope.sallyT = 0;
+          }
+          if (robot.drawA) {
+            $scope.drawA = robot.drawA;
+          } else {
+            $scope.drawA = 0;
+          }
+          if (robot.drawT) {
+            $scope.drawT = robot.drawT;
+          } else {
+            $scope.drawT = 0;
+          }
+          if (robot.scaled) {
+            $scope.scaled = robot.scaled;
+          } else {
+            $scope.scaled = 0;
+          }
+          if (robot.challenge) {
+            $scope.challenge = robot.challenge;
+          } else {
+            $scope.challenge = 0;
+          }
+          if (robot.bFloor) {
+            $scope.bFloor = robot.bFloor;
+          } else {
+            $scope.bFloor = $scope.data.judgment[0];;
+          }
+          if (robot.bSecret) {
+            $scope.bSecret = robot.bSecret;
+          } else {
+            $scope.bSecret = $scope.data.judgment[0];;
+          }
+          if (robot.numF) {
+            $scope.numF = robot.numF;
+          } else {
+            $scope.numF = 0;
+          }
+          if (robot.borked) {
+            $scope.borked = robot.borked;
+          } else {
+            $scope.borked = false;
+          }
+          if (robot.defense) {
+            $scope.defense = robot.defense;
+          } else {
+            $scope.defense = $scope.data.judgment[0];;
+          }
+          if (robot.spyComm1) {
+            $scope.spyComm1 = robot.spyComm1;
+          } else {
+            $scope.spyComm1 = $scope.data.judgment[0];;
+          }
+          if (robot.spyComm2) {
+            $scope.spyComm2 = robot.spyComm2;
+          } else {
+            $scope.spyComm2 = $scope.data.judgment[0];;
+          }
+        } else {
+          //if no database record, set all fields to unselected values for the 
+          //form to display
+          $scope.numLow = 0;
+          $scope.numHigh = 0;
+          $scope.lowBarA = 0;
+          $scope.lowBarT = 0;
+          $scope.portA = 0;
+          $scope.portT = 0;
+          $scope.chevA = 0;
+          $scope.chevT = 0;
+          $scope.moatA = 0;
+          $scope.moatT = 0;
+          $scope.rockA = 0;
+          $scope.rockT = 0;
+          $scope.roughA = 0;
+          $scope.roughT = 0;
+          $scope.sallyA = 0;
+          $scope.sallyT = 0;
+          $scope.drawA = 0;
+          $scope.drawT = 0;
+          $scope.scaled = 0;
+          $scope.challenge = 0;
+          $scope.bFloor = $scope.data.judgment[0];
+          $scope.bSecret = $scope.data.judgment[0];
+          $scope.numF = 0;
+          $scope.borked = false;
+          $scope.defense = $scope.data.judgment[0];
+          $scope.spyComm1 = $scope.data.judgment[0];
+          $scope.spyComm2 = $scope.data.judgment[0];
+
+          //then create a robot object with the same values
+          var newRobotMatch = [];
+          newRobotMatch.numLow = $scope.numLow;
+          newRobotMatch.numHigh = $scope.numHigh;
+          newRobotMatch.lowBarA = $scope.lowBarA;
+          newRobotMatch.lowBarT = $scope.lowBarT;
+          newRobotMatch.portA = $scope.portA;
+          newRobotMatch.portT = $scope.portT;
+          newRobotMatch.chevA = $scope.chevA;
+          newRobotMatch.chevT = $scope.chevT;
+          newRobotMatch.moatA = $scope.moatA;
+          newRobotMatch.moatT = $scope.moatT;
+          newRobotMatch.rockA = $scope.rockA;
+          newRobotMatch.rockT = $scope.rockT;
+          newRobotMatch.roughA = $scope.roughA;
+          newRobotMatch.roughT = $scope.roughT;
+          newRobotMatch.sallyA = $scope.sallyA;
+          newRobotMatch.sallyT = $scope.sallyT;
+          newRobotMatch.drawA = $scope.drawA;
+          newRobotMatch.drawT = $scope.drawT;
+          newRobotMatch.scaled = $scope.scaled;
+          newRobotMatch.challenge = $scope.challenge;
+          newRobotMatch.bFloor = $scope.bFloor;
+          newRobotMatch.bSecret = $scope.bSecret;
+          newRobotMatch.numF = $scope.numF;
+          newRobotMatch.borked = $scope.borked;
+          newRobotMatch.defense = $scope.defense;
+          newRobotMatch.spyComm1 = $scope.spyComm1;
+          newRobotMatch.spyComm2 = $scope.spyComm2;
+          
+          //and then persist the values to a new data store record
+          console.log("Adding new records to RobotMatch with robot ID '" + newRobotMatch.robotId + "' and match ID '" + newRobotMatch.matchId + "'");
+          RobotMatch.add(newRobotMatch);
+        }
+      })
+    }
+  }
+  
+  /*
+    This function is called when a match number is selected
+  */
+  $scope.selectMatch = function() {
+    //set variable to indicate that a match has been selected
+    $scope.matchSelected = true;
+
+    //call the same function as when a robot is selected
+    $scope.selectRobot();
+  }
+
+  /*
+    This functino is called to verify that a field should be 
+    read/write enabled
+  */
+  $scope.disableMatchFields = function() {
+    return !(($scope.matchSelected == true) && ($scope.robotSelected == true));
+  }
+  
+  /*
+    This function is called each time a field is updated.
+  */
+  $scope.robotMatchChanged = function() {
+    var editRobotMatch = angular.copy($scope.selectedRobot);
+    
+    if ($scope.numLow) {
+      editRobotMatch.numLow = angular.copy($scope.numLow);
+    } else {
+      editRobotMatch.numLow = 0;
+    }
+    if ($scope.numHigh) {
+      editRobotMatch.numHigh = angular.copy($scope.numHigh);
+    } else {
+      editRobotMatch.numHigh = 0;
+    }
+    if ($scope.lowBarA) {
+      editRobotMatch.lowBarA = angular.copy($scope.lowBarA);
+    } else {
+      editRobotMatch.lowBarA = 0;
+    }
+    if ($scope.lowBarT) {
+      editRobotMatch.lowBarT = angular.copy($scope.lowBarT);
+    } else {
+      editRobotMatch.lowBarT = 0;
+    }
+    if ($scope.portA) {
+      editRobotMatch.portA = angular.copy($scope.portA);
+    } else {
+      editRobotMatch.portA = 0;
+    }
+    if ($scope.portT) {
+      editRobotMatch.portT = angular.copy($scope.portT);
+    } else {
+      editRobotMatch.portT = 0;
+    }
+    if ($scope.chevA) {
+      editRobotMatch.chevA = angular.copy($scope.chevA);
+    } else {
+      editRobotMatch.chevA = 0;
+    }
+    if ($scope.chevT) {
+      editRobotMatch.chevT = angular.copy($scope.chevT);
+    } else {
+      editRobotMatch.chevT = 0;
+    }
+    if ($scope.moatA) {
+      editRobotMatch.moatA = angular.copy($scope.moatA);
+    } else {
+      editRobotMatch.moatA = 0;
+    }
+    if ($scope.moatT) {
+      editRobotMatch.moatT = angular.copy($scope.moatT);
+    } else {
+      editRobotMatch.moatT = 0;
+    }
+    if ($scope.rockA) {
+      editRobotMatch.rockA = angular.copy($scope.rockA);
+    } else {
+      editRobotMatch.rockA = 0;
+    }
+    if ($scope.rockT) {
+      editRobotMatch.rockT = angular.copy($scope.rockT);
+    } else {
+      editRobotMatch.rockT = 0;
+    }
+    if ($scope.roughA) {
+      editRobotMatch.roughA = angular.copy($scope.roughA);
+    } else {
+      editRobotMatch.roughA = 0;
+    }
+    if ($scope.roughT) {
+      editRobotMatch.roughT = angular.copy($scope.roughT);
+    } else {
+      editRobotMatch.roughT = 0;
+    }
+    if ($scope.sallyA) {
+      editRobotMatch.sallyA = angular.copy($scope.sallyA);
+    } else {
+      editRobotMatch.sallyA = 0;
+    }
+    if ($scope.sallyT) {
+      editRobotMatch.sallyT = angular.copy($scope.sallyT);
+    } else {
+      editRobotMatch.sallyT = 0;
+    }
+    if ($scope.drawA) {
+      editRobotMatch.drawA = angular.copy($scope.drawA);
+    } else {
+      editRobotMatch.drawA = 0;
+    }
+    if ($scope.drawT) {
+      editRobotMatch.drawT = angular.copy($scope.drawT);
+    } else {
+      editRobotMatch.drawT = 0;
+    }
+    if ($scope.scaled) {
+      editRobotMatch.scaled = angular.copy($scope.scaled);
+    } else {
+      editRobotMatch.scaled = 0;
+    }
+    if ($scope.challenge) {
+      editRobotMatch.challenge = angular.copy($scope.challenge);
+    } else {
+      editRobotMatch.challenge = 0;
+    }
+    if ($scope.bFloor) {
+      editRobotMatch.bFloor = angular.copy($scope.bFloor);
+    } else {
+      editRobotMatch.bFloor = $scope.data.judgment[0];
+    }
+    if ($scope.bSecret) {
+      editRobotMatch.bSecret = angular.copy($scope.bSecret);
+    } else {
+      editRobotMatch.bSecret = $scope.data.judgment[0];
+    }
+    if ($scope.numF) {
+      editRobotMatch.numF = angular.copy($scope.numF);
+    } else {
+      editRobotMatch.numF = 0;
+    }
+    if ($scope.borked) {
+      editRobotMatch.borked = angular.copy($scope.borked);
+    } else {
+      editRobotMatch.borked = false;
+    }
+    if ($scope.defense) {
+      editRobotMatch.defense = angular.copy($scope.defense);
+    } else {
+      editRobotMatch.defense = $scope.data.judgment[0];
+    }
+    if ($scope.spyComm1) {
+      editRobotMatch.spyComm1 = angular.copy($scope.spyComm1);
+    } else {
+      editRobotMatch.spyComm1 = $scope.data.judgment[0];
+    }
+    if ($scope.spyComm2) {
+      editRobotMatch.spyComm2 = angular.copy($scope.spyComm2);
+    } else {
+      editRobotMatch.spyComm2 = $scope.data.judgment[0];
+    }
+    
+    if ($scope.selectedRobot) {
+      editRobotMatch.robotId = angular.copy($scope.selectedRobot.id);
+    }
+    
+    if ($scope.match) {
+      editRobotMatch.matchId = angular.copy($scope.match.id);
+    }
+    
+    RobotMatch.update($scope.selectedRobot, editRobotMatch);
+  }
+
   
   $scope.updateTeam();
+  $scope.toggleFields('auto');
 })
 
 
@@ -286,63 +768,277 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
 
 
 .controller('SettingsCtrl', function($scope, $stateParams, $cordovaSQLite, 
-  $cordovaToast) {
+  $cordovaToast, Match, Team, Robot, RobotMatch) {
 
-  $scope.generateSampleData = function() {
-    console.log("generateSampleData called");
-
-    
+  $scope.generateSampleTeams = function() {
     //create a toast notifier to let the user know to wait while data loads
-    $cordovaToast.showShortTop('Hang on a sec... data loading').then(function(success) {
-      //do nothing
-    }, function (error) {
-      //do nothing
-    });
-    
+    $cordovaToast.showShortTop('Hang on a sec... team data loading');
 
+    //create list of all teams to compete
     var teams = [
-                  1225, 1226, 1293, 1398, 1553, 1598, 1758, 2059, 281, 2815, 
-                  283, 342, 343, 3489, 3490, 3976, 4083, 4451, 4533, 4534, 
-                  4901, 4935, 4955, 4965, 8101
-                ];
-                
+      {num: 120, name: "Cleveland's Team"},
+      {num: 281, name: "GreenVillains"},
+      {num: 283, name: "The Generals"},
+      {num: 342, name: "Burning Magnetos"},
+      {num: 343, name: "Metal-In-Motion"},
+      {num: 346, name: "RoboHawks"},
+      {num: 422, name: "The Mech Tech Dragons"},
+      {num: 435, name: "Robodogs"},
+      {num: 587, name: "Hedgehogs"},
+      {num: 836, name: "The RoboBees"},
+      {num: 900, name: "The Zebracorns"},
+      {num: 1051, name: "Technical Terminators"},
+      {num: 1102, name: "Team M'Aiken Magic"},
+      {num: 1225, name: "Gorillas"},
+      {num: 1249, name: "Robo Rats"},
+      {num: 1261, name: "Robo Lions"},
+      {num: 1287, name: "Aluminum Assault"},
+      {num: 1293, name: "Pandamaniacs"},
+      {num: 1398, name: "Robo-Raiders"},
+      {num: 1533, name: "Triple Strange"},
+      {num: 1539, name: "Clover Robotics"},
+      {num: 1553, name: "KC Robotics Team"},
+      {num: 1758, name: "Technomancers"},
+      {num: 1876, name: "Beachbotics"},
+      {num: 2028, name: "Phantom Mentalist"},
+      {num: 2059, name: "The Hitchhikers"},
+      {num: 2187, name: "Team Volt"},
+      {num: 2632, name: "The Theoreticals"},
+      {num: 2640, name: "HOTBOTZ"},
+      {num: 2655, name: "The Flying Platypi"},
+      {num: 2815, name: "Blue Devil Mechanics"},
+      {num: 3459, name: "Team PyroTech"},
+      {num: 3489, name: "Category 5"},
+      {num: 3490, name: "Viper Drive"},
+      {num: 3651, name: "TRIBE"},
+      {num: 3824, name: "HVA RoHAWKtics"},
+      {num: 3976, name: "Electric Hornets"},
+      {num: 4073, name: "Robo Kats"},
+      {num: 4074, name: "Shark Bytes"},
+      {num: 4075, name: "Robo Tigers"},
+      {num: 4083, name: "The Iron Wolverines"},
+      {num: 4098, name: "Viking Robotics Team"},
+      {num: 4243, name: "STAR Warriors"},
+      {num: 4267, name: "Brave Bots"},
+      {num: 4451, name: "ROBOTZ Garage"},
+      {num: 4452, name: "First Noble Team"},
+      {num: 4505, name: "Eagle Robotics"},
+      {num: 4514, name: "STEAM Works"},
+      {num: 4533, name: "Wando Advanced Robotics"},
+      {num: 4561, name: "TerrorBytes"},
+      {num: 4576, name: "Red Nation Robotics"},
+      {num: 4582, name: "Robohawks"},
+      {num: 4748, name: "Bulldog Autobots"},
+      {num: 4823, name: "Cyber-Manes"},
+      {num: 4847, name: "Tech-No-Logic Trojans"},
+      {num: 4901, name: "Garnet Squadron"},
+      {num: 4902, name: "The Wildebots"},
+      {num: 4935, name: "T-Rex"},
+      {num: 4965, name: "FIRE"},
+      {num: 5020, name: "CavBOTS"},
+      {num: 5022, name: "Rat Rod Robotics"},
+      {num: 5063, name: "BuzzBots"},
+      {num: 5130, name: "Undercogs"},
+      {num: 5180, name: "Metal Heads"},
+      {num: 5317, name: "Redhawks"},
+      {num: 5327, name: "Griffin Robotics"}
+    ];
+
+    /*
+      Insert hard-coded team numbers and names
+    */          
     var query = "INSERT INTO team (name, number) VALUES (?,?)";
+    var teamsAdded = 0;
     for (var i=0; i<teams.length; i++) {
-      $cordovaSQLite.execute(db, query, ["Team "+ teams[i], i]).then(function(res) {
-        console.log("team insertId: " + res.insertId);
+      $cordovaSQLite.execute(db, query, [teams[i].name, teams[i].num]).then(function(res) {
+        
       }, function (err) {
         console.error(err);
-      });
+      }).then(function() {
+        teamsAdded++;
+
+        if (teamsAdded == teams.length) {
+          //create a toast notifier to let the user know that the data is done loading
+          $cordovaToast.showShortTop('OK... team data is done loading');
+        }
+      })
     }
-    
+  }
+
+  $scope.generateRobotData = function() {
+    //create a toast notifier to let the user know to wait while data loads
+    $cordovaToast.showShortTop('Hang on a sec... robot data loading');
+
     var query = "INSERT INTO robot (name, teamId) VALUES (?,?)";
-    for (var i=1; i<=teams.length; i++) {
-      console.log("i = " + i);
-      $cordovaSQLite.execute(db, query, ["Robot", i]).then(function(res) {
-        console.log("robot insertId: " + res.insertId + " with teamId: " + i);
-      }, function (err) {
-        console.error(err);
-      });
-    }
+    var robotsAdded = 0;
+    Team.all().then(function(teams) {
+      for (var i=0; i<teams.length; i++) {
+        $cordovaSQLite.execute(db, query, ["Robot", teams[i].id]).then(function(res) {
+          
+        }, function (err) {
+          console.error(err);
+        }).then(function() {
+          robotsAdded++;
+          if (robotsAdded == teams.length) {
+            //create a toast notifier to let the user know that the data is done loading
+            $cordovaToast.showShortTop('OK... robot data is done loading');
+          }
+        })
+      }
+    })
+  }
 
+  $scope.generateMatchData = function() {
+    //create a toast notifier to let the user know to wait while data loads
+    $cordovaToast.showShortTop('Hang on a sec... match data loading');
 
-    for (var i=1; i<32; i++) {
-      var query = "INSERT INTO match (number) VALUES (?)";
+    var query = "INSERT INTO match (number) VALUES (?)";
+    var matchesAdded = 0;
+    for (var i=1; i<100; i++) {
       $cordovaSQLite.execute(db, query, [i]).then(function(res) {
-        console.log("match insertId: " + res.insertId);
+        
       }, function (err) {
         console.error(err);
+      }).then(function() {
+        matchesAdded++;
+        if (matchesAdded == 99) {
+          //create a toast notifier to let the user know that the data is done loading
+          $cordovaToast.showShortTop('OK... match data is done loading');
+        }
       });
     }
+  }
 
-    //create a toast notifier to let the user know that the data is done loading
-    $cordovaToast.showShortTop('OK... data is done loading').then(function(success){
-      //do nothing
-    }, function (error) {
-      //do nothing
-    });
-  }  
+  $scope.generateRobotMatchData = function() {
+    //create a toast notifier to let the user know to wait while data loads
+    $cordovaToast.showShortTop('Hang on a sec... robot-match data loading');
+    
+    /*
+      Create robot-match records
+    */
+    var matches, robots;
+    Match.all().then(function(results) {
+      matches = results;
+    }, function(error) {
+      console.log("Cannot retrieve matches");
+      console.log("Error message: " + JSON.stringify(error));
+    }).then(function(results) {
+      Robot.all().then(function(results) {
+        robots = results;
+      }, function(error) {
+        console.log("Cannot retrieve robots");
+        console.log("Error message: " + JSON.stringify(error));
+      }).then (function() {
+        var match = [];
+        for (var i=0; i<robots.length; i++) {
+          for (var j=0; j<matches.length; j++) {
+            match.robotId = robots[i].id;
+            match.matchId = matches[j].id;
+            RobotMatch.add(match);
+          }
+        }   
+      })
+    }).then(function() {
+      //create a toast notifier to let the user know that the data is done loading
+      $cordovaToast.showShortTop('OK... robot-match data is done loading');      
+    })
+  }
 
+  $scope.deleteDBTables = function() {
+    /* 
+      Delete the database to start from scratch
+      Add to this section each time you add a new table definition 
+    */     
+    $cordovaSQLite.execute(db, "DROP TABLE `team`");
+    $cordovaSQLite.execute(db, "DROP TABLE `robot`");
+    $cordovaSQLite.execute(db, "DROP TABLE `match`");
+    $cordovaSQLite.execute(db, "DROP TABLE `robotMatch`");
+  }
+
+  $scope.createDBTables = function() {
+    $cordovaSQLite.execute(db, "CREATE TABLE `team` (`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` TEXT UNIQUE, `number` INTEGER NOT NULL UNIQUE)");
+    $cordovaSQLite.execute(db, "CREATE TABLE `robot` (`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
+                                                   + "`name` TEXT NOT NULL, "
+                                                   + "`teamId` INTEGER NOT NULL, "
+                                                   + "`runAuto` INTEGER, "
+                                                   + "`driveType` TEXT, "
+                                                   + "`height` INTEGER, "
+                                                   + "`notes` TEXT, "
+                                                   + "`spyReq` INTEGER, "
+                                                   + "`spyDoc` INTEGER, "
+                                                   + "`OWA1` BOOLEAN, " //low bar
+                                                   + "`OWA2` BOOLEAN, " //chival de frise
+                                                   + "`OWA3` BOOLEAN, " //moat
+                                                   + "`OWA4` BOOLEAN, " //ramparts
+                                                   + "`OWA5` BOOLEAN, " //drawbridge
+                                                   + "`OWA6` BOOLEAN, " //sally port
+                                                   + "`OWA7` BOOLEAN, " //portcullis
+                                                   + "`OWA8` BOOLEAN, " //rock wall
+                                                   + "`OWA9` BOOLEAN, " //rough terrain
+                                                   + "`OWT1` BOOLEAN, "
+                                                   + "`OWT2` BOOLEAN, "
+                                                   + "`OWT3` BOOLEAN, "
+                                                   + "`OWT4` BOOLEAN, "
+                                                   + "`OWT5` BOOLEAN, "
+                                                   + "`OWT6` BOOLEAN, "
+                                                   + "`OWT7` BOOLEAN, "
+                                                   + "`OWT8` BOOLEAN, "
+                                                   + "`OWT9` BOOLEAN, "
+                                                   + "`scoreTL` BOOLEAN, "
+                                                   + "`scoreTM` BOOLEAN, "
+                                                   + "`scoreTR` BOOLEAN, "
+                                                   + "`scoreBL` BOOLEAN, "
+                                                   + "`scoreBM` BOOLEAN, "
+                                                   + "`scoreBR` BOOLEAN, "
+                                                   + "`scoreTop` BOOLEAN, "
+                                                   + "`scoreBottom` BOOLEAN, "
+                                                   + "`scale` BOOLEAN, "
+                                                   + "`pickupF` BOOLEAN, "
+                                                   + "`pickupS` BOOLEAN, "
+                                                   + "`defense` BOOLEAN, "
+                                                   + "`spy` BOOLEAN, "
+                                                   + "`signal` BOOLEAN, "
+                                                   + "FOREIGN KEY(`teamId`) REFERENCES team ( id ))");
+    $cordovaSQLite.execute(db, "CREATE TABLE `match` (`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " 
+                                                   + "`number` INTEGER NOT NULL UNIQUE)");
+
+    $cordovaSQLite.execute(db, "CREATE TABLE `robotMatch` (`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
+                                                        + "`matchId` INTEGER, "
+                                                        + "`robotId` INTEGER, "
+                                                        + "`teamId` INTEGER, "
+                                                        + "`numLow` INTEGER DEFAULT 0, "
+                                                        + "`numHigh` INTEGER DEFAULT 0, "
+                                                        + "`lowBarA` INTEGER DEFAULT 0, "
+                                                        + "`lowBarT` INTEGER DEFAULT 0, "
+                                                        + "`portA` INTEGER DEFAULT 0, "
+                                                        + "`portT` INTEGER DEFAULT 0, "
+                                                        + "`chevA` INTEGER DEFAULT 0, "
+                                                        + "`chevT` INTEGER DEFAULT 0, "
+                                                        + "`moatA` INTEGER DEFAULT 0, "
+                                                        + "`moatT` INTEGER DEFAULT 0, "
+                                                        + "`rockA` INTEGER DEFAULT 0, "
+                                                        + "`rockT` INTEGER DEFAULT 0, "
+                                                        + "`rampA` INTEGER DEFAULT 0, "
+                                                        + "`rampT` INTEGER DEFAULT 0, "
+                                                        + "`roughA` INTEGER DEFAULT 0, "
+                                                        + "`roughT` INTEGER DEFAULT 0, "
+                                                        + "`sallyA` INTEGER DEFAULT 0, "
+                                                        + "`sallyT` INTEGER DEFAULT 0, "
+                                                        + "`drawA` INTEGER DEFAULT 0, "
+                                                        + "`drawT` INTEGER DEFAULT 0, "
+                                                        + "`scaled` INTEGER DEFAULT 0, "
+                                                        + "`challenge` INTEGER DEFAULT 0, "
+                                                        + "`bFloor` INTEGER DEFAULT 0, "
+                                                        + "`bSecret` INTEGER DEFAULT 0, "
+                                                        + "`numF` INTEGER DEFAULT 0, "
+                                                        + "`borked` BOOLEAN DEFAULT FALSE, "
+                                                        + "`defense` INTEGER DEFAULT 0, "
+                                                        + "`spyComm1` INTEGER DEFAULT 0, "
+                                                        + "`spyComm2` INTEGER DEFAULT 0, "
+                                                        + "FOREIGN KEY(`matchId`) REFERENCES match ( id ), "
+                                                        + "FOREIGN KEY(`robotId`) REFERENCES robot ( id ), "
+                                                        + "FOREIGN KEY(`teamId`) REFERENCES team ( id ))");
+  }
 })
 
 
@@ -352,15 +1048,12 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
   ///TODO Convert these to SQLite database calls
   /*
     teamName: the name of the team; values provided via PitCtrl controller
-    robotName: the name of the robot that a team has
-    
+    robotName: the name of the robot that a team has    
   */
   
   $scope.robot = [];
   $scope.robot = null;
   
-  //TODO: Add a field for "is the robot still fully functional?"
-  //TODO: Investigate if iPhones and iPads can export to thumb drives
   //TODO: Capture images on the Pit Scouting page
   //TODO: Picklist for quickly choosing the best matches
 
@@ -372,13 +1065,6 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     ]
   }
 
-  /*
-  $scope.owaList = [
-    {label: "Low bar", selected: false, code: 'OWA1'}, 
-    {label: "Chival de frise", selected: false, code: 'OWA2'}, 
-    {label: "Moat", selected: false, code: 'OWA3'}
-  ];
-  */
 
   $scope.owaList = [
     {name: "OWA1", checked: 0, label: "Low bar"},
@@ -509,7 +1195,7 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     Robot.getById($scope.selectedRobot.id).then(function(robot) {
       if (robot) {
         //set the current robot
-        //$scope.selectedRobot = robot;
+        $scope.selectedRobot = robot;
 
         //set the values for the fields in the form based on the database if they
         //exist. Otherwise, set to the unselected value.
@@ -621,440 +1307,5 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     editRobot.signal = $scope.signal || $scope.data.yesNo[robot.signal];
 
     Robot.update($scope.selectedRobot, editRobot);
-  }
-})
-
-
-
-
-
-
-.controller('MatchScoutingController', function($scope, $stateParams, Robot, RobotMatch, Match) {
-  /*
-    teamName: the name of the team
-    robotName: the name of the robot that a team has
-    matchNum: the match during which data was retrieved
-    driveSpeed: how fast the robot can move about the field    
-  */
-  $scope.data = {
-    yesNo: [
-      {id: '0', name: '[Unknown]'},
-      {id: '1', name: 'Yes'},
-      {id: '2', name: 'No'}
-    ],
-    judgment: [
-      {id: '0', name: '[Unknown]'},
-      {id: '1', name: "Didn't"},
-      {id: '2', name: 'Poorly'},
-      {id: '3', name: 'Well'}
-    ]
-  }
-
-  //retrieve the robot(s) for the selected team
-  $scope.selectTeam = function() {
-    //TODO: Push this to a service, as it is copied from the Pit controller and
-    //we want DRY code
-    Robot.getByTeam($scope.team.id).then(function(robots) {
-      $scope.robots = robots;
-    })
-    
-    //reset the selected robot
-    //first, copy the existing team and match selection
-    var teamCopy = angular.copy($scope.team);
-    var matchCopy = angular.copy($scope.match);
-    //then reset the data
-    //$scope.resetData();
-    //then repopulate the selected team and match
-    $scope.team = teamCopy;
-    $scope.match = matchCopy;
-  }
-  
-  //Pull matches out of the database. They are not dependent on other values,
-  //so there is no need to wrap them in a function
-  Match.all().then(function(matches) {
-    $scope.matches = matches;
-  })
-
-  /*
-    This function is called when the user changes the robot. It loads values for
-    the fields from the SQLite database or, if there is no record for the 
-    selected team, it sets all of the fields to [Unknown]. 
-  */
-  $scope.selectRobot = function() {
-    //the if statement skips the contents if this function was triggered by the 
-    //field being set to no-value or if both a robot and match haven't been 
-    //selectd
-    if ($scope.selectedRobot && $scope.match) {
-      //retrieve all robot data for the selected robot
-      RobotMatch.getById($scope.selectedRobot.id, $scope.match.id).then(function(robot) {
-        //verify that a robot was returned instead of null (null = no matching record in the db)
-        if (robot) {
-          //set the current robot
-          $scope.robot = robot;
-          
-          //set the values for the fields in the form based on the database if they
-          //exist. Otherwise, set to the unselected value.
-          if (robot.numLow) {
-            $scope.numLow = robot.numLow;
-          } else {
-            $scope.numLow = 0;
-          }
-          if (robot.numHigh) {
-            $scope.numHigh = robot.numHigh;
-          } else {
-            $scope.numHigh = 0;
-          }
-          if (robot.lowBarA) {
-            $scope.lowBarA = robot.lowBarA;
-          } else {
-            $scope.lowBarA = 0;
-          }
-          if (robot.lowBarT) {
-            $scope.lowBarT = robot.lowBarT;
-          } else {
-            $scope.lowBarT = 0;
-          }
-          if (robot.portA) {
-            $scope.portA = robot.portA;
-          } else {
-            $scope.portA = 0;
-          }
-          if (robot.portT) {
-            $scope.portT = robot.portT;
-          } else {
-            $scope.portT = 0;
-          }
-          if (robot.chevA) {
-            $scope.chevA = robot.chevA;
-          } else {
-            $scope.chevA = 0;
-          }
-          if (robot.chevT) {
-            $scope.chevT = robot.chevT;
-          } else {
-            $scope.chevT = 0;
-          }
-          if (robot.moatA) {
-            $scope.moatA = robot.moatA;
-          } else {
-            $scope.moatA = 0;
-          }
-          if (robot.moatT) {
-            $scope.moatT = robot.moatT;
-          } else {
-            $scope.moatT = 0;
-          }
-          if (robot.rockA) {
-            $scope.rockA = robot.rockA;
-          } else {
-            $scope.rockA = 0;
-          }
-          if (robot.rockT) {
-            $scope.rockT = robot.rockT;
-          } else {
-            $scope.rockT = 0;
-          }
-          if (robot.roughA) {
-            $scope.roughA = robot.roughA;
-          } else {
-            $scope.roughA = 0;
-          }
-          if (robot.roughT) {
-            $scope.roughT = robot.roughT;
-          } else {
-            $scope.roughT = 0;
-          }
-          if (robot.sallyA) {
-            $scope.sallyA = robot.sallyA;
-          } else {
-            $scope.sallyA = 0;
-          }
-          if (robot.sallyT) {
-            $scope.sallyT = robot.sallyT;
-          } else {
-            $scope.sallyT = 0;
-          }
-          if (robot.drawA) {
-            $scope.drawA = robot.drawA;
-          } else {
-            $scope.drawA = 0;
-          }
-          if (robot.drawT) {
-            $scope.drawT = robot.drawT;
-          } else {
-            $scope.drawT = 0;
-          }
-          if (robot.scaled) {
-            $scope.scaled = robot.scaled;
-          } else {
-            $scope.scaled = 0;
-          }
-          if (robot.challenge) {
-            $scope.challenge = robot.challenge;
-          } else {
-            $scope.challenge = 0;
-          }
-          if (robot.bFloor) {
-            $scope.bFloor = robot.bFloor;
-          } else {
-            $scope.bFloor = $scope.data.judgment[0];;
-          }
-          if (robot.bSecret) {
-            $scope.bSecret = robot.bSecret;
-          } else {
-            $scope.bSecret = $scope.data.judgment[0];;
-          }
-          if (robot.numF) {
-            $scope.numF = robot.numF;
-          } else {
-            $scope.numF = 0;
-          }
-          if (robot.borked) {
-            $scope.borked = robot.borked;
-          } else {
-            $scope.borked = false;
-          }
-          if (robot.defense) {
-            $scope.defense = robot.defense;
-          } else {
-            $scope.defense = $scope.data.judgment[0];;
-          }
-          if (robot.spyComm1) {
-            $scope.spyComm1 = robot.spyComm1;
-          } else {
-            $scope.spyComm1 = $scope.data.judgment[0];;
-          }
-          if (robot.spyComm2) {
-            $scope.spyComm2 = robot.spyComm2;
-          } else {
-            $scope.spyComm2 = $scope.data.judgment[0];;
-          }
-        } else {
-          //if no database record, set all fields to unselected values for the 
-          //form to display
-          $scope.numLow = 0;
-          $scope.numHigh = 0;
-          $scope.lowBarA = 0;
-          $scope.lowBarT = 0;
-          $scope.portA = 0;
-          $scope.portT = 0;
-          $scope.chevA = 0;
-          $scope.chevT = 0;
-          $scope.moatA = 0;
-          $scope.moatT = 0;
-          $scope.rockA = 0;
-          $scope.rockT = 0;
-          $scope.roughA = 0;
-          $scope.roughT = 0;
-          $scope.sallyA = 0;
-          $scope.sallyT = 0;
-          $scope.drawA = 0;
-          $scope.drawT = 0;
-          $scope.scaled = 0;
-          $scope.challenge = 0;
-          $scope.bFloor = $scope.data.judgment[0];
-          $scope.bSecret = $scope.data.judgment[0];
-          $scope.numF = 0;
-          $scope.borked = false;
-          $scope.defense = $scope.data.judgment[0];
-          $scope.spyComm1 = $scope.data.judgment[0];
-          $scope.spyComm2 = $scope.data.judgment[0];
-
-          //then create a robot object with the same values
-          var newRobotMatch = [];
-          newRobotMatch.numLow = $scope.numLow;
-          newRobotMatch.numHigh = $scope.numHigh;
-          newRobotMatch.lowBarA = $scope.lowBarA;
-          newRobotMatch.lowBarT = $scope.lowBarT;
-          newRobotMatch.portA = $scope.portA;
-          newRobotMatch.portT = $scope.portT;
-          newRobotMatch.chevA = $scope.chevA;
-          newRobotMatch.chevT = $scope.chevT;
-          newRobotMatch.moatA = $scope.moatA;
-          newRobotMatch.moatT = $scope.moatT;
-          newRobotMatch.rockA = $scope.rockA;
-          newRobotMatch.rockT = $scope.rockT;
-          newRobotMatch.roughA = $scope.roughA;
-          newRobotMatch.roughT = $scope.roughT;
-          newRobotMatch.sallyA = $scope.sallyA;
-          newRobotMatch.sallyT = $scope.sallyT;
-          newRobotMatch.drawA = $scope.drawA;
-          newRobotMatch.drawT = $scope.drawT;
-          newRobotMatch.scaled = $scope.scaled;
-          newRobotMatch.challenge = $scope.challenge;
-          newRobotMatch.bFloor = $scope.bFloor;
-          newRobotMatch.bSecret = $scope.bSecret;
-          newRobotMatch.numF = $scope.numF;
-          newRobotMatch.borked = $scope.borked;
-          newRobotMatch.defense = $scope.defense;
-          newRobotMatch.spyComm1 = $scope.spyComm1;
-          newRobotMatch.spyComm2 = $scope.spyComm2;
-          
-          //and then persist the values to a new data store record
-          console.log("Adding new records to RobotMatch with robot ID '" + newRobotMatch.robotId + "' and match ID '" + newRobotMatch.matchId + "'");
-          RobotMatch.add(newRobotMatch);
-        }
-      })
-    }
-  }
-  
-  /*
-    This function is called when a match number is selected
-  */
-  $scope.selectMatch = function() {
-    $scope.selectRobot();
-  }
-  
-  /*
-    This function is called each time a field is updated.
-  */
-  $scope.robotMatchChanged = function() {
-    var editRobotMatch = angular.copy($scope.selectedRobot);
-    
-    if ($scope.numLow) {
-      editRobotMatch.numLow = angular.copy($scope.numLow);
-    } else {
-      editRobotMatch.numLow = 0;
-    }
-    if ($scope.numHigh) {
-      editRobotMatch.numHigh = angular.copy($scope.numHigh);
-    } else {
-      editRobotMatch.numHigh = 0;
-    }
-    if ($scope.lowBarA) {
-      editRobotMatch.lowBarA = angular.copy($scope.lowBarA);
-    } else {
-      editRobotMatch.lowBarA = 0;
-    }
-    if ($scope.lowBarT) {
-      editRobotMatch.lowBarT = angular.copy($scope.lowBarT);
-    } else {
-      editRobotMatch.lowBarT = 0;
-    }
-    if ($scope.portA) {
-      editRobotMatch.portA = angular.copy($scope.portA);
-    } else {
-      editRobotMatch.portA = 0;
-    }
-    if ($scope.portT) {
-      editRobotMatch.portT = angular.copy($scope.portT);
-    } else {
-      editRobotMatch.portT = 0;
-    }
-    if ($scope.chevA) {
-      editRobotMatch.chevA = angular.copy($scope.chevA);
-    } else {
-      editRobotMatch.chevA = 0;
-    }
-    if ($scope.chevT) {
-      editRobotMatch.chevT = angular.copy($scope.chevT);
-    } else {
-      editRobotMatch.chevT = 0;
-    }
-    if ($scope.moatA) {
-      editRobotMatch.moatA = angular.copy($scope.moatA);
-    } else {
-      editRobotMatch.moatA = 0;
-    }
-    if ($scope.moatT) {
-      editRobotMatch.moatT = angular.copy($scope.moatT);
-    } else {
-      editRobotMatch.moatT = 0;
-    }
-    if ($scope.rockA) {
-      editRobotMatch.rockA = angular.copy($scope.rockA);
-    } else {
-      editRobotMatch.rockA = 0;
-    }
-    if ($scope.rockT) {
-      editRobotMatch.rockT = angular.copy($scope.rockT);
-    } else {
-      editRobotMatch.rockT = 0;
-    }
-    if ($scope.roughA) {
-      editRobotMatch.roughA = angular.copy($scope.roughA);
-    } else {
-      editRobotMatch.roughA = 0;
-    }
-    if ($scope.roughT) {
-      editRobotMatch.roughT = angular.copy($scope.roughT);
-    } else {
-      editRobotMatch.roughT = 0;
-    }
-    if ($scope.sallyA) {
-      editRobotMatch.sallyA = angular.copy($scope.sallyA);
-    } else {
-      editRobotMatch.sallyA = 0;
-    }
-    if ($scope.sallyT) {
-      editRobotMatch.sallyT = angular.copy($scope.sallyT);
-    } else {
-      editRobotMatch.sallyT = 0;
-    }
-    if ($scope.drawA) {
-      editRobotMatch.drawA = angular.copy($scope.drawA);
-    } else {
-      editRobotMatch.drawA = 0;
-    }
-    if ($scope.drawT) {
-      editRobotMatch.drawT = angular.copy($scope.drawT);
-    } else {
-      editRobotMatch.drawT = 0;
-    }
-    if ($scope.scaled) {
-      editRobotMatch.scaled = angular.copy($scope.scaled);
-    } else {
-      editRobotMatch.scaled = 0;
-    }
-    if ($scope.challenge) {
-      editRobotMatch.challenge = angular.copy($scope.challenge);
-    } else {
-      editRobotMatch.challenge = 0;
-    }
-    if ($scope.bFloor) {
-      editRobotMatch.bFloor = angular.copy($scope.bFloor);
-    } else {
-      editRobotMatch.bFloor = $scope.data.judgment[0];
-    }
-    if ($scope.bSecret) {
-      editRobotMatch.bSecret = angular.copy($scope.bSecret);
-    } else {
-      editRobotMatch.bSecret = $scope.data.judgment[0];
-    }
-    if ($scope.numF) {
-      editRobotMatch.numF = angular.copy($scope.numF);
-    } else {
-      editRobotMatch.numF = 0;
-    }
-    if ($scope.borked) {
-      editRobotMatch.borked = angular.copy($scope.borked);
-    } else {
-      editRobotMatch.borked = false;
-    }
-    if ($scope.defense) {
-      editRobotMatch.defense = angular.copy($scope.defense);
-    } else {
-      editRobotMatch.defense = $scope.data.judgment[0];
-    }
-    if ($scope.spyComm1) {
-      editRobotMatch.spyComm1 = angular.copy($scope.spyComm1);
-    } else {
-      editRobotMatch.spyComm1 = $scope.data.judgment[0];
-    }
-    if ($scope.spyComm2) {
-      editRobotMatch.spyComm2 = angular.copy($scope.spyComm2);
-    } else {
-      editRobotMatch.spyComm2 = $scope.data.judgment[0];
-    }
-    
-    if ($scope.selectedRobot) {
-      editRobotMatch.robotId = angular.copy($scope.selectedRobot.id);
-    }
-    
-    if ($scope.match) {
-      editRobotMatch.matchId = angular.copy($scope.match.id);
-    }
-    
-    RobotMatch.update($scope.selectedRobot, editRobotMatch);
   }
 });

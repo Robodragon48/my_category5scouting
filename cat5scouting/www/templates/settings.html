@@ -1,43 +1,12 @@
 <ion-view view-title="Settings">
     <ion-content>
-        <div ng-controller="MatchScoutingController" class="padding">
-            <form name="MatchScoutForm">
-                <div class="list">
-          
-                    <!-- This is where they put the name of the event, since the
-                    database can store more than one event's data. This is 
-                    read-only for the client, and is read from the server. -->
-                    <!-- TODO: Read the value for the form from the database -->
-                    <label class="item item-input"> 
-                        <input 
-                            type="text" 
-                            placeholder="Event Name" 
-                            name="eventName" 
-                            id="eventName" 
-                            readonly 
-                            ng-model="data.eventName">
-                    </label>
-                    
-                    <label class="item item-input"> 
-                        <input 
-                            type="text" 
-                            placeholder="Device Name"
-                            name="deviceName"
-                            id="deviceName"
-                            ng-model="data.deviceName">
-                    </label>
-
-                    <button type="submit" class="button button-block button-positive">Submit</button>
-                    
-                </div>
-            </form>
+        <div class="padding" ng-controller="SettingsCtrl">
+            <button type="button" class="button button-block button-positive padding" ng-click="generateSampleTeams()">Load team data</button>
+            <button type="button" class="button button-block button-positive padding" ng-click="generateRobotData()">Load Robot data</button>
+            <button type="button" class="button button-block button-positive padding" ng-click="generateMatchData()">Load Match data</button>
+            <button type="button" class="button button-block button-positive padding" ng-click="generateRobotMatchData()">Load Robot-Match data</button>
+            <button type="button" class="button button-block button-assertive padding" ng-click="deleteDBTables()">Delete all database tables</button>
+            <button type="button" class="button button-block button-assertive padding" ng-click="createDBTables()">Create database tables</button>
         </div>
-
-        <div class="padding">
-
-            <button type="button" class="button button-block button-positive padding" ng-click="generateSampleData()">Load test data</button>
-
-        </div>
-
     </ion-content>
 </ion-view>
