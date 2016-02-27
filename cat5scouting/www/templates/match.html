@@ -378,24 +378,24 @@
                         <div class="row row-pink">
                             <div class="col col-33">
                                 <label class="item item-select">
-                                    <span class="input-label">Robot scaled tower?</span>
+                                    <span class="input-label">Challenged tower?</span>
                                     <select 
-                                        ng-model="scaled" 
-                                        id="scaled" 
+                                        ng-model="challenge" 
+                                        id="challenge" 
                                         ng-options="option.name for option in data.yesNo track by option.id"
-                                        ng-model="scaled"
+                                        ng-model="challenge"
                                         ng-change="robotMatchChanged()"
                                         ng-disabled="disableMatchFields()"></select>
                                 </label>
                             </div>
                             <div class="col col-33">
                                 <label class="item item-select">
-                                    <span class="input-label">Robot challenged tower?</span>
+                                    <span class="input-label">Scaled tower?</span>
                                     <select 
-                                        ng-model="challenge" 
-                                        id="challenge" 
+                                        ng-model="scaled" 
+                                        id="scaled" 
                                         ng-options="option.name for option in data.yesNo track by option.id"
-                                        ng-model="challenge"
+                                        ng-model="scaled"
                                         ng-change="robotMatchChanged()"
                                         ng-disabled="disableMatchFields()"></select>
                                 </label>
@@ -408,7 +408,7 @@
                         <div class="row row-pink">
                             <div class="col col-33">
                                 <label class="item item-select">
-                                    <span class="input-label">Loaded boulders from floor:</span>
+                                    <span class="input-label">Boulders/floor:</span>
                                     <select 
                                         ng-model="bFloor" 
                                         id="bFloor" 
@@ -420,7 +420,7 @@
                             </div>
                             <div class="col col-33">
                                 <label class="item item-select">
-                                    <span class="input-label">Loaded boulders from secret passage:</span>
+                                    <span class="input-label">Boulders/passage:</span>
                                     <select 
                                         ng-model="bSecret" 
                                         id="bSecret" 
@@ -433,7 +433,7 @@
                             </div>
                             <div class="col col-33">
                                 <label class="item item-select">
-                                    <span class="input-label">Robot played defense</span>
+                                    <span class="input-label">Played defense</span>
                                     <select 
                                         ng-model="defense" 
                                         id="defense" 
@@ -449,7 +449,7 @@
                         <div class="row row-pink">
                             <div class="col col-50">
                                 <label class="item item-select" ng-model="spyComm1">
-                                    <span class="input-label">How well did the team spy communicate</span>
+                                    <span class="input-label">The team spy communicated:</span>
                                     <select 
                                         ng-model="spyComm1" 
                                         id="spyComm1" 
@@ -462,7 +462,7 @@
                             </div>
                             <div class="col col-50">
                                 <label class="item item-select" ng-model="spyComm2">
-                                    <span class="input-label">How well did the drive team use spy communication?</span>
+                                    <span class="input-label">Team used spy communication:</span>
                                     <select 
                                         ng-model="spyComm2" 
                                         id="spyComm2" 

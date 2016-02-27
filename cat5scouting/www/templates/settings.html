@@ -1,7 +1,9 @@
 <ion-view view-title="Settings">
     <ion-content>
         <div class="padding" ng-controller="SettingsCtrl">
-            <button type="button" class="button button-block button-positive padding" ng-click="generateSampleTeams()">Load team data</button>
+            <h3>This page has features for the data manager or developer to troubleshoot. If you're not in one of these, please don't
+                tap these buttons. Thanks!</h3>
+            <button type="button" class="button button-block button-positive padding" ng-click="generateSampleTeams()">Load Team data</button>
             <button type="button" class="button button-block button-positive padding" ng-click="generateRobotData()">Load Robot data</button>
             <button type="button" class="button button-block button-positive padding" ng-click="generateMatchData()">Load Match data</button>
             <button type="button" class="button button-block button-assertive padding" ng-click="emptyDBTables()">Empty all database tables</button>

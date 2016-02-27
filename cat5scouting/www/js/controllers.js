@@ -219,13 +219,9 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     //selectd
     if ($scope.selectedRobot && $scope.match) {
       //retrieve all robot data for the selected robot
-      console.log("RobotMatch.getById called");
       RobotMatch.getById($scope.selectedRobot.id, $scope.match.id).then(function(robotMatch) {
         //verify that a robotMatch was returned instead of null (null = no matching record in the db)
-        console.log("if robotMatch");
         if (robotMatch) {
-          console.log("yes, there was a robotMatch");
-
           //set the current robotMatch
           $scope.selectedRobotMatch = robotMatch.id;
           
@@ -334,12 +330,12 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
           if (robotMatch.scaled) {
             $scope.scaled = robotMatch.scaled;
           } else {
-            $scope.scaled = 0;
+            $scope.scaled = $scope.data.yesNo[0];
           }
           if (robotMatch.challenge) {
             $scope.challenge = robotMatch.challenge;
           } else {
-            $scope.challenge = 0;
+            $scope.challenge = $scope.data.yesNo[0];
           }
           if (robotMatch.bFloor) {
             $scope.bFloor = robotMatch.bFloor;
@@ -399,8 +395,8 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
           $scope.drawT = 0;
           $scope.rampA = 0;
           $scope.rampT = 0;
-          $scope.scaled = 0;
-          $scope.challenge = 0;
+          $scope.scaled = $scope.data.yesNo[0];
+          $scope.challenge = $scope.data.yesNo[0];
           $scope.bFloor = $scope.data.judgment[0];
           $scope.bSecret = $scope.data.judgment[0];
           $scope.numF = 0;
@@ -444,7 +440,6 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
           newRobotMatch.spyComm2 = $scope.spyComm2;
           
           //and then persist the values to a new data store record
-          console.log("Adding new record to RobotMatch with robot ID '" + newRobotMatch.robotId + "' and match ID '" + newRobotMatch.matchId + "'");
           RobotMatch.add(newRobotMatch).then(function(robotMatch) {
             $scope.selectedRobotMatch = robotMatch.id;
           });
@@ -469,7 +464,7 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     read/write enabled
   */
   $scope.disableMatchFields = function() {
-    return !(($scope.matchSelected == true) && ($scope.robotSelected == true));
+    return !(($scope.matchSelected == true) && ($scope.robotSelected == true) && ($scope.team));
   }
   
   /*
@@ -823,7 +818,7 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
           exportData2 += "\t";
           exportData2 += matches[i].robotId;
           exportData2 += "\t";
-          exportData2 += matches[i].teamId;
+          exportData2 += matches[i].number;
           exportData2 += "\t";
           exportData2 += matches[i].numLow;
           exportData2 += "\t";

@@ -302,12 +302,12 @@ angular.module('cat5scouting.services', [])
     var self = this;
     
     /*
-        This function returns all recorded robot name/match number combinations
+        This function returns all recorded robot/match combinations
         by joining the `robot` table and `match` table with the `robotMatch` 
         table
     */
     self.all = function() {
-        return DBA.query("SELECT rm.id, rm.`matchId`, rm.`robotId`, t.`teamId`, "
+        return DBA.query("SELECT rm.id, rm.`matchId`, rm.`robotId`, t.`number`, "
                         +"rm.`numLow`, rm.`numHigh`, rm.`lowBarA`, rm.`lowBarT`, "
                         +"rm.`portA`, rm.`portT`, rm.`chevA`, rm.`chevT`, rm.`moatA`, " 
                         +"rm.`moatT`, rm.`rockA`, rm.`rockT`, rm.`roughA`, rm.`roughT`, " 
@@ -317,7 +317,9 @@ angular.module('cat5scouting.services', [])
                         +"rm.`defense`, rm.`spyComm1`, rm.`spyComm2` "
                         +"FROM `robotMatch` rm "
                         +"LEFT OUTER JOIN "
-                        +"	`team` t ON rm.teamId=t.id")
+                        +"  `robot` r ON rm.robotId = r.id "
+                        +"LEFT OUTER JOIN "
+                        +"	`team` t ON r.teamId = t.id")
             .then(function(result) {
                 return DBA.getAll(result);
             })
@@ -326,7 +328,7 @@ angular.module('cat5scouting.services', [])
     self.getById = function(robotId, matchId) {
         if (robotId && matchId) {
             var parameters = [robotId, matchId];
-            return DBA.query("SELECT rm.id, `matchId`, `robotId`, r.`teamId`, "
+            return DBA.query("SELECT rm.id, rm.`matchId`, rm.`robotId`, r.`teamId`, "
                 +   "rm.`numLow`, rm.`numHigh`, rm.`lowBarA`, rm.`lowBarT`, "
                 +   "rm.`portA`, rm.`portT`, rm.`chevA`, rm.`chevT`, rm.`moatA`, " 
                 +   "rm.`moatT`, rm.`rockA`, rm.`rockT`, rm.`roughA`, rm.`roughT`, " 
@@ -480,15 +482,16 @@ angular.module('cat5scouting.services', [])
         //add the robot ID and the match ID to the query
         query += " WHERE (robotId = (?)) AND (matchId = (?))";
         
-        //output the query to the console for testing purposes
+        /*output the query to the console for testing purposes
         console.log("Query to update robot match record: " + query + " with robotId '" 
             + editRobot.robotId + "' and matchId '" + editRobot.matchId + "'");
-
+        */
         
-        //outputs the parameters being submitted with the query
+        /*outputs the parameters being submitted with the query
         angular.forEach(parameters, function(value, key) {
             console.log(key + ": " + value);
         })
+        */
 
         //execute the query
         return DBA.query(query, parameters);
