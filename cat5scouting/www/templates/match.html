@@ -41,25 +41,43 @@
                     <div class="col col-33">
                         <div class="item item-input-inset">
                             <div class="numLabel">Boulders/low goal&nbsp;&nbsp;</div>
-                            <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
+                            <button 
+                                class="button button-small button-assertive icon ion-minus" 
+                                ng-disabled="disableMatchFields()"
+                                ng-click="decField('numLow')"></button>
                             &nbsp;&nbsp;<div id="numLow">{{ numLow }}</div>&nbsp;&nbsp;
-                            <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                            <button 
+                                class="button button-small button-balanced icon ion-plus" 
+                                ng-disabled="disableMatchFields()"
+                                ng-click="incField('numLow')"></button>
                         </div>
                     </div>
                     <div class="col col-33">
                         <div class="item item-input-inset">
                             <div class="numLabel">Boulders/high goal&nbsp;&nbsp;</div>
-                            <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                            &nbsp;&nbsp;<div id="numHigh">0</div>&nbsp;&nbsp;
-                            <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                            <button 
+                                class="button button-small button-assertive icon ion-minus" 
+                                ng-disabled="disableMatchFields()"
+                                ng-click="decField('numHigh')"></button>
+                            &nbsp;&nbsp;<div id="numHigh">{{ numHigh }}</div>&nbsp;&nbsp;
+                            <button 
+                                class="button button-small button-balanced icon ion-plus" 
+                                ng-disabled="disableMatchFields()"
+                                ng-click="incField('numHigh')"></button>
                         </div>
                     </div>
                     <div class="col col-33">
                         <div class="item item-input-inset">
                             <div class="numLabel"># Fouls&nbsp;&nbsp;</div>
-                            <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                            &nbsp;&nbsp;<div id="numF">0</div>&nbsp;&nbsp;
-                            <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                            <button 
+                                class="button button-small button-assertive icon ion-minus" 
+                                ng-disabled="disableMatchFields()"
+                                ng-click="decField('numF')"></button>
+                            &nbsp;&nbsp;<div id="numF">{{ numF }}</div>&nbsp;&nbsp;
+                            <button 
+                                class="button button-small button-balanced icon ion-plus" 
+                                ng-disabled="disableMatchFields()"
+                                ng-click="incField('numF')"></button>
                         </div>
                     </div>
                     <div class="col">
@@ -85,25 +103,43 @@
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Low bar&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('lowBarA')"></button>
                                     &nbsp;&nbsp;<div id="lowBarA">{{ lowBarA }}</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('lowBarA')"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Portcullis&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                                    &nbsp;&nbsp;<div id="portA">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('portA')"></button>
+                                    &nbsp;&nbsp;<div id="portA">{{ portA }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('portA')"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Cheval de frise&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                                    &nbsp;&nbsp;<div id="chevA">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('chevA')"></button>
+                                    &nbsp;&nbsp;<div id="chevA">{{ chevA }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('chevA')"></button>
                                 </div>
                             </div>
                         </div>
@@ -112,25 +148,43 @@
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Moat&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                                    &nbsp;&nbsp;<div id="moatA">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('moatA')"></button>
+                                    &nbsp;&nbsp;<div id="moatA">{{ moatA }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('moatA')"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Rampart&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                                    &nbsp;&nbsp;<div id="rampA">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('rampA')"></button>
+                                    &nbsp;&nbsp;<div id="rampA">{{ rampA }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('rampA')"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Rock wall&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                                    &nbsp;&nbsp;<div id="rockA">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('rockA')"></button>
+                                    &nbsp;&nbsp;<div id="rockA">{{ rockA }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('rockA')"></button>
                                 </div>
                             </div>
                         </div>
@@ -139,25 +193,43 @@
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Rough terrain&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                                    &nbsp;&nbsp;<div id="roughA">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('roughA')"></button>
+                                    &nbsp;&nbsp;<div id="roughA">{{ roughA }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('roughA')"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Sally port&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                                    &nbsp;&nbsp;<div id="sallyA">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('sallyA')"></button>
+                                    &nbsp;&nbsp;<div id="sallyA">{{ sallyA }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('sallyA')"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Drawbridge&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                                    &nbsp;&nbsp;<div id="drawA">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('drawA')"></button>
+                                    &nbsp;&nbsp;<div id="drawA">{{ drawA }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('drawA')"></button>
                                 </div>
                             </div>
                         </div>
@@ -169,25 +241,43 @@
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Low bar&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                                    &nbsp;&nbsp;<div id="lowBarT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('lowBarT')"></button>
+                                    &nbsp;&nbsp;<div id="lowBarT">{{ lowBarT }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('lowBarT')"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Portcullis&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                                    &nbsp;&nbsp;<div id="portT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('portT')"></button>
+                                    &nbsp;&nbsp;<div id="portT">{{ portT }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('portT')"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Cheval de frise&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                                    &nbsp;&nbsp;<div id="chevT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('chevT')"></button>
+                                    &nbsp;&nbsp;<div id="chevT">{{ chevT }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('chevT')"></button>
                                 </div>
                             </div>
                         </div>
@@ -196,25 +286,43 @@
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Moat&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                                    &nbsp;&nbsp;<div id="moatT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('moatT')"></button>
+                                    &nbsp;&nbsp;<div id="moatT">{{ moatT }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('moatT')"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Rampart&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                                    &nbsp;&nbsp;<div id="rampT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('rampT')"></button>
+                                    &nbsp;&nbsp;<div id="rampT">{{ rampT }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('rampT')"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Rock wall&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                                    &nbsp;&nbsp;<div id="rockT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('rockT')"></button>
+                                    &nbsp;&nbsp;<div id="rockT">{{ rockT }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('rockT')"></button>
                                 </div>
                             </div>
                         </div>
@@ -223,25 +331,43 @@
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Rough terrain&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                                    &nbsp;&nbsp;<div id="roughT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('roughT')"></button>
+                                    &nbsp;&nbsp;<div id="roughT">{{ roughT }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('roughT')"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Sally port&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                                    &nbsp;&nbsp;<div id="sallyT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('sallyT')"></button>
+                                    &nbsp;&nbsp;<div id="sallyT">{{ sallyT }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('sallyT')"></button>
                                 </div>
                             </div>
                             <div class="col col-33">
                                 <div class="item item-input-inset">
                                     <div class="numLabel">Drawbridge&nbsp;&nbsp;</div>
-                                    <button class="button button-small button-assertive icon ion-minus" ng-disabled="disableMatchFields()"></button>
-                                    &nbsp;&nbsp;<div id="drawT">0</div>&nbsp;&nbsp;
-                                    <button class="button button-small button-balanced icon ion-plus" ng-disabled="disableMatchFields()"></button>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('drawT')"></button>
+                                    &nbsp;&nbsp;<div id="drawT">{{ drawT }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('drawT')"></button>
                                 </div>
                             </div>
                         </div>
@@ -258,7 +384,7 @@
                                         id="scaled" 
                                         ng-options="option.name for option in data.yesNo track by option.id"
                                         ng-model="scaled"
-                                        ng-change="robotChanged()"
+                                        ng-change="robotMatchChanged()"
                                         ng-disabled="disableMatchFields()"></select>
                                 </label>
                             </div>
@@ -270,7 +396,7 @@
                                         id="challenge" 
                                         ng-options="option.name for option in data.yesNo track by option.id"
                                         ng-model="challenge"
-                                        ng-change="robotChanged()"
+                                        ng-change="robotMatchChanged()"
                                         ng-disabled="disableMatchFields()"></select>
                                 </label>
                             </div>
@@ -282,25 +408,25 @@
                         <div class="row row-pink">
                             <div class="col col-33">
                                 <label class="item item-select">
-                                    <span class="input-label">Robot picked up boulders from floor:</span>
+                                    <span class="input-label">Loaded boulders from floor:</span>
                                     <select 
                                         ng-model="bFloor" 
                                         id="bFloor" 
                                         ng-options="option.name for option in data.judgment track by option.id"
                                         ng-model="bFloor"
-                                        ng-change="robotChanged()"
+                                        ng-change="robotMatchChanged()"
                                         ng-disabled="disableMatchFields()"></select>
                                 </label>
                             </div>
                             <div class="col col-33">
                                 <label class="item item-select">
-                                    <span class="input-label">Robot picked up boulders from secret passage:</span>
+                                    <span class="input-label">Loaded boulders from secret passage:</span>
                                     <select 
                                         ng-model="bSecret" 
                                         id="bSecret" 
                                         ng-options="option.name for option in data.judgment track by option.id"
                                         ng-model="bSecret"
-                                        ng-change="robotChanged()"
+                                        ng-change="robotMatchChanged()"
                                         ng-disabled="disableMatchFields()"></select>
                                     </select>
                                 </label>
@@ -313,7 +439,7 @@
                                         id="defense" 
                                         ng-options="option.name for option in data.judgment track by option.id"
                                         ng-model="defense"
-                                        ng-change="robotChanged()"
+                                        ng-change="robotMatchChanged()"
                                         ng-disabled="disableMatchFields()"></select>
                                     </select>
                                 </label>
@@ -329,7 +455,7 @@
                                         id="spyComm1" 
                                         ng-options="option.name for option in data.judgment track by option.id"
                                         ng-model="spyComm1"
-                                        ng-change="robotChanged()"
+                                        ng-change="robotMatchChanged()"
                                         ng-disabled="disableMatchFields()"></select>
                                     </select>
                                 </label>
@@ -342,7 +468,7 @@
                                         id="spyComm2" 
                                         ng-options="option.name for option in data.judgment track by option.id"
                                         ng-model="spyComm2"
-                                        ng-change="robotChanged()"
+                                        ng-change="robotMatchChanged()"
                                         ng-disabled="disableMatchFields()"></select>
                                 </label>
                             </div>

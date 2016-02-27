@@ -59,8 +59,112 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     return state == $scope.toggle;
   }
 
-  $scope.incValue = function(field) {
+  /*
+    Increments the value of a field. Used when user 
+    taps the plus button next for the field
+  */
+  $scope.incField = function(field) {
+    if (field == 'numHigh') $scope.numHigh = $scope.numHigh + 1;
+    if (field == 'numLow') $scope.numLow = $scope.numLow + 1;
+    if (field == 'lowBarA') $scope.lowBarA = $scope.lowBarA + 1;
+    if (field == 'lowBarT') $scope.lowBarT = $scope.lowBarT + 1;
+    if (field == 'portA') $scope.portA = $scope.portA + 1;
+    if (field == 'portT') $scope.portT = $scope.portT + 1;
+    if (field == 'chevA') $scope.chevA = $scope.chevA + 1;
+    if (field == 'chevT') $scope.chevT = $scope.chevT + 1;
+    if (field == 'moatA') $scope.moatA = $scope.moatA + 1;
+    if (field == 'moatT') $scope.moatT = $scope.moatT + 1;
+    if (field == 'rockA') $scope.rockA = $scope.rockA + 1;
+    if (field == 'rockT') $scope.rockT = $scope.rockT + 1;
+    if (field == 'roughA') $scope.roughA = $scope.roughA + 1;
+    if (field == 'roughT') $scope.roughT = $scope.roughT + 1;
+    if (field == 'sallyA') $scope.sallyA = $scope.sallyA + 1;
+    if (field == 'sallyT') $scope.sallyT = $scope.sallyT + 1;
+    if (field == 'drawA') $scope.drawA = $scope.drawA + 1;
+    if (field == 'drawT') $scope.drawT = $scope.drawT + 1;
+    if (field == 'rampA') $scope.rampA = $scope.rampA + 1;
+    if (field == 'rampT') $scope.rampT = $scope.rampT + 1;
+    if (field == 'scaled') $scope.scaled = $scope.scaled + 1;
+    if (field == 'challenge') $scope.challenge = $scope.challenge + 1;
+    if (field == 'numF') $scope.numF = $scope.numF + 1;
+    $scope.robotMatchChanged();
+  }
 
+  /*
+    Decrements the value of a field. Used when user 
+    taps the minus button next for the field
+  */
+  $scope.decField = function(field) {
+    if (field == 'numLow') { 
+         $scope.numLow = ($scope.numLow > 0 ? $scope.numLow - 1 : 0); 
+    }
+    if (field == 'numHigh') {
+         $scope.numHigh = ($scope.numHigh > 0 ? $scope.numHigh - 1 : 0);
+    }
+    if (field == 'lowBarA') { 
+         $scope.lowBarA = ($scope.lowBarA > 0 ? $scope.lowBarA - 1 : 0); 
+    }
+    if (field == 'lowBarT') { 
+         $scope.lowBarT = ($scope.lowBarT > 0 ? $scope.lowBarT - 1 : 0); 
+    }
+    if (field == 'portA') { 
+         $scope.portA = ($scope.portA > 0 ? $scope.portA - 1 : 0); 
+    }
+    if (field == 'portT') { 
+         $scope.portT = ($scope.portT > 0 ? $scope.portT - 1 : 0); 
+    }
+    if (field == 'chevA') { 
+         $scope.chevA = ($scope.chevA > 0 ? $scope.chevA - 1 : 0); 
+    }
+    if (field == 'chevT') { 
+         $scope.chevT = ($scope.chevT > 0 ? $scope.chevT - 1 : 0); 
+    }
+    if (field == 'moatA') { 
+         $scope.moatA = ($scope.moatA > 0 ? $scope.moatA - 1 : 0); 
+    }
+    if (field == 'moatT') { 
+         $scope.moatT = ($scope.moatT > 0 ? $scope.moatT - 1 : 0); 
+    }
+    if (field == 'rockA') { 
+         $scope.rockA = ($scope.rockA > 0 ? $scope.rockA - 1 : 0); 
+    }
+    if (field == 'rockT') { 
+         $scope.rockT = ($scope.rockT > 0 ? $scope.rockT - 1 : 0); 
+    }
+    if (field == 'roughA') { 
+         $scope.roughA = ($scope.roughA > 0 ? $scope.roughA - 1 : 0); 
+    }
+    if (field == 'roughT') { 
+         $scope.roughT = ($scope.roughT > 0 ? $scope.roughT - 1 : 0); 
+    }
+    if (field == 'sallyA') { 
+         $scope.sallyA = ($scope.sallyA > 0 ? $scope.sallyA - 1 : 0); 
+    }
+    if (field == 'sallyT') { 
+         $scope.sallyT = ($scope.sallyT > 0 ? $scope.sallyT - 1 : 0); 
+    }
+    if (field == 'drawA') { 
+         $scope.drawA = ($scope.drawA > 0 ? $scope.drawA - 1 : 0); 
+    }
+    if (field == 'drawT') { 
+         $scope.drawT = ($scope.drawT > 0 ? $scope.drawT - 1 : 0); 
+    }
+    if (field == 'rampA') { 
+         $scope.rampA = ($scope.rampA > 0 ? $scope.rampA - 1 : 0); 
+    }
+    if (field == 'rampT') { 
+         $scope.rampT = ($scope.rampT > 0 ? $scope.rampT - 1 : 0); 
+    }
+    if (field == 'scaled') { 
+         $scope.scaled = ($scope.scaled > 0 ? $scope.scaled - 1 : 0); 
+    }
+    if (field == 'challenge') { 
+         $scope.challenge = ($scope.challenge > 0 ? $scope.challenge - 1 : 0); 
+    }
+    if (field == 'numF') { 
+         $scope.numF = ($scope.numF > 0 ? $scope.numF - 1 : 0); 
+    }
+    $scope.robotMatchChanged();
   }
 
   /*
@@ -116,149 +220,159 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     if ($scope.selectedRobot && $scope.match) {
       //retrieve all robot data for the selected robot
       console.log("RobotMatch.getById called");
-      RobotMatch.getById($scope.selectedRobot.id, $scope.match.id).then(function(robot) {
-        //verify that a robot was returned instead of null (null = no matching record in the db)
-        console.log("if robot");
-        if (robot) {
-          console.log("yes, there was a robot");
+      RobotMatch.getById($scope.selectedRobot.id, $scope.match.id).then(function(robotMatch) {
+        //verify that a robotMatch was returned instead of null (null = no matching record in the db)
+        console.log("if robotMatch");
+        if (robotMatch) {
+          console.log("yes, there was a robotMatch");
 
-          //set the current robot
-          $scope.robot = robot;
+          //set the current robotMatch
+          $scope.selectedRobotMatch = robotMatch.id;
           
           //set the values for the fields in the form based on the database if they
           //exist. Otherwise, set to the unselected value.
-          if (robot.numLow) {
-            $scope.numLow = robot.numLow;
+          if (robotMatch.numLow) {
+            $scope.numLow = robotMatch.numLow;
           } else {
             $scope.numLow = 0;
           }
-          if (robot.numHigh) {
-            $scope.numHigh = robot.numHigh;
+          if (robotMatch.numHigh) {
+            $scope.numHigh = robotMatch.numHigh;
           } else {
             $scope.numHigh = 0;
           }
-          if (robot.lowBarA) {
-            $scope.lowBarA = robot.lowBarA;
+          if (robotMatch.lowBarA) {
+            $scope.lowBarA = robotMatch.lowBarA;
           } else {
             $scope.lowBarA = 0;
           }
-          if (robot.lowBarT) {
-            $scope.lowBarT = robot.lowBarT;
+          if (robotMatch.lowBarT) {
+            $scope.lowBarT = robotMatch.lowBarT;
           } else {
             $scope.lowBarT = 0;
           }
-          if (robot.portA) {
-            $scope.portA = robot.portA;
+          if (robotMatch.portA) {
+            $scope.portA = robotMatch.portA;
           } else {
             $scope.portA = 0;
           }
-          if (robot.portT) {
-            $scope.portT = robot.portT;
+          if (robotMatch.portT) {
+            $scope.portT = robotMatch.portT;
           } else {
             $scope.portT = 0;
           }
-          if (robot.chevA) {
-            $scope.chevA = robot.chevA;
+          if (robotMatch.chevA) {
+            $scope.chevA = robotMatch.chevA;
           } else {
             $scope.chevA = 0;
           }
-          if (robot.chevT) {
-            $scope.chevT = robot.chevT;
+          if (robotMatch.chevT) {
+            $scope.chevT = robotMatch.chevT;
           } else {
             $scope.chevT = 0;
           }
-          if (robot.moatA) {
-            $scope.moatA = robot.moatA;
+          if (robotMatch.moatA) {
+            $scope.moatA = robotMatch.moatA;
           } else {
             $scope.moatA = 0;
           }
-          if (robot.moatT) {
-            $scope.moatT = robot.moatT;
+          if (robotMatch.moatT) {
+            $scope.moatT = robotMatch.moatT;
           } else {
             $scope.moatT = 0;
           }
-          if (robot.rockA) {
-            $scope.rockA = robot.rockA;
+          if (robotMatch.rockA) {
+            $scope.rockA = robotMatch.rockA;
           } else {
             $scope.rockA = 0;
           }
-          if (robot.rockT) {
-            $scope.rockT = robot.rockT;
+          if (robotMatch.rockT) {
+            $scope.rockT = robotMatch.rockT;
           } else {
             $scope.rockT = 0;
           }
-          if (robot.roughA) {
-            $scope.roughA = robot.roughA;
+          if (robotMatch.roughA) {
+            $scope.roughA = robotMatch.roughA;
           } else {
             $scope.roughA = 0;
           }
-          if (robot.roughT) {
-            $scope.roughT = robot.roughT;
+          if (robotMatch.roughT) {
+            $scope.roughT = robotMatch.roughT;
           } else {
             $scope.roughT = 0;
           }
-          if (robot.sallyA) {
-            $scope.sallyA = robot.sallyA;
+          if (robotMatch.sallyA) {
+            $scope.sallyA = robotMatch.sallyA;
           } else {
             $scope.sallyA = 0;
           }
-          if (robot.sallyT) {
-            $scope.sallyT = robot.sallyT;
+          if (robotMatch.sallyT) {
+            $scope.sallyT = robotMatch.sallyT;
           } else {
             $scope.sallyT = 0;
           }
-          if (robot.drawA) {
-            $scope.drawA = robot.drawA;
+          if (robotMatch.drawA) {
+            $scope.drawA = robotMatch.drawA;
           } else {
             $scope.drawA = 0;
           }
-          if (robot.drawT) {
-            $scope.drawT = robot.drawT;
+          if (robotMatch.drawT) {
+            $scope.drawT = robotMatch.drawT;
           } else {
             $scope.drawT = 0;
           }
-          if (robot.scaled) {
-            $scope.scaled = robot.scaled;
+          if (robotMatch.rampA) {
+            $scope.rampA = robotMatch.rampA;
+          } else {
+            $scope.rampA = 0;
+          }
+          if (robotMatch.rampT) {
+            $scope.rampT = robotMatch.rampT;
+          } else {
+            $scope.rampT = 0;
+          }          
+          if (robotMatch.scaled) {
+            $scope.scaled = robotMatch.scaled;
           } else {
             $scope.scaled = 0;
           }
-          if (robot.challenge) {
-            $scope.challenge = robot.challenge;
+          if (robotMatch.challenge) {
+            $scope.challenge = robotMatch.challenge;
           } else {
             $scope.challenge = 0;
           }
-          if (robot.bFloor) {
-            $scope.bFloor = robot.bFloor;
+          if (robotMatch.bFloor) {
+            $scope.bFloor = robotMatch.bFloor;
           } else {
             $scope.bFloor = $scope.data.judgment[0];;
           }
-          if (robot.bSecret) {
-            $scope.bSecret = robot.bSecret;
+          if (robotMatch.bSecret) {
+            $scope.bSecret = robotMatch.bSecret;
           } else {
             $scope.bSecret = $scope.data.judgment[0];;
           }
-          if (robot.numF) {
-            $scope.numF = robot.numF;
+          if (robotMatch.numF) {
+            $scope.numF = robotMatch.numF;
           } else {
             $scope.numF = 0;
           }
-          if (robot.borked) {
-            $scope.borked = robot.borked;
+          if (robotMatch.borked) {
+            $scope.borked = robotMatch.borked;
           } else {
             $scope.borked = false;
           }
-          if (robot.defense) {
-            $scope.defense = robot.defense;
+          if (robotMatch.defense) {
+            $scope.defense = robotMatch.defense;
           } else {
             $scope.defense = $scope.data.judgment[0];;
           }
-          if (robot.spyComm1) {
-            $scope.spyComm1 = robot.spyComm1;
+          if (robotMatch.spyComm1) {
+            $scope.spyComm1 = robotMatch.spyComm1;
           } else {
             $scope.spyComm1 = $scope.data.judgment[0];;
           }
-          if (robot.spyComm2) {
-            $scope.spyComm2 = robot.spyComm2;
+          if (robotMatch.spyComm2) {
+            $scope.spyComm2 = robotMatch.spyComm2;
           } else {
             $scope.spyComm2 = $scope.data.judgment[0];;
           }
@@ -283,6 +397,8 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
           $scope.sallyT = 0;
           $scope.drawA = 0;
           $scope.drawT = 0;
+          $scope.rampA = 0;
+          $scope.rampT = 0;
           $scope.scaled = 0;
           $scope.challenge = 0;
           $scope.bFloor = $scope.data.judgment[0];
@@ -293,8 +409,10 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
           $scope.spyComm1 = $scope.data.judgment[0];
           $scope.spyComm2 = $scope.data.judgment[0];
 
-          //then create a robot object with the same values
+          //then create a robot-match object with the same values
           var newRobotMatch = [];
+          newRobotMatch.robotId = $scope.selectedRobot.id;
+          newRobotMatch.matchId = $scope.match.id;
           newRobotMatch.numLow = $scope.numLow;
           newRobotMatch.numHigh = $scope.numHigh;
           newRobotMatch.lowBarA = $scope.lowBarA;
@@ -313,6 +431,8 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
           newRobotMatch.sallyT = $scope.sallyT;
           newRobotMatch.drawA = $scope.drawA;
           newRobotMatch.drawT = $scope.drawT;
+          newRobotMatch.rampA = $scope.rampA;
+          newRobotMatch.rampT = $scope.rampT;
           newRobotMatch.scaled = $scope.scaled;
           newRobotMatch.challenge = $scope.challenge;
           newRobotMatch.bFloor = $scope.bFloor;
@@ -324,8 +444,10 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
           newRobotMatch.spyComm2 = $scope.spyComm2;
           
           //and then persist the values to a new data store record
-          console.log("Adding new records to RobotMatch with robot ID '" + newRobotMatch.robotId + "' and match ID '" + newRobotMatch.matchId + "'");
-          RobotMatch.add(newRobotMatch);
+          console.log("Adding new record to RobotMatch with robot ID '" + newRobotMatch.robotId + "' and match ID '" + newRobotMatch.matchId + "'");
+          RobotMatch.add(newRobotMatch).then(function(robotMatch) {
+            $scope.selectedRobotMatch = robotMatch.id;
+          });
         }
       })
     }
@@ -354,12 +476,14 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     This function is called each time a field is updated.
   */
   $scope.robotMatchChanged = function() {
-    var editRobotMatch = angular.copy($scope.selectedRobot);
+    var editRobotMatch = [];
+
+    editRobotMatch.id = $scope.selectedRobotMatch;
     
     if ($scope.numLow) {
       editRobotMatch.numLow = angular.copy($scope.numLow);
     } else {
-      editRobotMatch.numLow = 0;
+      //editRobotMatch.numLow = 0;
     }
     if ($scope.numHigh) {
       editRobotMatch.numHigh = angular.copy($scope.numHigh);
@@ -446,6 +570,16 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     } else {
       editRobotMatch.drawT = 0;
     }
+    if ($scope.rampA) {
+      editRobotMatch.rampA = angular.copy($scope.rampA);
+    } else {
+      editRobotMatch.rampA = 0;
+    }
+    if ($scope.rampT) {
+      editRobotMatch.rampT = angular.copy($scope.rampT);
+    } else {
+      editRobotMatch.rampT = 0;
+    }    
     if ($scope.scaled) {
       editRobotMatch.scaled = angular.copy($scope.scaled);
     } else {
@@ -492,15 +626,15 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
       editRobotMatch.spyComm2 = $scope.data.judgment[0];
     }
     
+    if ($scope.match) {
+      editRobotMatch.matchId = angular.copy($scope.match.id);
+    }
+
     if ($scope.selectedRobot) {
       editRobotMatch.robotId = angular.copy($scope.selectedRobot.id);
     }
     
-    if ($scope.match) {
-      editRobotMatch.matchId = angular.copy($scope.match.id);
-    }
-    
-    RobotMatch.update($scope.selectedRobot, editRobotMatch);
+    RobotMatch.update($scope.selectedRobotMatch, editRobotMatch);
   }
 
   
@@ -661,6 +795,8 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
           });       
       });
 
+      //TODO: Add dirty-checking so we only export once
+
 
   
 
@@ -681,6 +817,7 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
       exportData2 += "# fouls generated\tRobot broken?\tHow well did defense?\t";
       exportData2 += "How well did team spy communicate?\tHow well did drive team use spy?\r\n";
       RobotMatch.all().then(function(matches) {
+        console.log("There are " + matches.length + " robot-matches recorded");
         for (var i=0; i<matches.length; i++) {
           exportData2 += matches[i].matchId;
           exportData2 += "\t";
@@ -745,7 +882,7 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
           exportData2 += matches[i].spyComm1;
           exportData2 += "\t";
           exportData2 += matches[i].spyComm2;
-          exportData2 += "\t";
+          exportData2 += "\r\n";
         }
       }).then(function() {
         var matchFilename = "Cat5Scouting.Match." + $scope.getDateString() + ".txt";
@@ -777,6 +914,8 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     //create list of all teams to compete
     var teams = [
       {num: 120, name: "Cleveland's Team"},
+      {num: 179, name: "Children of the Swamp"},
+      {num: 237, name: "Black Magic Robotics"},
       {num: 281, name: "GreenVillains"},
       {num: 283, name: "The Generals"},
       {num: 342, name: "Burning Magnetos"},
@@ -794,6 +933,8 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
       {num: 1261, name: "Robo Lions"},
       {num: 1287, name: "Aluminum Assault"},
       {num: 1293, name: "Pandamaniacs"},
+      {num: 1296, name: "Full Metal Jackets"},
+      {num: 1369, name: "Minotaur"},
       {num: 1398, name: "Robo-Raiders"},
       {num: 1533, name: "Triple Strange"},
       {num: 1539, name: "Clover Robotics"},
@@ -802,7 +943,14 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
       {num: 1876, name: "Beachbotics"},
       {num: 2028, name: "Phantom Mentalist"},
       {num: 2059, name: "The Hitchhikers"},
+      {num: 2172, name: "Street Legal"},
       {num: 2187, name: "Team Volt"},
+      {num: 2200, name: "MMRambotics"},
+      {num: 2252, name: "The Mavericks"},
+      {num: 2386, name: "Trojans"},
+      {num: 2393, name: "Robotichauns"},
+      {num: 2556, name: "RadioActive Roaches"},
+      {num: 2614, name: "MARS"},
       {num: 2632, name: "The Theoreticals"},
       {num: 2640, name: "HOTBOTZ"},
       {num: 2655, name: "The Flying Platypi"},
@@ -813,18 +961,22 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
       {num: 3651, name: "TRIBE"},
       {num: 3824, name: "HVA RoHAWKtics"},
       {num: 3976, name: "Electric Hornets"},
+      {num: 4013, name: "Clockwork Mania"},
       {num: 4073, name: "Robo Kats"},
       {num: 4074, name: "Shark Bytes"},
       {num: 4075, name: "Robo Tigers"},
       {num: 4083, name: "The Iron Wolverines"},
       {num: 4098, name: "Viking Robotics Team"},
       {num: 4243, name: "STAR Warriors"},
+      {num: 4265, name: "Secret City Wildbots"},
       {num: 4267, name: "Brave Bots"},
       {num: 4451, name: "ROBOTZ Garage"},
       {num: 4452, name: "First Noble Team"},
+      {num: 4504, name: "B. C. Robotics"},
       {num: 4505, name: "Eagle Robotics"},
       {num: 4514, name: "STEAM Works"},
       {num: 4533, name: "Wando Advanced Robotics"},
+      {num: 4547, name: "WestyTek"},
       {num: 4561, name: "TerrorBytes"},
       {num: 4576, name: "Red Nation Robotics"},
       {num: 4582, name: "Robohawks"},
@@ -835,13 +987,20 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
       {num: 4902, name: "The Wildebots"},
       {num: 4935, name: "T-Rex"},
       {num: 4965, name: "FIRE"},
+      {num: 4992, name: "Spartans"},
       {num: 5020, name: "CavBOTS"},
       {num: 5022, name: "Rat Rod Robotics"},
       {num: 5063, name: "BuzzBots"},
       {num: 5130, name: "Undercogs"},
       {num: 5180, name: "Metal Heads"},
       {num: 5317, name: "Redhawks"},
-      {num: 5327, name: "Griffin Robotics"}
+      {num: 5327, name: "Griffin Robotics"},
+      {num: 5409, name: "Chargers"},
+      {num: 5410, name: "Eaglebotics"},
+      {num: 5777, name: "Alternate Currents"},
+      {num: 5898, name: "RoboFalcons"},
+      {num: 6167, name: "CB Bearbots"},
+      {num: 6222, name: "Hemingway Tigers"}
     ];
 
     /*
@@ -955,6 +1114,20 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     $cordovaSQLite.execute(db, "DROP TABLE `match`");
     $cordovaSQLite.execute(db, "DROP TABLE `robotMatch`").then(function() {
       $cordovaToast.showShortTop('Database deleted; create new tables before continuing');
+    });
+  }
+
+  $scope.emptyDBTables = function() {
+    /* 
+      Delete the database to start from scratch
+    */
+    $cordovaToast.showShortTop('Hang on a sec... deleting the content of database tables');
+
+    $cordovaSQLite.execute(db, "DELETE FROM `team`");
+    $cordovaSQLite.execute(db, "DELETE FROM `robot`");
+    $cordovaSQLite.execute(db, "DELETE FROM `match`");
+    $cordovaSQLite.execute(db, "DELETE FROM `robotMatch`").then(function() {
+      $cordovaToast.showShortTop('OK, database emptied');
     });
   }
 

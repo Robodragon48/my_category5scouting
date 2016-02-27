@@ -281,13 +281,13 @@ angular.module('cat5scouting.services', [])
         query += " WHERE (id = (?))";
         
         //output the query to the console for testing purposes
-        console.log("Query to update robot record: " + query + " with robotId '" 
-            + editRobot.id + "'");
+        //console.log("Query to update robot record: " + query + " with robotId '" 
+        //    + editRobot.id + "'");
         
         //outputs the parameters being submitted with the query
-        angular.forEach(parameters, function(value, key) {
-            console.log(key + ": " + value);
-        })
+        //angular.forEach(parameters, function(value, key) {
+        //    console.log(key + ": " + value);
+        //})
 
         //execute the query
         return DBA.query(query, parameters);
@@ -307,15 +307,17 @@ angular.module('cat5scouting.services', [])
         table
     */
     self.all = function() {
-        return DBA.query("SELECT "
-                        +"  r.name, "
-                        +"	m.number "
-                        +"FROM "
-                        +"	`robotMatch` rm "
+        return DBA.query("SELECT rm.id, rm.`matchId`, rm.`robotId`, t.`teamId`, "
+                        +"rm.`numLow`, rm.`numHigh`, rm.`lowBarA`, rm.`lowBarT`, "
+                        +"rm.`portA`, rm.`portT`, rm.`chevA`, rm.`chevT`, rm.`moatA`, " 
+                        +"rm.`moatT`, rm.`rockA`, rm.`rockT`, rm.`roughA`, rm.`roughT`, " 
+                        +"rm.`sallyA`, rm.`sallyT`, rm.`drawA`, rm.`drawT`, "
+                        +"rm.`rampA`, rm.`rampT`, rm.`scaled`, "
+                        +"rm.`challenge`, rm.`bFloor`, rm.`bSecret`, rm.`numF`, rm.`borked`, "
+                        +"rm.`defense`, rm.`spyComm1`, rm.`spyComm2` "
+                        +"FROM `robotMatch` rm "
                         +"LEFT OUTER JOIN "
-                        +"  `match` m ON rm.matchId=m.id "
-                        +"LEFT OUTER JOIN "
-                        +"	`robot` r ON rm.robotId=r.id")
+                        +"	`team` t ON rm.teamId=t.id")
             .then(function(result) {
                 return DBA.getAll(result);
             })
@@ -343,89 +345,89 @@ angular.module('cat5scouting.services', [])
         }
     }
     
-    self.update = function(origRobot, editRobot, match) {
+    self.update = function(origRobot, editRobot) {
         //build an update statement to include only values that have selections 
         //on the form
         var parameters = [];
         var query = "UPDATE `robotMatch` SET ";
         if (editRobot.numLow) { 
-           parameters.push(editRobot.numLow.id); 
+           parameters.push(editRobot.numLow); 
            query += " numLow = (?),";
         }         
         if (editRobot.numHigh) { 
-           parameters.push(editRobot.numHigh.id); 
+           parameters.push(editRobot.numHigh); 
            query += " numHigh = (?),";
         }         
         if (editRobot.lowBarA) { 
-           parameters.push(editRobot.lowBarA.id); 
+           parameters.push(editRobot.lowBarA); 
            query += " lowBarA = (?),";
         }         
         if (editRobot.lowBarT) { 
-           parameters.push(editRobot.lowBarT.id); 
+           parameters.push(editRobot.lowBarT); 
            query += " lowBarT = (?),";
         }         
         if (editRobot.portA) { 
-           parameters.push(editRobot.portA.id); 
+           parameters.push(editRobot.portA); 
            query += " portA = (?),";
         }         
         if (editRobot.portT) { 
-           parameters.push(editRobot.portT.id); 
+           parameters.push(editRobot.portT); 
            query += " portT = (?),";
         }         
         if (editRobot.chevA) { 
-           parameters.push(editRobot.chevA.id); 
+           parameters.push(editRobot.chevA); 
            query += " chevA = (?),";
         }         
         if (editRobot.chevT) { 
-           parameters.push(editRobot.chevT.id); 
+           parameters.push(editRobot.chevT); 
            query += " chevT = (?),";
         }         
         if (editRobot.moatA) { 
-           parameters.push(editRobot.moatA.id); 
+           parameters.push(editRobot.moatA); 
            query += " moatA = (?),";
         }         
         if (editRobot.moatT) { 
-           parameters.push(editRobot.moatT.id); 
+           parameters.push(editRobot.moatT); 
            query += " moatT = (?),";
         }         
         if (editRobot.rampartA) { 
-           parameters.push(editRobot.rampartA.id); 
+           parameters.push(editRobot.rampA); 
            query += " rampA = (?),";
         }         
         if (editRobot.rampartT) { 
-           parameters.push(editRobot.rampartT.id); 
+           parameters.push(editRobot.rampT); 
            query += " rampT = (?),";
         }         
         if (editRobot.rockA) { 
-           parameters.push(editRobot.rockA.id); 
+           parameters.push(editRobot.rockA); 
            query += " rockA = (?),";
         }         
         if (editRobot.rockT) { 
-           parameters.push(editRobot.rockT.id); 
+           parameters.push(editRobot.rockT); 
            query += " rockT = (?),";
         }         
         if (editRobot.roughA) { 
-           parameters.push(editRobot.roughA.id); 
+           parameters.push(editRobot.roughA); 
            query += " roughA = (?),";
         }         
         if (editRobot.roughT) { 
-           parameters.push(editRobot.roughT.id); 
+           parameters.push(editRobot.roughT); 
            query += " roughT = (?),";
         }         
         if (editRobot.sallyA) { 
-           parameters.push(editRobot.sallyA.id); 
+           parameters.push(editRobot.sallyA); 
            query += " sallyA = (?),";
         }         
         if (editRobot.sallyT) { 
-           parameters.push(editRobot.sallyT.id); 
+           parameters.push(editRobot.sallyT); 
            query += " sallyT = (?),";
         }         
         if (editRobot.drawA) { 
-           parameters.push(editRobot.drawA.id); 
+           parameters.push(editRobot.drawA); 
            query += " drawA = (?),";
         }         
         if (editRobot.drawT) { 
-           parameters.push(editRobot.drawT.id); 
+           parameters.push(editRobot.drawT); 
            query += " drawT = (?),";
         }         
         if (editRobot.scaled) { 
@@ -445,7 +447,7 @@ angular.module('cat5scouting.services', [])
            query += " bSecret = (?),";
         }         
         if (editRobot.numF) { 
-           parameters.push(editRobot.numF.id); 
+           parameters.push(editRobot.numF); 
            query += " numF = (?),";
         }         
         if (editRobot.borked) { 
@@ -476,11 +478,17 @@ angular.module('cat5scouting.services', [])
         }
         
         //add the robot ID and the match ID to the query
-        query += "WHERE (robotId = (?)) AND (matchId = (?))";
+        query += " WHERE (robotId = (?)) AND (matchId = (?))";
         
         //output the query to the console for testing purposes
         console.log("Query to update robot match record: " + query + " with robotId '" 
             + editRobot.robotId + "' and matchId '" + editRobot.matchId + "'");
+
+        
+        //outputs the parameters being submitted with the query
+        angular.forEach(parameters, function(value, key) {
+            console.log(key + ": " + value);
+        })
 
         //execute the query
         return DBA.query(query, parameters);
@@ -489,10 +497,48 @@ angular.module('cat5scouting.services', [])
     self.add = function(robotMatch) {
         var parameters = [
                             robotMatch.robotId, 
-                            robotMatch.matchId
+                            robotMatch.matchId,
+                            robotMatch.teamId, 
+                            robotMatch.numLow, 
+                            robotMatch.numHigh, 
+                            robotMatch.lowBarA, 
+                            robotMatch.lowBarT, 
+                            robotMatch.portA, 
+                            robotMatch.portT, 
+                            robotMatch.chevA, 
+                            robotMatch.chevT, 
+                            robotMatch.moatA, 
+                            robotMatch.moatT, 
+                            robotMatch.rockA, 
+                            robotMatch.rockT, 
+                            robotMatch.roughA, 
+                            robotMatch.roughT, 
+                            robotMatch.sallyA, 
+                            robotMatch.sallyT, 
+                            robotMatch.drawA, 
+                            robotMatch.drawT, 
+                            robotMatch.rampA, 
+                            robotMatch.rampT, 
+                            robotMatch.scaled.id, 
+                            robotMatch.challenge.id, 
+                            robotMatch.bFloor.id, 
+                            robotMatch.bSecret.id, 
+                            robotMatch.numF, 
+                            robotMatch.borked, 
+                            robotMatch.defense.id, 
+                            robotMatch.spyComm1.id,
+                            robotMatch.spyComm2.id
                          ];
-        return DBA.query("INSERT INTO `robotMatch` (robotId, matchId) "
-                        +"VALUES (?,?)", parameters);
+
+        console.log("Creating a new robotMatch record");
+
+        return DBA.query("INSERT INTO `robotMatch` (robotId, matchId, teamId, " 
+                        +"numLow, numHigh, lowBarA, lowBarT, portA, portT, chevA, "
+                        +"chevT, moatA, moatT, rockA, rockT, roughA, roughT, "
+                        +"sallyA, sallyT, drawA, drawT, rampA, rampT, scaled, "
+                        +"challenge, bFloor, bSecret, numF, borked, defense, "
+                        +"spyComm1, spyComm2) "
+                        +"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", parameters);
     }
     
     return self;
