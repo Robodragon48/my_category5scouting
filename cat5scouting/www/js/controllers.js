@@ -786,7 +786,7 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
             console.log("Text successfully written to Pit file");
           }, function (error) {
             console.log("Problem writing text to Pit file");
-            console.log(error);
+            console.log("Error message: " + JSON.stringify(error));
           });       
       });
 
@@ -812,7 +812,6 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
       exportData2 += "# fouls generated\tRobot broken?\tHow well did defense?\t";
       exportData2 += "How well did team spy communicate?\tHow well did drive team use spy?\r\n";
       RobotMatch.all().then(function(matches) {
-        console.log("There are " + matches.length + " robot-matches recorded");
         for (var i=0; i<matches.length; i++) {
           exportData2 += matches[i].matchId;
           exportData2 += "\t";
@@ -886,7 +885,7 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
             console.log("Text successfully written to Match file");
           }, function (error) {
             console.log("Problem writing text to Match file");
-            console.log(error);
+            console.log("Error message: " + JSON.stringify(error));
           });
       })      
 
@@ -1007,7 +1006,7 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
       $cordovaSQLite.execute(db, query, [teams[i].name, teams[i].num]).then(function(res) {
         
       }, function (err) {
-        console.error(err);
+        console.log("Error message: " + JSON.stringify(error));
       }).then(function() {
         teamsAdded++;
 
@@ -1029,8 +1028,8 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
       for (var i=0; i<teams.length; i++) {
         $cordovaSQLite.execute(db, query, ["Robot", teams[i].id]).then(function(res) {
           
-        }, function (err) {
-          console.error(err);
+        }, function (error) {
+          console.log("Error message: " + JSON.stringify(error));
         }).then(function() {
           robotsAdded++;
           if (robotsAdded == teams.length) {
@@ -1051,8 +1050,8 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     for (var i=1; i<100; i++) {
       $cordovaSQLite.execute(db, query, [i]).then(function(res) {
         
-      }, function (err) {
-        console.error(err);
+      }, function (error) {
+        console.log("Error message: " + JSON.stringify(error));
       }).then(function() {
         matchesAdded++;
         if (matchesAdded == 99) {

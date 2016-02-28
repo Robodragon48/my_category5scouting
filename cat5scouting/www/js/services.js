@@ -17,8 +17,7 @@ angular.module('cat5scouting.services', [])
            .then(function (result) {
                q.resolve(result);
            }, function (error) {
-               console.warn('Error encountered: ');
-               console.warn(error);
+               console.log("Error message: " + JSON.stringify(error));
                q.reject(error);
            });
         });
@@ -279,15 +278,6 @@ angular.module('cat5scouting.services', [])
         
         //add the robot ID and the match ID to the query
         query += " WHERE (id = (?))";
-        
-        //output the query to the console for testing purposes
-        //console.log("Query to update robot record: " + query + " with robotId '" 
-        //    + editRobot.id + "'");
-        
-        //outputs the parameters being submitted with the query
-        //angular.forEach(parameters, function(value, key) {
-        //    console.log(key + ": " + value);
-        //})
 
         //execute the query
         return DBA.query(query, parameters);
@@ -481,17 +471,6 @@ angular.module('cat5scouting.services', [])
         
         //add the robot ID and the match ID to the query
         query += " WHERE (robotId = (?)) AND (matchId = (?))";
-        
-        /*output the query to the console for testing purposes
-        console.log("Query to update robot match record: " + query + " with robotId '" 
-            + editRobot.robotId + "' and matchId '" + editRobot.matchId + "'");
-        */
-        
-        /*outputs the parameters being submitted with the query
-        angular.forEach(parameters, function(value, key) {
-            console.log(key + ": " + value);
-        })
-        */
 
         //execute the query
         return DBA.query(query, parameters);
@@ -532,8 +511,6 @@ angular.module('cat5scouting.services', [])
                             robotMatch.spyComm1.id,
                             robotMatch.spyComm2.id
                          ];
-
-        console.log("Creating a new robotMatch record");
 
         return DBA.query("INSERT INTO `robotMatch` (robotId, matchId, teamId, " 
                         +"numLow, numHigh, lowBarA, lowBarT, portA, portT, chevA, "
