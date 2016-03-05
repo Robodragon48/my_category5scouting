@@ -3,7 +3,7 @@
         <div ng-controller="MatchCtrl" class="padding">
             <form name="MatchScoutForm">
                 <div class="row row-blue">
-                    <div class="col col-33">
+                    <div class="col col-25">
                         <label class="item item-input item-select"> 
                             <span class="input-label">Team name</span>
                             <select 
@@ -14,7 +14,7 @@
                                 ng-change="selectTeam()"></select>
                         </label>
                     </div>
-                    <div class="col col-33">
+                    <div class="col col-25">
                         <label class="item item-input item-select"> 
                             <span class="input-label">Robot name</span>
                             <select 
@@ -25,7 +25,7 @@
                                 ng-change="selectRobot()"></select>
                         </label>
                     </div>
-                    <div class="col col-33">
+                    <div class="col col-25">
                         <label class="item item-input item-select"> 
                             <span class="input-label">Match number</span>
                             <select 
@@ -35,6 +35,11 @@
                                 ng-model="match"
                                 ng-change="selectMatch()"></select>
                         </label>
+                    </div>
+                    <div class="col col-25" valign="top">
+                        <button
+                            class="button button-balanced button-block"
+                            ng-click="submitMatch()">Submit</button>
                     </div>
                 </div>
                 <div class="row row-blue">
@@ -88,9 +93,21 @@
                 <div class="row padding">
                      <div class="col">
                         <div class="button-bar">
-                          <a class="button" ng-class="{'button-positive': isActiveFields('auto')}" ng-click="toggleFields('auto');">Auto</a>
-                          <a class="button" ng-class="{'button-positive': isActiveFields('tele')}" ng-click="toggleFields('tele');">Tele</a>
-                          <a class="button" ng-class="{'button-positive': isActiveFields('post')}" ng-click="toggleFields('post');">Post</a>
+                          <a 
+                            class="button" 
+                            ng-class="{'button-positive': isActiveFields('auto')}" 
+                            ng-click="toggleFields('auto');"
+                            ng-disabled="disableMatchFields()">Auto</a>
+                          <a 
+                            class="button"
+                            ng-class="{'button-positive': isActiveFields('tele')}" 
+                            ng-click="toggleFields('tele');"
+                            ng-disabled="disableMatchFields()">Tele</a>
+                          <a 
+                            class="button" 
+                            ng-class="{'button-positive': isActiveFields('post')}" 
+                            ng-click="toggleFields('post');"
+                            ng-disabled="disableMatchFields()">Post</a>
                         </div>
                      </div>
                 </div>
@@ -401,7 +418,7 @@
                                 </label>
                             </div>
                             <div class="col col-33">
-                                <ion-toggle toggle-class="toggle-positive" ng-model="borked" ng-change="selectRobot()">Robot became inoperable</ion-toggle>
+                                <ion-toggle toggle-class="toggle-positive" ng-model="borked" ng-change="robotMatchChanged()">Robot became inoperable</ion-toggle>
                             </div>
                         </div>
 

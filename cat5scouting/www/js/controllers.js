@@ -37,6 +37,56 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
   })
 
   /*
+    Clear all fields and hide all of those except the top three after a match
+    concludes
+  */
+  $scope.submitMatch = function() {
+    $scope.team = null;
+    $scope.selectedRobot = null;
+    $scope.match = null;
+    $scope.numHigh = 0;
+    $scope.numLow = 0;
+    $scope.lowBarA = 0;
+    $scope.lowBarT = 0;
+    $scope.portA = 0;
+    $scope.portT = 0;
+    $scope.chevA = 0;
+    $scope.chevT = 0;
+    $scope.moatA = 0;
+    $scope.moatT = 0;
+    $scope.rockA = 0;
+    $scope.rockT = 0;
+    $scope.roughA = 0;
+    $scope.roughT = 0;
+    $scope.sallyA = 0;
+    $scope.sallyT = 0;
+    $scope.drawA = 0;
+    $scope.drawT = 0;
+    $scope.rampA = 0;
+    $scope.rampT = 0;
+    $scope.scaled = 0;
+    $scope.challenge = 0;
+    $scope.numF = 0;
+    $scope.scaled = $scope.data.yesNo[0];
+    $scope.challenge = $scope.data.yesNo[0];
+    $scope.bFloor = $scope.data.judgment[0];
+    $scope.bSecret = $scope.data.judgment[0];
+    $scope.numF = 0;
+    $scope.borked = false;
+    $scope.defense = $scope.data.judgment[0];
+    $scope.spyComm1 = $scope.data.judgment[0];
+    $scope.spyComm2 = $scope.data.judgment[0];
+
+    //reset the selected team, robot, and match
+    $scope.teamSelected = null;
+    $scope.robotSelected = false;
+    $scope.matchSelected = false;
+
+    //toggle the fields so that the bottom ones are hidden
+    toggleFields('none');
+  }
+
+  /*
     Create stateful buttons to show which set of fields
     is active
   */
@@ -188,6 +238,9 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
 
   //retrieve the robot(s) for the selected team
   $scope.selectTeam = function() {
+    //add team to scope variable
+    $scope.teamSelected = true;
+
     //TODO: Push this to a service, as it is copied from the Pit controller and
     //we want DRY code
     Robot.getByTeam($scope.team.id).then(function(robots) {
@@ -460,11 +513,11 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
   }
 
   /*
-    This functino is called to verify that a field should be 
+    This function is called to verify that a field should be 
     read/write enabled
   */
   $scope.disableMatchFields = function() {
-    return !(($scope.matchSelected == true) && ($scope.robotSelected == true) && ($scope.team));
+    return !(($scope.matchSelected == true) && ($scope.robotSelected == true) && ($scope.teamSelected == true));
   }
   
   /*
@@ -1306,6 +1359,9 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
 
     //reset the selected robot
     $scope.selectedRobot = null;
+
+    //reset the selected match
+    $scope.selectedMatch = null;
 
     //reset all the subsequent fields
     $scope.runAuto = $scope.data.yesNo[0];
