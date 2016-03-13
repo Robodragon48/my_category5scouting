@@ -1,5 +1,16 @@
 <ion-view view-title="Sync with Server">
   <ion-content class="padding">
+    <h3 class="padding">
+      This is the button for importing the team roster and match 
+      schedule. Before tapping this button, make sure that you 
+      have copied over the match schedule text file from the 
+      laptop to the tablet's root directory.
+    </h3>
+    <button 
+      class="button button-block button-positive padding"
+      ng-click="importTeamData()">
+      Import Teams
+    </button>
   	<h3 class="padding">
   		When the data manager asks you to export your data, 
   		this is the button to use. There is no need to export 

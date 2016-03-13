@@ -500,7 +500,7 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
       })
     }
   }
-  
+
   /*
     This function is called when a match number is selected
   */
@@ -708,7 +708,7 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
 
 
 
-.controller('SyncCtrl', function($scope, $cordovaFile, $cordovaToast, Robot, 
+.controller('SyncCtrl', function($scope, $cordovaFile, $cordovaToast, Robot, Team, Match,
   RobotMatch) {
   
   document.addEventListener('deviceready', function() {
@@ -721,6 +721,63 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
 
       return d.getFullYear()+'-'+months[d.getMonth()]+'-'+d.getDate()+'-'+hours+'-'+minutes;
     }
+
+
+
+    $scope.importTeamData = function() {
+      //let the user know that data is importing
+      $cordovaToast.showShortTop('Hang on... team data is importing');
+
+      //Define file name that the app looks for and where it looks for it
+      var filePath = "file:///storage/emulated/0/";
+      var importTeamsFilename = "Cat5Scouting.ImportTeams.txt";
+
+      //Define arrays to store data from the import files
+      var importTeamData = [];
+
+      //Parse the content of the team file into the array
+      $cordovaFile.readAsText(filePath, importTeamsFilename)
+      .then(function(success) {
+        //After the data load is complete, parse the string to load the array
+        importTeamData = d3.tsv.parseRows(success);
+      }, function(error) {
+        $cordovaToast.showShortTop('Cannot parse team import file. See log file for more details');
+        console.log("Cannot parse team import file");
+        console.log("Error message: " + JSON.stringify(error));
+      })
+      .then(function(success) {
+        //After the data is parsed into the array, load the database
+        var team = {};
+        var allTeamsLoaded = false;
+        for (var i=0; i<importTeamData.length; i++) {
+          //console.log("Loading team import data row " + i);
+          team.number = importTeamData[i][0];
+          team.name = importTeamData[i][1];
+          Team.add(team).then(function(success) {
+            Team.all().then(function(teams) {
+              if ((teams.length == importTeamData.length) && (!allTeamsLoaded)) {
+                allTeamsLoaded = true;
+                $cordovaToast.showShortTop('OK... team data is done importing.');
+              }
+            })
+          })
+        }
+      }, function(error) {
+        $cordovaToast.showShortTop('Cannot load database. See log file for more details');
+        console.log("Cannot load database");
+        console.log("Error message: " + JSON.stringify(error));
+      })
+      .then(function(success) {
+        //Create Robot records based on teams imported
+        Team.all().then(function(teams) {
+          //for each team, add a robot record
+          for (var i=0; i<teams.length; i++) {          
+            Robot.add("Robot", teams[i].id);
+          }
+        })
+      })
+    }  
+    
 
 
     $scope.exportData = function() {
@@ -946,209 +1003,21 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
       $cordovaToast.showShortTop('OK... data is done exporting');
     }
   })
-
 })
 
 
 
 .controller('SettingsCtrl', function($scope, $stateParams, $cordovaSQLite, 
-  $cordovaToast, Match, Team, Robot, RobotMatch) {
+  $cordovaToast, Match) {
 
-  $scope.generateSampleTeams = function() {
-    //create a toast notifier to let the user know to wait while data loads
-    $cordovaToast.showShortTop('Hang on a sec... team data loading');
-
-    //create list of all teams to compete
-    var teams = [
-      {num: 120, name: "Cleveland's Team"},
-      {num: 179, name: "Children of the Swamp"},
-      {num: 237, name: "Black Magic Robotics"},
-      {num: 281, name: "GreenVillains"},
-      {num: 283, name: "The Generals"},
-      {num: 342, name: "Burning Magnetos"},
-      {num: 343, name: "Metal-In-Motion"},
-      {num: 346, name: "RoboHawks"},
-      {num: 422, name: "The Mech Tech Dragons"},
-      {num: 435, name: "Robodogs"},
-      {num: 587, name: "Hedgehogs"},
-      {num: 836, name: "The RoboBees"},
-      {num: 900, name: "The Zebracorns"},
-      {num: 1051, name: "Technical Terminators"},
-      {num: 1102, name: "Team M'Aiken Magic"},
-      {num: 1225, name: "Gorillas"},
-      {num: 1249, name: "Robo Rats"},
-      {num: 1261, name: "Robo Lions"},
-      {num: 1287, name: "Aluminum Assault"},
-      {num: 1293, name: "Pandamaniacs"},
-      {num: 1296, name: "Full Metal Jackets"},
-      {num: 1369, name: "Minotaur"},
-      {num: 1398, name: "Robo-Raiders"},
-      {num: 1533, name: "Triple Strange"},
-      {num: 1539, name: "Clover Robotics"},
-      {num: 1553, name: "KC Robotics Team"},
-      {num: 1758, name: "Technomancers"},
-      {num: 1876, name: "Beachbotics"},
-      {num: 2028, name: "Phantom Mentalist"},
-      {num: 2059, name: "The Hitchhikers"},
-      {num: 2172, name: "Street Legal"},
-      {num: 2187, name: "Team Volt"},
-      {num: 2200, name: "MMRambotics"},
-      {num: 2252, name: "The Mavericks"},
-      {num: 2386, name: "Trojans"},
-      {num: 2393, name: "Robotichauns"},
-      {num: 2556, name: "RadioActive Roaches"},
-      {num: 2614, name: "MARS"},
-      {num: 2632, name: "The Theoreticals"},
-      {num: 2640, name: "HOTBOTZ"},
-      {num: 2655, name: "The Flying Platypi"},
-      {num: 2815, name: "Blue Devil Mechanics"},
-      {num: 3459, name: "Team PyroTech"},
-      {num: 3489, name: "Category 5"},
-      {num: 3490, name: "Viper Drive"},
-      {num: 3651, name: "TRIBE"},
-      {num: 3824, name: "HVA RoHAWKtics"},
-      {num: 3976, name: "Electric Hornets"},
-      {num: 4013, name: "Clockwork Mania"},
-      {num: 4073, name: "Robo Kats"},
-      {num: 4074, name: "Shark Bytes"},
-      {num: 4075, name: "Robo Tigers"},
-      {num: 4083, name: "The Iron Wolverines"},
-      {num: 4098, name: "Viking Robotics Team"},
-      {num: 4243, name: "STAR Warriors"},
-      {num: 4265, name: "Secret City Wildbots"},
-      {num: 4267, name: "Brave Bots"},
-      {num: 4451, name: "ROBOTZ Garage"},
-      {num: 4452, name: "First Noble Team"},
-      {num: 4504, name: "B. C. Robotics"},
-      {num: 4505, name: "Eagle Robotics"},
-      {num: 4514, name: "STEAM Works"},
-      {num: 4533, name: "Wando Advanced Robotics"},
-      {num: 4547, name: "WestyTek"},
-      {num: 4561, name: "TerrorBytes"},
-      {num: 4576, name: "Red Nation Robotics"},
-      {num: 4582, name: "Robohawks"},
-      {num: 4748, name: "Bulldog Autobots"},
-      {num: 4823, name: "Cyber-Manes"},
-      {num: 4847, name: "Tech-No-Logic Trojans"},
-      {num: 4901, name: "Garnet Squadron"},
-      {num: 4902, name: "The Wildebots"},
-      {num: 4935, name: "T-Rex"},
-      {num: 4965, name: "FIRE"},
-      {num: 4992, name: "Spartans"},
-      {num: 5020, name: "CavBOTS"},
-      {num: 5022, name: "Rat Rod Robotics"},
-      {num: 5063, name: "BuzzBots"},
-      {num: 5130, name: "Undercogs"},
-      {num: 5180, name: "Metal Heads"},
-      {num: 5317, name: "Redhawks"},
-      {num: 5327, name: "Griffin Robotics"},
-      {num: 5409, name: "Chargers"},
-      {num: 5410, name: "Eaglebotics"},
-      {num: 5777, name: "Alternate Currents"},
-      {num: 5898, name: "RoboFalcons"},
-      {num: 6167, name: "CB Bearbots"},
-      {num: 6222, name: "Hemingway Tigers"}
-    ];
-
-    /*
-      Insert hard-coded team numbers and names
-    */          
-    var query = "INSERT INTO team (name, number) VALUES (?,?)";
-    var teamsAdded = 0;
-    for (var i=0; i<teams.length; i++) {
-      $cordovaSQLite.execute(db, query, [teams[i].name, teams[i].num]).then(function(res) {
-        
-      }, function (err) {
-        console.log("Error message: " + JSON.stringify(error));
-      }).then(function() {
-        teamsAdded++;
-
-        if (teamsAdded == teams.length) {
-          //create a toast notifier to let the user know that the data is done loading
-          $cordovaToast.showShortTop('OK... team data is done loading');
-        }
-      })
-    }
-  }
-
-  $scope.generateRobotData = function() {
-    //create a toast notifier to let the user know to wait while data loads
-    $cordovaToast.showShortTop('Hang on a sec... robot data loading');
-
-    var query = "INSERT INTO robot (name, teamId) VALUES (?,?)";
-    var robotsAdded = 0;
-    Team.all().then(function(teams) {
-      for (var i=0; i<teams.length; i++) {
-        $cordovaSQLite.execute(db, query, ["Robot", teams[i].id]).then(function(res) {
-          
-        }, function (error) {
-          console.log("Error message: " + JSON.stringify(error));
-        }).then(function() {
-          robotsAdded++;
-          if (robotsAdded == teams.length) {
-            //create a toast notifier to let the user know that the data is done loading
-            $cordovaToast.showShortTop('OK... robot data is done loading');
-          }
-        })
-      }
-    })
-  }
-
-  $scope.generateMatchData = function() {
-    //create a toast notifier to let the user know to wait while data loads
-    $cordovaToast.showShortTop('Hang on a sec... match data loading');
-
-    var query = "INSERT INTO match (number) VALUES (?)";
-    var matchesAdded = 0;
-    for (var i=1; i<100; i++) {
-      $cordovaSQLite.execute(db, query, [i]).then(function(res) {
-        
-      }, function (error) {
-        console.log("Error message: " + JSON.stringify(error));
-      }).then(function() {
-        matchesAdded++;
-        if (matchesAdded == 99) {
-          //create a toast notifier to let the user know that the data is done loading
-          $cordovaToast.showShortTop('OK... match data is done loading');
-        }
-      });
-    }
-  }
-
-  $scope.generateRobotMatchData = function() {
-    //create a toast notifier to let the user know to wait while data loads
-    $cordovaToast.showShortTop('Hang on a sec... robot-match data loading');
-    
-    /*
-      Create robot-match records
-    */
-    var matches, robots;
-    Match.all().then(function(results) {
-      matches = results;
-    }, function(error) {
-      console.log("Cannot retrieve matches");
-      console.log("Error message: " + JSON.stringify(error));
-    }).then(function(results) {
-      Robot.all().then(function(results) {
-        robots = results;
-      }, function(error) {
-        console.log("Cannot retrieve robots");
-        console.log("Error message: " + JSON.stringify(error));
-      }).then (function() {
-        var match = [];
-        for (var i=0; i<robots.length; i++) {
-          for (var j=0; j<matches.length; j++) {
-            match.robotId = robots[i].id;
-            match.matchId = matches[j].id;
-            RobotMatch.add(match);
-          }
-        }   
-      })
-    }).then(function() {
-      //create a toast notifier to let the user know that the data is done loading
-      $cordovaToast.showShortTop('OK... robot-match data is done loading');      
-    })
-  }
+  $scope.alliances = [
+    {id: "1", label: "Blue Alliance 1"},
+    {id: "2", label: "Blue Alliance 2"},
+    {id: "3", label: "Blue Alliance 3"},
+    {id: "4", label: "Red Alliance 1"},
+    {id: "5", label: "Red Alliance 2"},
+    {id: "6", label: "Red Alliance 3"}
+  ];
 
   $scope.deleteDBTables = function() {
     /* 
@@ -1164,6 +1033,8 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     });
   }
 
+
+
   $scope.emptyDBTables = function() {
     /* 
       Delete the database to start from scratch
@@ -1177,6 +1048,28 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
       $cordovaToast.showShortTop('OK, database emptied');
     });
   }
+
+
+
+  /*
+    This function is called when the user clicks the button next to the
+    field to set the number of matches
+  */
+  $scope.setNumMatches = function() {
+    $cordovaToast.showShortTop('Hang on a sec... matches being added');
+    for (var i=0; i<$scope.numMatches; i++) {
+      //add a match with the alliances set to zero; they'll be updated later
+      Match.add(i+1, 0, 0, 0, 0, 0, 0).then(function(success) {
+        Match.all().then(function(matches) {
+          if (matches.size == $scope.numMatches) {
+            $cordovaToast.showShortTop('OK, matches added');
+          }
+        })
+      })
+    }
+  }
+
+
 
   $scope.createDBTables = function() {
     $cordovaSQLite.execute(db, "CREATE TABLE `team` (`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` TEXT UNIQUE, `number` INTEGER NOT NULL UNIQUE)");
@@ -1223,7 +1116,19 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
                                                    + "`signal` BOOLEAN, "
                                                    + "FOREIGN KEY(`teamId`) REFERENCES team ( id ))");
     $cordovaSQLite.execute(db, "CREATE TABLE `match` (`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " 
-                                                   + "`number` INTEGER NOT NULL UNIQUE)");
+                                                   + "`number` INTEGER NOT NULL UNIQUE, "
+                                                   + "`blueAlliance1` INTEGER, "
+                                                   + "`blueAlliance2` INTEGER, "
+                                                   + "`blueAlliance3` INTEGER, "
+                                                   + "`redAlliance1` INTEGER, "
+                                                   + "`redAlliance2` INTEGER, "
+                                                   + "`redAlliance3` INTEGER, "
+                                                   + "FOREIGN KEY(`blueAlliance1`) REFERENCES team ( id ), "
+                                                   + "FOREIGN KEY(`blueAlliance2`) REFERENCES team ( id ), "
+                                                   + "FOREIGN KEY(`blueAlliance3`) REFERENCES team ( id ), "
+                                                   + "FOREIGN KEY(`redAlliance1`) REFERENCES team ( id ), "
+                                                   + "FOREIGN KEY(`redAlliance2`) REFERENCES team ( id ), "
+                                                   + "FOREIGN KEY(`redAlliance3`) REFERENCES team ( id ))");
 
     $cordovaSQLite.execute(db, "CREATE TABLE `robotMatch` (`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
                                                         + "`matchId` INTEGER, "

@@ -1,14 +1,63 @@
 <ion-view view-title="Settings">
     <ion-content>
         <div class="padding" ng-controller="SettingsCtrl">
-            <h3>This page has features for the data manager or developer to troubleshoot. If you're not in one of these, please don't
-                tap these buttons. Thanks!</h3>
-            <button type="button" class="button button-block button-positive padding" ng-click="generateSampleTeams()">Load Team data</button>
-            <button type="button" class="button button-block button-positive padding" ng-click="generateRobotData()">Load Robot data</button>
-            <button type="button" class="button button-block button-positive padding" ng-click="generateMatchData()">Load Match data</button>
-            <button type="button" class="button button-block button-assertive padding" ng-click="emptyDBTables()">Empty all database tables</button>
-            <button type="button" class="button button-block button-assertive padding" ng-click="deleteDBTables()">Delete all database tables</button>
-            <button type="button" class="button button-block button-assertive padding" ng-click="createDBTables()">Create database tables</button>
+<!--
+            <h3>
+                Set the field below to one of the six alliances. Make sure that 
+                you have each of the alliances selected only once between the 
+                six tablets (no duplicates).
+            </h3>
+
+            <label class="item item-input item-select"> 
+                <span class="input-label">This tablet scores robots in alliance:
+                </span>
+                <select 
+                    ng-model="alliance" 
+                    id="alliance" 
+                    ng-options="option.label for option in alliances track by 
+                    option.id"
+                    ng-model="alliance"
+                    ng-change="selectAlliance()"></select>
+            </label>
+-->
+            <h3>
+                Set the number of matches that are scheduled in the current
+                event.
+            </h3>
+
+            <div class="row">
+                <div class="col col-25">
+                    <label class="item item-input">
+                      <span class="input-label">Number of matches</span>
+                      <input 
+                        type="text"
+                        ng-model="numMatches">
+                    </label>
+                </div>
+                <div class="col col-25">
+                    <button 
+                        type="button" 
+                        class="button button-block button-balanced"
+                        ng-click="setNumMatches()">Apply
+                    </button>
+                </div>
+                <div class="col col-50">
+                </div>
+            </div>
+
+            <h3>
+                This remainder of this page has features for the data manager or 
+                developer to use to troubleshoot. If you're not  one of these 
+                people, please don't tap these buttons. Thanks!
+            </h3>
+            <button type="button" class="button button-block button-assertive 
+            padding" ng-click="emptyDBTables()">Empty all database tables
+            </button>
+            <button type="button" class="button button-block button-assertive 
+            padding" ng-click="deleteDBTables()">Delete all database tables
+            </button>
+            <button type="button" class="button button-block button-assertive 
+            padding" ng-click="createDBTables()">Create database tables</button>
         </div>
     </ion-content>
 </ion-view>

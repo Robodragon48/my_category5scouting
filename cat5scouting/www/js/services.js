@@ -65,6 +65,25 @@ angular.module('cat5scouting.services', [])
             })
     }
     
+    self.getByNumber = function(teamNumber) {
+        //console.log("Retrieving team number: " + teamNumber);
+        var parameters = [teamNumber];
+        return DBA.query("SELECT id, name, number FROM team WHERE number = (?)", parameters)
+            .then(function(result) {
+                //console.log("Returning id: " + DBA.getById(result));
+                return DBA.getById(result);
+            })
+    }
+
+    self.add = function(team) {
+        var parameters = [
+                            team.name, 
+                            team.number
+                         ];
+        return DBA.query("INSERT INTO `team` (name, number) "
+                        +"VALUES (?,?)", parameters);
+    }
+    
     return self;
 })
     
@@ -74,7 +93,14 @@ angular.module('cat5scouting.services', [])
     var self = this;
     
     self.all = function() {
-        return DBA.query("SELECT id, name FROM robot")
+        return DBA.query("SELECT `id`, `name`, `teamId`, `runAuto`, `driveType`, "
+                    +   "`height`, `notes`, `spyReq`, `spyDoc`, `OWA1`, `OWA2`, "
+                    +   "`OWA3`, `OWA4`, `OWA5`, `OWA6`, `OWA7`, `OWA8`, `OWA9`, "
+                    +   "`OWT1`, `OWT2`, `OWT3`, `OWT4`, `OWT5`, `OWT6`, `OWT7`, "
+                    +   "`OWT8`, `OWT9`, `scoreTL`, `scoreTM`, `scoreTR`, "
+                    +   "`scoreBL`, `scoreBM`, `scoreBR`, `scoreTop`, "
+                    +   "`scoreBottom`, `scale`, `pickupF`, `pickupS`, `defense`, "
+                    +   "`spy`, `signal` from robot ")
             .then(function(result) {
                 return DBA.getAll(result);
             })
@@ -283,6 +309,15 @@ angular.module('cat5scouting.services', [])
         return DBA.query(query, parameters);
     }
     
+    self.add = function(robotName, teamId) {
+        var parameters = [
+                            robotName,
+                            teamId
+                         ];
+        return DBA.query("INSERT INTO `robot` (name, teamId) "
+                       + "VALUES (?,?)", parameters);
+    }
+    
     return self;
 })
 
@@ -336,6 +371,20 @@ angular.module('cat5scouting.services', [])
                 })
         }
     }
+    
+    self.getByMatchAndTeam = function(matchId, teamId) {
+        if (matchId && teamId) {
+            var parameters = [matchId, teamId];
+            return DBA.query("SELECT * "
+                +   "FROM `robotMatch` rm "
+                +   "WHERE rm.matchId = (?) "
+                +   "AND rm.teamId = (?)", parameters)
+                .then(function(result) {
+                    return DBA.getById(result);
+                })
+        }
+    }
+
     
     self.update = function(origRobot, editRobot) {
         //build an update statement to include only values that have selections 
@@ -529,21 +578,61 @@ angular.module('cat5scouting.services', [])
 .factory('Match', function($cordovaSQLite, DBA) {
     var self = this;
     
-    self.all = function() {
-        return DBA.query("SELECT id, number FROM match")
+        self.all = function() {
+        return DBA.query("SELECT id, number, blueAlliance1, blueAlliance2, "
+                        +"blueAlliance3, redAlliance1, redAlliance2, redAlliance3 "
+                        +"FROM match")
             .then(function(result) {
                 return DBA.getAll(result);
             })
     }
     
-    self.get = function(matchId) {
-        var parameters = [matchId];
-        return DBA.query("SELECT id, number FROM match WHERE id = (?)", parameters)
+    self.getByMatchNum = function(matchNum) {
+        var parameters = [matchNum];
+        return DBA.query("SELECT id, number, blueAlliance1, blueAlliance2, " 
+                       + "blueAlliance3, redAlliance1, redAlliance2, "
+                       + "redAlliance3 FROM match WHERE number = (?)", parameters)
             .then(function(result) {
                 return DBA.getById(result);
             })
     }
+
+    self.add = function(matchNum, blueAlliance1, blueAlliance2, blueAlliance3, redAlliance1, redAlliance2, redAlliance3) {
+        var parameters = [
+                            matchNum, 
+                            blueAlliance1, 
+                            blueAlliance2, 
+                            blueAlliance3, 
+                            redAlliance1, 
+                            redAlliance2, 
+                            redAlliance3
+                         ];
+
+        for (var i=0; i<parameters.length; i++) {
+            console.log("Parameter " + i + " for add-match function: " + parameters[i]);
+        }
+
+        return DBA.query("INSERT INTO `match` (number, blueAlliance1, blueAlliance2, "
+                        +"blueAlliance3, redAlliance1, redAlliance2, redAlliance3) "
+                        +"VALUES (?,?,?,?,?,?,?)", parameters);
+    }
+
     
     return self;
+
 })
     
+/******************************************************************************/
+    
+.factory('Settings', function($cordovaSQLite, DBA) {
+    var self = this;
+
+    self.all = function() {
+        return DBA.query("SELECT AllianceNum FROM settings")
+            .then(function(result) {
+                return DBA.getById(result);
+            })
+    }
+
+    return self;
+})
