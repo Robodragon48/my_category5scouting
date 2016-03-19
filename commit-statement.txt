@@ -1,5 +1,5 @@
 *23456789 123456789 123456789 123456789 123456789 123456789 123456789 12
 More data model updates
 
-Continued fixing issues that cropped up due to the change-out of the 
-data model. Worked especially on persisting and restoring boolean data.
+Moving the low goal and high goal counts from match-scope to auto- and
+tele-scope. 
