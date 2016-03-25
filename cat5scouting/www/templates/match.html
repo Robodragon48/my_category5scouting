@@ -3,7 +3,7 @@
         <div ng-controller="MatchCtrl" class="padding">
             <form name="MatchScoutForm">
                 <div class="row row-blue">
-                    <div class="col col-25">
+                    <div class="col col-33">
                         <label class="item item-input item-select"> 
                             <span class="input-label">Team name</span>
                             <select 
@@ -14,7 +14,7 @@
                                 ng-change="selectTeam()"></select>
                         </label>
                     </div>
-                    <div class="col col-25">
+                    <div class="col col-33">
                         <label class="item item-input item-select"> 
                             <span class="input-label">Robot name</span>
                             <select 
@@ -25,7 +25,7 @@
                                 ng-change="selectRobot()"></select>
                         </label>
                     </div>
-                    <div class="col col-25">
+                    <div class="col col-33">
                         <label class="item item-input item-select"> 
                             <span class="input-label">Match number</span>
                             <select 
@@ -35,11 +35,6 @@
                                 ng-model="match"
                                 ng-change="selectMatch()"></select>
                         </label>
-                    </div>
-                    <div class="col col-25" valign="top">
-                        <button
-                            class="button button-balanced button-block"
-                            ng-click="submitMatch()">Submit</button>
                     </div>
                 </div>
                 <div class="row row-blue">
@@ -84,8 +79,6 @@
                                 ng-disabled="disableMatchFields()"
                                 ng-click="incField('numF')"></button>
                         </div>
-                    </div>
-                    <div class="col">
                     </div>
                 </div>
 
@@ -477,7 +470,13 @@
                                     </select>
                                 </label>
                             </div>
-                            <div class="col col-50">
+                            <div class="col col-50" valign="top">
+                                <button
+                                    class="button button-balanced button-block"
+                                    ng-click="submitMatch()">Submit</button>
+                            </div>
+
+                            <!--div class="col col-50">
                                 <label class="item item-select" ng-model="spyComm2">
                                     <span class="input-label">Team used spy communication:</span>
                                     <select 
@@ -488,7 +487,7 @@
                                         ng-change="robotMatchChanged()"
                                         ng-disabled="disableMatchFields()"></select>
                                 </label>
-                            </div>
+                            </div-->
                         </div>
                     </div>
                 </div>            

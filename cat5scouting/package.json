@@ -19,11 +19,11 @@
     "cordova-plugin-console",
     "cordova-plugin-whitelist",
     "com.ionic.keyboard",
-    "org.apache.cordova.file",
-    "cordova-plugin-file"
+    "cordova-plugin-file",
+    "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
+    "https://github.com/brodysoft/Cordova-SQLitePlugin.git"
   ],
   "cordovaPlatforms": [
-    "ios",
     "android"
   ]
 }
