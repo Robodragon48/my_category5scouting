@@ -7,7 +7,6 @@
                         <label class="item item-input item-select"> 
                             <span class="input-label">Team name</span>
                             <select 
-                                ng-model="team" 
                                 id="team" 
                                 ng-options="option.number + ' - ' + option.name for option in teams track by option.id"
                                 ng-model="team"
@@ -18,7 +17,6 @@
                         <label class="item item-input item-select"> 
                             <span class="input-label">Robot name</span>
                             <select 
-                                ng-model="selectedRobot" 
                                 id="selectedRobot" 
                                 ng-options="option.name for option in robots track by option.id"
                                 ng-model="selectedRobot"
@@ -29,7 +27,6 @@
                         <label class="item item-input item-select"> 
                             <span class="input-label">Match number</span>
                             <select 
-                                ng-model="match"
                                 id="match"
                                 ng-options="option.number for option in matches track by option.id"
                                 ng-model="match"
@@ -38,35 +35,7 @@
                     </div>
                 </div>
                 <div class="row row-blue">
-                    <div class="col col-33">
-                        <div class="item item-input-inset">
-                            <div class="numLabel">Boulders/low goal</div>
-                            <button 
-                                class="button button-small button-assertive icon ion-minus" 
-                                ng-disabled="disableMatchFields()"
-                                ng-click="decField('numLow')"></button>
-                            &nbsp;&nbsp;<div id="numLow">{{ numLow }}</div>&nbsp;&nbsp;
-                            <button 
-                                class="button button-small button-balanced icon ion-plus" 
-                                ng-disabled="disableMatchFields()"
-                                ng-click="incField('numLow')"></button>
-                        </div>
-                    </div>
-                    <div class="col col-33">
-                        <div class="item item-input-inset">
-                            <div class="numLabel">Boulders/high goal</div>
-                            <button 
-                                class="button button-small button-assertive icon ion-minus" 
-                                ng-disabled="disableMatchFields()"
-                                ng-click="decField('numHigh')"></button>
-                            &nbsp;&nbsp;<div id="numHigh">{{ numHigh }}</div>&nbsp;&nbsp;
-                            <button 
-                                class="button button-small button-balanced icon ion-plus" 
-                                ng-disabled="disableMatchFields()"
-                                ng-click="incField('numHigh')"></button>
-                        </div>
-                    </div>
-                    <div class="col col-33">
+                    <div class="col">
                         <div class="item item-input-inset">
                             <div class="numLabel"># Fouls</div>
                             <button 
@@ -107,8 +76,41 @@
 
 
                 <div class="list card">
-                    <div class="item item-divider" ng-show="displayField('auto')">Autonomous</div>
+                    <!--div class="item item-divider" ng-show="displayField('auto')">Autonomous</div-->
                     <div class="item item-body" ng-show="displayField('auto')">
+                        <div class="row row-yellow">
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    <div class="numLabel">Boulders/low goal</div>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('numLowA')"></button>
+                                    &nbsp;&nbsp;<div id="numLowA">{{ numLowA }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('numLowA')"></button>
+                                </div>
+                            </div>
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    <div class="numLabel">Boulders/high goal</div>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('numHighA')"></button>
+                                    &nbsp;&nbsp;<div id="numHighA">{{ numHighA }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('numHighA')"></button>
+                                </div>
+                            </div>
+                            <div class="col col-33">
+                            </div>
+                        </div>
+
                         <div class="row row-yellow">
                             <div class="col col-33">
                                 <div class="item item-input-inset">
@@ -245,8 +247,41 @@
                         </div>
                     </div>
 
-                    <div class="item item-divider" ng-show="displayField('tele')">Teleop</div>
+                    <!--div class="item item-divider" ng-show="displayField('tele')">Teleop</div-->
                     <div class="item item-body" ng-show="displayField('tele')">
+                        <div class="row row-green">
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    <div class="numLabel">Boulders/low goal</div>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('numLowT')"></button>
+                                    &nbsp;&nbsp;<div id="numLowT">{{ numLowT }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('numLowT')"></button>
+                                </div>
+                            </div>
+                            <div class="col col-33">
+                                <div class="item item-input-inset">
+                                    <div class="numLabel">Boulders/high goal</div>
+                                    <button 
+                                        class="button button-small button-assertive icon ion-minus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="decField('numHighT')"></button>
+                                    &nbsp;&nbsp;<div id="numHighT">{{ numHighT }}</div>&nbsp;&nbsp;
+                                    <button 
+                                        class="button button-small button-balanced icon ion-plus" 
+                                        ng-disabled="disableMatchFields()"
+                                        ng-click="incField('numHighT')"></button>
+                                </div>
+                            </div>
+                            <div class="col col-33">
+                            </div>
+                        </div>
+
                         <div class="row row-green">
                             <div class="col col-33">
                                 <div class="item item-input-inset">
@@ -383,14 +418,13 @@
                         </div>
                     </div>
 
-                    <div class="item item-divider" ng-show="displayField('post')">Post-match</div>
+                    <!--div class="item item-divider" ng-show="displayField('post')">Post-match</div-->
                     <div class="item item-body" ng-show="displayField('post')">
                         <div class="row row-pink">
                             <div class="col col-33">
                                 <label class="item item-select">
-                                    <span class="input-label">Challenged tower?</span>
+                                    <span class="input-label">Challenge tower?</span>
                                     <select 
-                                        ng-model="challenge" 
                                         id="challenge" 
                                         ng-options="option.name for option in data.yesNo track by option.id"
                                         ng-model="challenge"
@@ -400,9 +434,8 @@
                             </div>
                             <div class="col col-33">
                                 <label class="item item-select">
-                                    <span class="input-label">Scaled tower?</span>
+                                    <span class="input-label">Scale tower?</span>
                                     <select 
-                                        ng-model="scaled" 
                                         id="scaled" 
                                         ng-options="option.name for option in data.yesNo track by option.id"
                                         ng-model="scaled"
@@ -411,7 +444,15 @@
                                 </label>
                             </div>
                             <div class="col col-33">
-                                <ion-toggle toggle-class="toggle-positive" ng-model="borked" ng-change="robotMatchChanged()">Robot became inoperable</ion-toggle>
+                                <label class="item item-select">
+                                    <span class="input-label">Robot broke?</span>
+                                    <select 
+                                        id="borked" 
+                                        ng-options="option.name for option in data.yesNo track by option.id"
+                                        ng-model="borked"
+                                        ng-change="robotMatchChanged()"
+                                        ng-disabled="disableMatchFields()"></select>
+                                </label>
                             </div>
                         </div>
 
@@ -420,7 +461,6 @@
                                 <label class="item item-select">
                                     <span class="input-label">Boulders/floor:</span>
                                     <select 
-                                        ng-model="bFloor" 
                                         id="bFloor" 
                                         ng-options="option.name for option in data.judgment track by option.id"
                                         ng-model="bFloor"
@@ -430,9 +470,8 @@
                             </div>
                             <div class="col col-33">
                                 <label class="item item-select">
-                                    <span class="input-label">Boulders/passage:</span>
+                                    <span class="input-label">Boulders/pass:</span>
                                     <select 
-                                        ng-model="bSecret" 
                                         id="bSecret" 
                                         ng-options="option.name for option in data.judgment track by option.id"
                                         ng-model="bSecret"
@@ -445,7 +484,6 @@
                                 <label class="item item-select">
                                     <span class="input-label">Played defense</span>
                                     <select 
-                                        ng-model="defense" 
                                         id="defense" 
                                         ng-options="option.name for option in data.judgment track by option.id"
                                         ng-model="defense"
@@ -459,9 +497,8 @@
                         <div class="row row-pink">
                             <div class="col col-50">
                                 <label class="item item-select" ng-model="spyComm1">
-                                    <span class="input-label">The team spy communicated:</span>
+                                    <span class="input-label">Team spy communicated:</span>
                                     <select 
-                                        ng-model="spyComm1" 
                                         id="spyComm1" 
                                         ng-options="option.name for option in data.judgment track by option.id"
                                         ng-model="spyComm1"

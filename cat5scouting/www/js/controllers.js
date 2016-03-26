@@ -44,8 +44,10 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     $scope.team = null;
     $scope.selectedRobot = null;
     $scope.match = null;
-    $scope.numHigh = 0;
-    $scope.numLow = 0;
+    $scope.numLowA = 0;
+    $scope.numHighA = 0;
+    $scope.numLowT = 0;
+    $scope.numHighT = 0;
     $scope.lowBarA = 0;
     $scope.lowBarT = 0;
     $scope.portA = 0;
@@ -72,7 +74,7 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     $scope.bFloor = $scope.data.judgment[0];
     $scope.bSecret = $scope.data.judgment[0];
     $scope.numF = 0;
-    $scope.borked = false;
+    $scope.borked = $scope.data.yesNo[0];
     $scope.defense = $scope.data.judgment[0];
     $scope.spyComm1 = $scope.data.judgment[0];
     $scope.spyComm2 = $scope.data.judgment[0];
@@ -114,8 +116,10 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     taps the plus button next for the field
   */
   $scope.incField = function(field) {
-    if (field == 'numHigh') $scope.numHigh = $scope.numHigh + 1;
-    if (field == 'numLow') $scope.numLow = $scope.numLow + 1;
+    if (field == 'numHighA') $scope.numHighA = $scope.numHighA + 1;
+    if (field == 'numLowA') $scope.numLowA = $scope.numLowA + 1;
+    if (field == 'numHighT') $scope.numHighT = $scope.numHighT + 1;
+    if (field == 'numLowT') $scope.numLowT = $scope.numLowT + 1;
     if (field == 'lowBarA') $scope.lowBarA = $scope.lowBarA + 1;
     if (field == 'lowBarT') $scope.lowBarT = $scope.lowBarT + 1;
     if (field == 'portA') $scope.portA = $scope.portA + 1;
@@ -145,11 +149,17 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     taps the minus button next for the field
   */
   $scope.decField = function(field) {
-    if (field == 'numLow') { 
-         $scope.numLow = ($scope.numLow > 0 ? $scope.numLow - 1 : 0); 
+    if (field == 'numLowA') { 
+         $scope.numLowA = ($scope.numLowA > 0 ? $scope.numLowA - 1 : 0); 
     }
-    if (field == 'numHigh') {
-         $scope.numHigh = ($scope.numHigh > 0 ? $scope.numHigh - 1 : 0);
+    if (field == 'numHighA') {
+         $scope.numHighA = ($scope.numHighA > 0 ? $scope.numHighA - 1 : 0);
+    }
+    if (field == 'numLowT') { 
+         $scope.numLowT = ($scope.numLowT > 0 ? $scope.numLowT - 1 : 0); 
+    }
+    if (field == 'numHighT') {
+         $scope.numHighT = ($scope.numHighT > 0 ? $scope.numHighT - 1 : 0);
     }
     if (field == 'lowBarA') { 
          $scope.lowBarA = ($scope.lowBarA > 0 ? $scope.lowBarA - 1 : 0); 
@@ -280,15 +290,25 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
           
           //set the values for the fields in the form based on the database if they
           //exist. Otherwise, set to the unselected value.
-          if (robotMatch.numLow) {
-            $scope.numLow = robotMatch.numLow;
+          if (robotMatch.numLowA) {
+            $scope.numLowA = robotMatch.numLowA;
           } else {
-            $scope.numLow = 0;
+            $scope.numLowA = 0;
           }
-          if (robotMatch.numHigh) {
-            $scope.numHigh = robotMatch.numHigh;
+          if (robotMatch.numHighA) {
+            $scope.numHighA = robotMatch.numHighA;
           } else {
-            $scope.numHigh = 0;
+            $scope.numHighA = 0;
+          }
+          if (robotMatch.numLowT) {
+            $scope.numLowT = robotMatch.numLowT;
+          } else {
+            $scope.numLowT = 0;
+          }
+          if (robotMatch.numHighT) {
+            $scope.numHighT = robotMatch.numHighT;
+          } else {
+            $scope.numHighT = 0;
           }
           if (robotMatch.lowBarA) {
             $scope.lowBarA = robotMatch.lowBarA;
@@ -393,12 +413,12 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
           if (robotMatch.bFloor) {
             $scope.bFloor = robotMatch.bFloor;
           } else {
-            $scope.bFloor = $scope.data.judgment[0];;
+            $scope.bFloor = $scope.data.judgment[0];
           }
           if (robotMatch.bSecret) {
             $scope.bSecret = robotMatch.bSecret;
           } else {
-            $scope.bSecret = $scope.data.judgment[0];;
+            $scope.bSecret = $scope.data.judgment[0];
           }
           if (robotMatch.numF) {
             $scope.numF = robotMatch.numF;
@@ -408,28 +428,30 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
           if (robotMatch.borked) {
             $scope.borked = robotMatch.borked;
           } else {
-            $scope.borked = false;
+            $scope.borked = $scope.data.yesNo[0];;
           }
           if (robotMatch.defense) {
             $scope.defense = robotMatch.defense;
           } else {
-            $scope.defense = $scope.data.judgment[0];;
+            $scope.defense = $scope.data.judgment[0];
           }
           if (robotMatch.spyComm1) {
             $scope.spyComm1 = robotMatch.spyComm1;
           } else {
-            $scope.spyComm1 = $scope.data.judgment[0];;
+            $scope.spyComm1 = $scope.data.judgment[0];
           }
           if (robotMatch.spyComm2) {
             $scope.spyComm2 = robotMatch.spyComm2;
           } else {
-            $scope.spyComm2 = $scope.data.judgment[0];;
+            $scope.spyComm2 = $scope.data.judgment[0];
           }
         } else {
           //if no database record, set all fields to unselected values for the 
           //form to display
-          $scope.numLow = 0;
-          $scope.numHigh = 0;
+          $scope.numLowA = 0;
+          $scope.numHighA = 0;
+          $scope.numLowT = 0;
+          $scope.numHighT = 0;
           $scope.lowBarA = 0;
           $scope.lowBarT = 0;
           $scope.portA = 0;
@@ -453,7 +475,7 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
           $scope.bFloor = $scope.data.judgment[0];
           $scope.bSecret = $scope.data.judgment[0];
           $scope.numF = 0;
-          $scope.borked = false;
+          $scope.borked = $scope.data.yesNo[0];
           $scope.defense = $scope.data.judgment[0];
           $scope.spyComm1 = $scope.data.judgment[0];
           $scope.spyComm2 = $scope.data.judgment[0];
@@ -462,8 +484,10 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
           var newRobotMatch = [];
           newRobotMatch.robotId = $scope.selectedRobot.id;
           newRobotMatch.matchId = $scope.match.id;
-          newRobotMatch.numLow = $scope.numLow;
-          newRobotMatch.numHigh = $scope.numHigh;
+          newRobotMatch.numLowA = $scope.numLowA;
+          newRobotMatch.numHighA = $scope.numHighA;
+          newRobotMatch.numLowT = $scope.numLowT;
+          newRobotMatch.numHighT = $scope.numHighT;
           newRobotMatch.lowBarA = $scope.lowBarA;
           newRobotMatch.lowBarT = $scope.lowBarT;
           newRobotMatch.portA = $scope.portA;
@@ -528,15 +552,25 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
 
     editRobotMatch.id = $scope.selectedRobotMatch;
     
-    if ($scope.numLow) {
-      editRobotMatch.numLow = angular.copy($scope.numLow);
+    if ($scope.numLowA) {
+      editRobotMatch.numLowA = angular.copy($scope.numLowA);
     } else {
-      //editRobotMatch.numLow = 0;
+      editRobotMatch.numLowA = 0;
     }
-    if ($scope.numHigh) {
-      editRobotMatch.numHigh = angular.copy($scope.numHigh);
+    if ($scope.numHighA) {
+      editRobotMatch.numHighA = angular.copy($scope.numHighA);
     } else {
-      editRobotMatch.numHigh = 0;
+      editRobotMatch.numHighA = 0;
+    }
+    if ($scope.numLowT) {
+      editRobotMatch.numLowT = angular.copy($scope.numLowT);
+    } else {
+      editRobotMatch.numLowT = 0;
+    }
+    if ($scope.numHighT) {
+      editRobotMatch.numHighT = angular.copy($scope.numHighT);
+    } else {
+      editRobotMatch.numHighT = 0;
     }
     if ($scope.lowBarA) {
       editRobotMatch.lowBarA = angular.copy($scope.lowBarA);
@@ -656,7 +690,7 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
     if ($scope.borked) {
       editRobotMatch.borked = angular.copy($scope.borked);
     } else {
-      editRobotMatch.borked = false;
+      editRobotMatch.borked = $scope.data.yesNo[0];
     }
     if ($scope.defense) {
       editRobotMatch.defense = angular.copy($scope.defense);
@@ -906,21 +940,22 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
   
 
       //Create the exported Robot Match data to write to a file
-      exportData2 = "match ID\trobot ID\tteam ID\t# boulders thru low goal\t";
-      exportData2 += "# boulders thru high goal\t# times across low bar in Auto\t";
-      exportData2 += "# times across portcullis in Auto\t# times across chival de frise in Auto\t";
+      exportData2 = "match ID\trobot ID\tteam ID\t# boulders thru low goal in Auto\t";
+      exportData2 += "# boulders thru high goal in Auto\t# boulders thru low goal in Tele\t";
+      exportData2 += "# boulders thru high goal in Tele\t# times across low bar in Auto\t";
+      exportData2 += "# times across portcullis in Auto\t# times across cheval de frise in Auto\t";
       exportData2 += "# times across the moat in Auto\t# times across rock wall in Auto\t";
       exportData2 += "# times across rough terrain in Auto\t# times across sally port in Auto\t";
       exportData2 += "# times across rampart in Auto\t# times across drawbridge in Auto\t";
       exportData2 += "# times across low bar in Tele\t";
-      exportData2 += "# times across portcullis in Tele\t# times across chival de frise in Tele\t";
+      exportData2 += "# times across portcullis in Tele\t# times across cheval de frise in Tele\t";
       exportData2 += "# times across the moat in Tele\t# times across rock wall in Tele\t";
       exportData2 += "# times across rough terrain in Tele\t# times across sally port in Tele\t";
       exportData2 += "# times across rampart in Tele\t";
-      exportData2 += "# times across drawbridge in Tele\tScaled tower\tChallenged tower";
+      exportData2 += "# times across drawbridge in Tele\tScaled tower\tChallenged tower\t";
       exportData2 += "How well boulders from floor\tHow well boulders from secret passageway\t";
-      exportData2 += "# fouls generated\tRobot broken?\tHow well did defense?\t";
-      exportData2 += "How well did team spy communicate?\tHow well did drive team use spy?\r\n";
+      exportData2 += "# fouls generated\tRobot broken?\t";
+      exportData2 += "How well did team spy communicate?\r\n";
       RobotMatch.all().then(function(matches) {
         for (var i=0; i<matches.length; i++) {
           exportData2 += matches[i].matchId;
@@ -929,9 +964,13 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
           exportData2 += "\t";
           exportData2 += matches[i].number;
           exportData2 += "\t";
-          exportData2 += matches[i].numLow;
+          exportData2 += matches[i].numLowA;
           exportData2 += "\t";
-          exportData2 += matches[i].numHigh;
+          exportData2 += matches[i].numHighA;
+          exportData2 += "\t";
+          exportData2 += matches[i].numLowT;
+          exportData2 += "\t";
+          exportData2 += matches[i].numHighT;
           exportData2 += "\t";
           exportData2 += matches[i].lowBarA;
           exportData2 += "\t";
@@ -981,11 +1020,7 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
           exportData2 += "\t";
           exportData2 += matches[i].borked;
           exportData2 += "\t";
-          exportData2 += matches[i].defense;
-          exportData2 += "\t";
           exportData2 += matches[i].spyComm1;
-          exportData2 += "\t";
-          exportData2 += matches[i].spyComm2;
           exportData2 += "\r\n";
         }
       }).then(function() {
@@ -1134,8 +1169,10 @@ angular.module('cat5scouting.controllers', ['ngCordova'])
                                                         + "`matchId` INTEGER, "
                                                         + "`robotId` INTEGER, "
                                                         + "`teamId` INTEGER, "
-                                                        + "`numLow` INTEGER DEFAULT 0, "
-                                                        + "`numHigh` INTEGER DEFAULT 0, "
+                                                        + "`numLowA` INTEGER DEFAULT 0, "
+                                                        + "`numHighA` INTEGER DEFAULT 0, "
+                                                        + "`numLowT` INTEGER DEFAULT 0, "
+                                                        + "`numHighT` INTEGER DEFAULT 0, "
                                                         + "`lowBarA` INTEGER DEFAULT 0, "
                                                         + "`lowBarT` INTEGER DEFAULT 0, "
                                                         + "`portA` INTEGER DEFAULT 0, "

@@ -333,7 +333,8 @@ angular.module('cat5scouting.services', [])
     */
     self.all = function() {
         return DBA.query("SELECT rm.id, rm.`matchId`, rm.`robotId`, t.`number`, "
-                        +"rm.`numLow`, rm.`numHigh`, rm.`lowBarA`, rm.`lowBarT`, "
+                        +"rm.`numLowA`, rm.`numHighA`, rm.`numLowT`, rm.`numHighT`, "
+                        +"rm.`lowBarA`, rm.`lowBarT`, "
                         +"rm.`portA`, rm.`portT`, rm.`chevA`, rm.`chevT`, rm.`moatA`, " 
                         +"rm.`moatT`, rm.`rockA`, rm.`rockT`, rm.`roughA`, rm.`roughT`, " 
                         +"rm.`sallyA`, rm.`sallyT`, rm.`drawA`, rm.`drawT`, "
@@ -354,7 +355,8 @@ angular.module('cat5scouting.services', [])
         if (robotId && matchId) {
             var parameters = [robotId, matchId];
             return DBA.query("SELECT rm.id, rm.`matchId`, rm.`robotId`, r.`teamId`, "
-                +   "rm.`numLow`, rm.`numHigh`, rm.`lowBarA`, rm.`lowBarT`, "
+                +   "rm.`numLowA`, rm.`numHighA`, rm.`numLowT`, rm.`numHighT`, "
+                +   "rm.`lowBarA`, rm.`lowBarT`, "
                 +   "rm.`portA`, rm.`portT`, rm.`chevA`, rm.`chevT`, rm.`moatA`, " 
                 +   "rm.`moatT`, rm.`rockA`, rm.`rockT`, rm.`roughA`, rm.`roughT`, " 
                 +   "rm.`sallyA`, rm.`sallyT`, rm.`drawA`, rm.`drawT`, "
@@ -391,13 +393,21 @@ angular.module('cat5scouting.services', [])
         //on the form
         var parameters = [];
         var query = "UPDATE `robotMatch` SET ";
-        if (editRobot.numLow) { 
-           parameters.push(editRobot.numLow); 
-           query += " numLow = (?),";
+        if (editRobot.numLowA) { 
+           parameters.push(editRobot.numLowA); 
+           query += " numLowA = (?),";
         }         
-        if (editRobot.numHigh) { 
-           parameters.push(editRobot.numHigh); 
-           query += " numHigh = (?),";
+        if (editRobot.numHighA) { 
+           parameters.push(editRobot.numHighA); 
+           query += " numHighA = (?),";
+        }         
+        if (editRobot.numLowT) { 
+           parameters.push(editRobot.numLowT); 
+           query += " numLowT = (?),";
+        }         
+        if (editRobot.numHighT) { 
+           parameters.push(editRobot.numHighT); 
+           query += " numHighT = (?),";
         }         
         if (editRobot.lowBarA) { 
            parameters.push(editRobot.lowBarA); 
@@ -431,14 +441,14 @@ angular.module('cat5scouting.services', [])
            parameters.push(editRobot.moatT); 
            query += " moatT = (?),";
         }         
-        if (editRobot.rampartA) { 
+        if (editRobot.rampA) { 
            parameters.push(editRobot.rampA); 
            query += " rampA = (?),";
         }         
-        if (editRobot.rampartT) { 
+        if (editRobot.rampT) { 
            parameters.push(editRobot.rampT); 
            query += " rampT = (?),";
-        }         
+        }
         if (editRobot.rockA) { 
            parameters.push(editRobot.rockA); 
            query += " rockA = (?),";
@@ -530,8 +540,10 @@ angular.module('cat5scouting.services', [])
                             robotMatch.robotId, 
                             robotMatch.matchId,
                             robotMatch.teamId, 
-                            robotMatch.numLow, 
-                            robotMatch.numHigh, 
+                            robotMatch.numLowA, 
+                            robotMatch.numHighA, 
+                            robotMatch.numLowT, 
+                            robotMatch.numHighT, 
                             robotMatch.lowBarA, 
                             robotMatch.lowBarT, 
                             robotMatch.portA, 
@@ -562,12 +574,13 @@ angular.module('cat5scouting.services', [])
                          ];
 
         return DBA.query("INSERT INTO `robotMatch` (robotId, matchId, teamId, " 
-                        +"numLow, numHigh, lowBarA, lowBarT, portA, portT, chevA, "
+                        +"numLowA, numHighA, numLowT, numHighT, lowBarA, lowBarT, "
+                        +"portA, portT, chevA, "
                         +"chevT, moatA, moatT, rockA, rockT, roughA, roughT, "
                         +"sallyA, sallyT, drawA, drawT, rampA, rampT, scaled, "
                         +"challenge, bFloor, bSecret, numF, borked, defense, "
                         +"spyComm1, spyComm2) "
-                        +"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", parameters);
+                        +"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", parameters);
     }
     
     return self;
