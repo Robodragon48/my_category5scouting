@@ -74,5 +74,5 @@ This app was started by members of
 ## How can I contact the development team?
 
 You can use the social features of GitHub to submit suggestions and bug 
-reports, or you can contact the development team at email@carolinakinetic.com.
+reports, or you can contact the development team at [this form](https://form.jotform.com/63274691259162).
 
